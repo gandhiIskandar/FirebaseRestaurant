@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+<LinearLayout
+
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragment.MenuFragment">
+
+    <LinearLayout
+
+        android:id="@+id/lienaro"
+        app:layout_constraintTop_toTopOf="parent"
+        android:orientation="horizontal"
+        android:weightSum="1"
+        android:layout_margin="6dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <androidx.appcompat.widget.SearchView
+        app:iconifiedByDefault="false"
+        android:layout_weight="0.85"
+        android:id="@+id/menu_serach"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:searchIcon="@drawable/ic_baseline_search_24"
+        android:background="@drawable/backgroundviewholder"
+        />
+        <ImageView
+            android:id="@+id/berdasarkan"
+            android:layout_weight="0.15"
+            android:layout_width="0dp"
+            android:src="@drawable/ic_baseline_menu_24"
+            android:layout_height="match_parent"/>
+
+
+    </LinearLayout>
+
+<!--    <ListView-->
+<!--        android:layout_width="match_parent"-->
+<!--        constraintTop-->
+<!--        android:layout_height="wrap_content"/>-->
+
+    <ScrollView
+
+        android:id="@+id/scroller"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lienaro">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_marginEnd="4dp"
+                android:id="@+id/listMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+
+                tools:listitem="@layout/menu_viewholder"
+
+                />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </ScrollView>
+</LinearLayout>
+
+</layout>

@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainmenunavigation"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.ayamjumpa.fragment.HomeFragment"
+        android:label="home"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_homeFragment_to_bayarFragment"
+            app:destination="@id/bayarFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_cartFragment2"
+            app:destination="@id/cartFragment2"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_homeFragment_to_menuFragment"
+            app:destination="@id/menuFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_menuprofile"
+            app:destination="@id/menuprofile" />
+    </fragment>
+    <fragment
+        android:id="@+id/bayarFragment"
+        android:name="com.example.ayamjumpa.fragment.BayarFragment"
+        android:label="fragment_bayar"
+        tools:layout="@layout/fragment_bayar" />
+    <fragment
+        android:id="@+id/cartFragment2"
+        android:name="com.example.ayamjumpa.fragment.CartFragment"
+        android:label="keranjang saya"
+        tools:layout="@layout/fragment_cart">
+        <action
+            android:id="@+id/action_cartFragment2_to_homeFragment2"
+            app:destination="@id/homeFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/menuFragment"
+        android:name="com.example.ayamjumpa.fragment.MenuFragment"
+        android:label="fragment_menu"
+        tools:layout="@layout/fragment_menu" >
+        <action
+            android:id="@+id/action_menuFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true" />
+        <argument
+            android:name="query"
+            app:argType="string[]"
+        />
+    </fragment>
+    <fragment
+        android:id="@+id/profileFragment2"
+        android:name="com.example.ayamjumpa.fragment.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_profileFragment2_to_menuprofile"
+            app:destination="@id/menuprofile"
+            app:popUpTo="@id/menuprofile"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/menuprofile"
+        android:name="com.example.ayamjumpa.fragment.MenuProfileFragment"
+        android:label="my profile"
+        tools:layout="@layout/fragment_menuprofile">
+        <action
+            android:id="@+id/action_menuprofile_to_profileFragment2"
+            app:destination="@id/profileFragment2" />
+        <action
+            android:id="@+id/action_menuprofile_to_pesanan_saya"
+            app:destination="@id/pesanan_saya" />
+        <action
+            android:id="@+id/action_menuprofile_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_menuprofile_to_blankFragment"
+            app:destination="@id/blankFragment" />
+        <action
+            android:id="@+id/action_menuprofile_to_nomorHandphoneFragment"
+            app:destination="@id/nomorHandphoneFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/pesanan_saya"
+        android:name="com.example.ayamjumpa.fragment.PesananSayaFragment"
+        android:label="pesanan saya"
+        tools:layout="@layout/fragment_pesanan_saya">
+        <action
+            android:id="@+id/action_pesanan_saya_to_menuprofile"
+            app:destination="@id/menuprofile"
+            app:popUpTo="@id/menuprofile"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_pesanan_saya_to_fragmentDetailPesanan"
+            app:destination="@id/fragmentDetailPesanan" />
+    </fragment>
+    <fragment
+        android:id="@+id/alamatFragment"
+        android:name="com.example.ayamjumpa.fragment.AlamatFragment"
+        android:label="tambah alamat"
+        tools:layout="@layout/fragment_alamat">
+
+        <argument
+            android:name="alamatnya"
+            app:argType="com.example.ayamjumpa.dataClass.Alamat"
+
+            />
+
+        <action
+            android:id="@+id/action_alamatFragment_to_blankFragment"
+            app:destination="@id/blankFragment"
+            app:popUpTo="@id/blankFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/blankFragment"
+        android:name="com.example.ayamjumpa.BlankFragment"
+        android:label="alamat kamu"
+        tools:layout="@layout/fragment_blank">
+        <action
+            android:id="@+id/action_blankFragment_to_menuprofile"
+            app:destination="@id/menuprofile"
+            app:popUpTo="@id/menuprofile"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_blankFragment_to_alamatFragment"
+            app:destination="@id/alamatFragment" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/nomorHandphoneFragment"
+        android:name="com.example.ayamjumpa.NomorHandphoneFragment"
+        android:label="fragment_nomor_handphone"
+        tools:layout="@layout/fragment_nomor_handphone" >
+        <action
+            android:id="@+id/action_nomorHandphoneFragment_to_menuprofile"
+            app:destination="@id/menuprofile"
+            app:popUpTo="@id/menuprofile"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentDetailPesanan"
+        android:name="com.example.ayamjumpa.FragmentDetailPesanan"
+        android:label="fragment_detail_pesanan"
+        tools:layout="@layout/fragment_detail_pesanan" >
+        <action
+            android:id="@+id/action_fragmentDetailPesanan_to_pesanan_saya"
+            app:destination="@id/pesanan_saya"
+            app:popUpTo="@id/pesanan_saya"
+            app:popUpToInclusive="true" />
+        <argument
+            android:name="pesanan"
+            app:argType="com.example.ayamjumpa.dataClass.Pesanan" />
+    </fragment>
+</navigation>

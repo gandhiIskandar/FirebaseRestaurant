@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".CartFragment">
+
+        <TextView
+            android:id="@+id/cart_kosong"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="Keranjang belanja anda kosong"
+            android:textSize="20sp"
+            android:visibility="gone" />
+
+        <ScrollView
+            android:id="@+id/cart_scrollView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:fillViewport="true"
+            android:paddingHorizontal="5dp"
+            android:paddingVertical="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:divider="@drawable/space"
+                android:orientation="vertical"
+                android:showDividers="middle">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/cart_recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+
+                    />
+
+
+                <LinearLayout
+                    android:id="@+id/linearr"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="10dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingVertical="10dp"
+                        android:weightSum="1">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.5"
+                            android:text="ringkasan pembayaran"
+                            android:textSize="17sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+
+                            android:id="@+id/tanggall"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.5"
+                            android:gravity="end|center"
+
+                            android:text="10/10/2022 - 12:00"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/cardview_stroke"
+                        android:padding="11dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:divider="@drawable/space"
+                            android:orientation="vertical"
+                            android:showDividers="middle">
+
+                            <LinearLayout
+
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:weightSum="1">
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="0.5"
+                                    android:gravity="start"
+                                    android:text="harga"
+                                    android:textSize="16sp" />
+
+                                <TextView
+                                    android:id="@+id/hargaa"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="0.5"
+                                    android:gravity="end|center_vertical"
+                                    android:text="Rp 20.000" />
+                            </LinearLayout>
+
+                            <LinearLayout
+
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:weightSum="1">
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="0.5"
+                                    android:gravity="start|center_vertical"
+                                    android:text="ongkir"
+                                    android:textSize="16sp" />
+
+                                <TextView
+                                    android:id="@+id/ongkirr"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="0.5"
+                                    android:gravity="end|center_vertical"
+                                    android:text="Rp0" />
+                            </LinearLayout>
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:background="@color/abu_tua" />
+
+                            <LinearLayout
+
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:weightSum="1">
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="0.5"
+
+                                    android:text="total"
+                                    android:textSize="16sp" />
+
+                                <TextView
+                                    android:id="@+id/ctotal"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="0.5"
+                                    android:gravity="end|center_vertical"
+                                    android:text="Rp 30.000" />
+                            </LinearLayout>
+
+
+                        </LinearLayout>
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <TextView
+                        android:textStyle="bold"
+                        android:id="@+id/dikirimkan"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="Mohon pilih alamat" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/alamatkirim"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:fontFamily="@font/centurygothic"
+                        android:text="pilih alamat pengiriman"
+                        android:textAllCaps="false"
+                        android:textStyle="bold"
+                        app:cornerRadius="10dp" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/pilihnohp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/centurygothic"
+                        android:text="pilih nomor telfon penerima"
+                        android:textAllCaps="false"
+                        android:textStyle="bold"
+                        app:cornerRadius="10dp" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnBayar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/enabledd"
+                        android:enabled="false"
+                        android:fontFamily="@font/centurygothic"
+                        android:text="bayar"
+                        android:textAllCaps="false"
+                        android:textStyle="bold"
+                        app:cornerRadius="10dp" />
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+        </ScrollView>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

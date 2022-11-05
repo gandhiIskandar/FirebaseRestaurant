@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_margin="3dp"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="20dp"
+    >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="10dp">
+
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:divider="@drawable/space"
+            android:showDividers="middle"
+            android:orientation="vertical"
+            android:padding="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/cartnama"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Judul Makanan"
+                android:textColor="@color/abu_tua"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                />
+            <TextView
+                android:id="@+id/cartdesc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nasi + Ayam Goreng + Es Teh"
+                android:textColor="@color/grey"
+                android:textSize="14sp"
+
+                />
+            <TextView
+                android:id="@+id/cartdesc1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pedesnya bikin nagih!"
+                android:textColor="@color/abu_tua"
+                android:textSize="15sp"
+
+                />
+            <TextView
+                android:id="@+id/cartharga"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rp 25.000"
+                android:textColor="@color/abu_tua"
+                android:textSize="15sp"
+                android:textStyle="bold"
+
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" >
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="20dp">
+
+                <ImageView
+                    android:id="@+id/foto_cart"
+                    android:layout_width="120dp"
+                    android:layout_height="110dp"
+                    android:scaleType="fitXY"
+                    app:srcCompat="@drawable/nirmana" />
+
+            </androidx.cardview.widget.CardView>
+
+            <LinearLayout
+                android:paddingHorizontal="13dp"
+                android:paddingTop="5dp"
+                android:weightSum="3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/btnMinus"
+                    android:layout_weight="1"
+                    android:layout_width="15dp"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/minus"
+                    />
+                <TextView
+                    android:id="@+id/qty"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:gravity="center"
+                    android:textSize="16dp"
+                    android:layout_height="match_parent"
+                    android:text="1"
+                    />
+                <ImageView
+                    android:id="@+id/btnPlus"
+                    android:layout_weight="1"
+                    android:layout_width="15dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/plus"
+                    />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

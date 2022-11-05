@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:padding="5dp"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <androidx.cardview.widget.CardView
+        app:cardCornerRadius="10dp"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:background="#F3F1EF"
+                android:id="@+id/cons1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/bookmark"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_baseline_bookmark_24"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:text="Rumah"
+                    android:textColor="@color/abu_tua"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/bookmark"
+                    app:layout_constraintStart_toEndOf="@+id/bookmark"
+                    app:layout_constraintTop_toTopOf="@+id/bookmark" />
+
+                <TextView
+                    android:id="@+id/alamatlengkap"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="Alamat saya"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@+id/bookmark"
+                    app:layout_constraintTop_toBottomOf="@id/bookmark" />
+
+                <TextView
+                    android:id="@+id/keteranganalamat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="Depan wihara"
+                    android:textSize="13sp"
+
+                    app:layout_constraintStart_toStartOf="@+id/bookmark"
+                    app:layout_constraintTop_toBottomOf="@id/alamatlengkap" />
+
+                <CheckBox
+                    android:gravity="center|center_horizontal"
+                    android:id="@+id/expand"
+                   android:buttonTint="@color/primary"
+                    android:checked="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+            </LinearLayout>
+
+
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:padding="10dp"
+        android:layout_height="match_parent"
+        tools:context=".menuprofile">
+
+        <LinearLayout
+            android:id="@+id/linear1"
+
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="1"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="0dp"
+                android:layout_height="80dp"
+                android:layout_weight="0.2">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+android:id="@+id/fotonyaa"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/nirmana" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <LinearLayout
+                android:divider="@drawable/space_5dp"
+                android:showDividers="middle"
+                android:paddingVertical="5dp"
+                android:paddingHorizontal="15dp"
+                android:layout_weight="0.6"
+                android:orientation="vertical"
+                android:layout_width="0dp"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/usernamenyaa"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Nama User"
+                    android:textColor="@color/abu_tua"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    />
+                <TextView
+                    android:id="@+id/nomornyaa"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="08216678904"
+                    android:textColor="@color/abu_tua"
+
+                    android:textSize="16sp"
+                    />
+                <TextView
+                    android:id="@+id/emailnyaa"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="gandhialfath98@gmail.com"
+                    android:textColor="@color/abu_tua"
+
+                    android:textSize="17sp"
+                    />
+
+            </LinearLayout>
+
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_weight="0.2"
+    android:layout_width="0dp"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/btnEdit"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/edit"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+
+            android:divider="@drawable/space_5dp"
+            android:showDividers="middle"
+            android:orientation="vertical"
+
+            android:id="@+id/linear2"
+            android:layout_marginTop="15dp"
+            app:layout_constraintTop_toBottomOf="@+id/linear1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Akun"
+                android:gravity="center_vertical"
+                android:layout_marginVertical="10dp"
+                android:textSize="17sp"
+                android:textColor="@color/abu_tua"
+                android:textStyle="bold"
+                />
+
+
+    <LinearLayout
+        android:id="@+id/btnpesanan"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="?attr/selectableItemBackground"
+        android:weightSum="1"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_weight="0.1"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:src="@color/grey"/>
+
+        <TextView
+            android:layout_weight="0.8"
+            android:paddingHorizontal="5dp"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="pesanan saya"
+            android:textColor="@color/abu_tua"
+            android:textStyle="bold"
+            android:gravity="center_vertical"
+
+            />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.1">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_baseline_keyboard_arrow_right_24"
+
+
+                />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+
+
+
+
+          <View
+              android:layout_width="match_parent"
+              android:layout_height="1dp"
+              android:background="@color/grey"
+              />
+            <LinearLayout
+                android:id="@+id/btnalamat"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?attr/selectableItemBackground"
+                android:weightSum="1"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:layout_weight="0.1"
+                    android:layout_width="0dp"
+                    android:layout_height="35dp"
+                    android:src="@color/grey"/>
+
+                <TextView
+                    android:layout_weight="0.8"
+                    android:paddingHorizontal="5dp"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:text="alamat pengiriman"
+                    android:textColor="@color/abu_tua"
+                    android:textStyle="bold"
+                    android:gravity="center_vertical"
+
+                    />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.1">
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/ic_baseline_keyboard_arrow_right_24"
+
+
+                        />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/grey"
+                />
+            <LinearLayout
+                android:id="@+id/btnnohp"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?attr/selectableItemBackground"
+                android:weightSum="1"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:layout_weight="0.1"
+                    android:layout_width="0dp"
+                    android:layout_height="35dp"
+                    android:src="@color/grey"/>
+
+                <TextView
+                    android:layout_weight="0.8"
+                    android:paddingHorizontal="5dp"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:text="nomor handphone"
+                    android:textColor="@color/abu_tua"
+                    android:textStyle="bold"
+                    android:gravity="center_vertical"
+
+                    />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.1">
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/ic_baseline_keyboard_arrow_right_24"
+
+
+                        />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/grey"
+                />
+            <LinearLayout
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?attr/selectableItemBackground"
+                android:weightSum="1"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:layout_weight="0.1"
+                    android:layout_width="0dp"
+                    android:layout_height="35dp"
+                    android:src="@color/grey"/>
+
+                <TextView
+                    android:layout_weight="0.8"
+                    android:paddingHorizontal="5dp"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:text="Pembayaran"
+                    android:textColor="@color/abu_tua"
+                    android:textStyle="bold"
+                    android:gravity="center_vertical"
+
+                    />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.1">
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/ic_baseline_keyboard_arrow_right_24"
+
+
+                        />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/grey"
+                />
+            <LinearLayout
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?attr/selectableItemBackground"
+                android:weightSum="1"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:layout_weight="0.1"
+                    android:layout_width="0dp"
+                    android:layout_height="35dp"
+                    android:src="@color/grey"/>
+
+                <TextView
+                    android:layout_weight="0.8"
+                    android:paddingHorizontal="5dp"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:text="Kebijakan"
+                    android:textColor="@color/abu_tua"
+                    android:textStyle="bold"
+                    android:gravity="center_vertical"
+
+                    />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.1">
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/ic_baseline_keyboard_arrow_right_24"
+
+
+                        />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/grey"
+                />
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

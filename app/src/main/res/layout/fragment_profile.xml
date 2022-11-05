@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+
+    <data>
+        <variable
+            name="user"
+            type="com.example.ayamjumpa.dataClass.User" />
+    </data>
+<LinearLayout
+    android:weightSum="1"
+    android:orientation="vertical"
+    android:background="#D5C4B7"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragment.ProfileFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_weight="0.4"
+        android:id="@+id/constraint1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/circleImageView"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="40dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+
+            >
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/fotoku"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+
+                android:src="@drawable/makanan"
+                app:civ_border_color="@color/white"
+                app:civ_border_width="1dp" />
+
+            <ImageView
+                android:id="@+id/btn_ganti_foto"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/camera"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@{user.username}"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/circleImageView" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:background="@drawable/botnav_background"
+        android:elevation="10dp"
+        android:layout_weight="0.6"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        >
+
+        <ScrollView
+
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:fillViewport="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            >
+
+            <LinearLayout
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:divider="@drawable/space"
+                android:orientation="vertical"
+                android:padding="20dp"
+                android:showDividers="middle">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:text="account info"
+                    android:textColor="@color/black"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="nama"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+
+                <com.google.android.material.textfield.TextInputLayout
+
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+
+                    android:textColor="@color/black"
+                    app:hintEnabled="false"
+                    app:startIconDrawable="@drawable/ic_baseline_person_24"
+
+                    app:startIconTint="@color/focuss">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/profileEtNama"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:fontFamily="@font/centurygothic"
+                       android:text="@{user.username}"
+                        android:inputType="textMultiLine"
+
+
+                        />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="email"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/profile_et_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:background="@drawable/edittext_polos"
+                    android:drawableStart="@drawable/ic_email_focused"
+                    android:drawablePadding="10dp"
+                    android:paddingHorizontal="12dp"
+                    android:paddingVertical="10dp"
+                    android:text="@{user.email}"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="no handphone"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/profile_et_nohp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:background="@drawable/edittext_polos"
+                    android:drawableStart="@drawable/ic_phone_focused"
+                    android:drawablePadding="10dp"
+                    android:paddingHorizontal="12dp"
+                    android:paddingVertical="10dp"
+                    android:text="@{user.noHp}"
+                    android:textColor="@color/black" />
+
+
+
+                <LinearLayout
+
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:fontFamily="@font/centurygothic"
+                        android:textAllCaps="false"
+                        android:enabled="false"
+                       android:id="@+id/edit_button_profile"
+                        android:textColor="@color/white"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
+                        android:layout_weight="1"
+                        android:textStyle="bold"
+                        android:textSize="16sp"
+                        android:text="edit data" />
+
+                    <Button
+                        android:fontFamily="@font/centurygothic"
+                        android:textAllCaps="false"
+                        android:id="@+id/btn_ganti_password"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:text="ganti password" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+
+        </ScrollView>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</LinearLayout>
+</layout>
