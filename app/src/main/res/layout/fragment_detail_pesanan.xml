@@ -1,332 +1,379 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
 
-    android:orientation="vertical"
+<layout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".FragmentDetailPesanan">
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+    <data>
+        <variable
+            name="pesanan"
+            type="com.example.ayamjumpa.dataClass.Pesanan" />
+    </data>
 
     <LinearLayout
 
-        android:orientation="horizontal"
-        android:paddingHorizontal="10dp"
-        android:paddingVertical="7dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
 
-        >
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".fragment.FragmentDetailPesanan">
 
         <TextView
-
-            android:textStyle="bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Nomor Pesanan"/>
+            android:paddingHorizontal="10dp"
+            android:paddingTop="10dp"
+            android:text="detail"
+            android:textSize="17sp"
+            android:textStyle="bold" />
 
-        <TextView
-            android:gravity="end"
+
+        <LinearLayout
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="#90876253123"
-            />
+            android:orientation="horizontal"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="7dp"
+
+            >
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nomor Pesanan"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:textAllCaps="true"
+                android:text="@{pesanan.id}" />
 
 
+        </LinearLayout>
 
-    </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginHorizontal="10dp"
+            android:background="@color/grey" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-       android:layout_marginHorizontal="10dp"
-        android:background="@color/grey"
-        />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="7dp"
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:paddingHorizontal="10dp"
-        android:paddingVertical="7dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+            >
 
-        >
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Penerima"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:text="@{pesanan.username}" />
+
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginHorizontal="10dp"
+            android:background="@color/grey" />
+
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="7dp"
+
+            >
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Alamat"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/detail_alamat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:text="@string/alamat" />
+
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginHorizontal="10dp"
+            android:background="@color/grey" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="7dp"
+
+            >
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Status Alamat"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:text="@{pesanan.alamat.label}" />
+
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginHorizontal="10dp"
+            android:background="@color/grey" />
+
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="7dp"
+
+            >
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="No Handphone"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:text="@{pesanan.nomorHP}" />
+
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginHorizontal="10dp"
+            android:background="@color/grey" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="7dp"
+
+            >
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Status Pesanan"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/detail_status"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:text="@{pesanan.status}" />
+
+
+        </LinearLayout>
 
         <TextView
-
-            android:textStyle="bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Penerima"/>
+            android:paddingHorizontal="10dp"
+            android:paddingTop="10dp"
+            android:text="items"
+            android:textSize="17sp"
+            android:textStyle="bold" />
 
-        <TextView
-            android:gravity="end"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/detail_recyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Gandhi Iskandar"
+            android:paddingHorizontal="10dp"
+
+            app:layout_constraintTop_toBottomOf="@+id/tvitems"
+            tools:listitem="@layout/datapesanan_vh"
+
             />
 
-
-
-    </LinearLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginHorizontal="10dp"
-        android:background="@color/grey"
-        />
-    <LinearLayout
-
-        android:orientation="horizontal"
-       android:paddingHorizontal="10dp"
-        android:paddingVertical="7dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-
-        >
-
-        <TextView
-
-            android:textStyle="bold"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Alamat"/>
-
-        <TextView
-            android:gravity="end"
+        <LinearLayout
+            android:id="@+id/linearr"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/alamat"
-            />
+            android:orientation="vertical"
+            android:padding="10dp"
+            app:layout_constraintTop_toBottomOf="@+id/listview">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingVertical="10dp"
+                android:weightSum="1">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:text="ringkasan pembayaran"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
+
+                <TextView
+
+                    android:id="@+id/detail_tanggal"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5"
+                    android:gravity="end|center"
+
+                    android:text="10/10/2022 - 12:00"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/cardview_stroke"
+                android:padding="11dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:divider="@drawable/space"
+                    android:orientation="vertical"
+                    android:showDividers="middle">
+
+                    <LinearLayout
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="1">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.5"
+                            android:gravity="start"
+                            android:text="harga"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/detail_harga"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.5"
+                            android:gravity="end|center_vertical"
+                            android:text="Rp 20.000" />
+                    </LinearLayout>
+
+                    <LinearLayout
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="1">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.5"
+                            android:gravity="start|center_vertical"
+                            android:text="ongkir"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/detail_ongkir"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.5"
+                            android:gravity="end|center_vertical"
+                            android:text="Rp0" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/abu_tua" />
+
+                    <LinearLayout
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="1">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.5"
+
+                            android:text="total"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/detail_totalsemua"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.5"
+                            android:gravity="end|center_vertical"
+                            android:text="Rp 30.000" />
+                    </LinearLayout>
 
 
+                </LinearLayout>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/detail_catatan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="@string/catatan" />
+
+        </LinearLayout>
 
     </LinearLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginHorizontal="10dp"
-        android:background="@color/grey"
-        />
-    <LinearLayout
-        android:orientation="horizontal"
-        android:paddingHorizontal="10dp"
-        android:paddingVertical="7dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-
-        >
-
-        <TextView
-
-            android:textStyle="bold"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Status Alamat"/>
-
-        <TextView
-            android:gravity="end"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Rumah"
-            />
-
-
-
-    </LinearLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginHorizontal="10dp"
-        android:background="@color/grey"
-        />
-
-    <LinearLayout
-
-        android:orientation="horizontal"
-        android:paddingHorizontal="10dp"
-        android:paddingVertical="7dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-
-        >
-
-        <TextView
-
-            android:textStyle="bold"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="No Handphone"/>
-
-        <TextView
-            android:gravity="end"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="082117758335"
-            />
-
-
-
-    </LinearLayout>
-
-    <TextView
-        android:padding="10dp"
-        android:id="@+id/tvitems"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Items"
-        android:textStyle="bold"
-
-        />
-    <ListView
-       app:layout_constraintTop_toBottomOf="@+id/tvitems"
-        android:id="@+id/listview"
-
-
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-
-        />
-
- <LinearLayout
-     android:id="@+id/linearr"
-    android:padding="10dp"
-     app:layout_constraintTop_toBottomOf="@+id/listview"
-     android:orientation="vertical"
-     android:layout_width="match_parent"
-     android:layout_height="wrap_content">
-     <LinearLayout
-         android:layout_width="match_parent"
-         android:layout_height="wrap_content"
-         android:orientation="horizontal"
-         android:paddingVertical="10dp"
-         android:weightSum="1">
-
-         <TextView
-             android:layout_width="0dp"
-             android:layout_height="wrap_content"
-             android:layout_weight="0.5"
-             android:text="ringkasan pembayaran"
-             android:textSize="17sp"
-             android:textStyle="bold" />
-
-         <TextView
-
-             android:id="@+id/detail_tanggal"
-             android:layout_width="0dp"
-             android:layout_height="match_parent"
-             android:layout_weight="0.5"
-             android:gravity="end|center"
-
-             android:text="10/10/2022 - 12:00"
-             android:textSize="12sp" />
-     </LinearLayout>
-
-     <androidx.constraintlayout.widget.ConstraintLayout
-         android:layout_width="match_parent"
-         android:layout_height="wrap_content"
-         android:background="@drawable/cardview_stroke"
-         android:padding="11dp">
-
-         <LinearLayout
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             android:divider="@drawable/space"
-             android:orientation="vertical"
-             android:showDividers="middle">
-
-             <LinearLayout
-
-                 android:layout_width="match_parent"
-                 android:layout_height="wrap_content"
-                 android:orientation="horizontal"
-                 android:weightSum="1">
-
-                 <TextView
-                     android:layout_width="0dp"
-                     android:layout_height="wrap_content"
-                     android:layout_weight="0.5"
-                     android:gravity="start"
-                     android:text="harga"
-                     android:textSize="16sp" />
-
-                 <TextView
-                     android:id="@+id/detail_harga"
-                     android:layout_width="0dp"
-                     android:layout_height="match_parent"
-                     android:layout_weight="0.5"
-                     android:gravity="end|center_vertical"
-                     android:text="Rp 20.000" />
-             </LinearLayout>
-
-             <LinearLayout
-
-                 android:layout_width="match_parent"
-                 android:layout_height="wrap_content"
-                 android:orientation="horizontal"
-                 android:weightSum="1">
-
-                 <TextView
-                     android:layout_width="0dp"
-                     android:layout_height="wrap_content"
-                     android:layout_weight="0.5"
-                     android:gravity="start|center_vertical"
-                     android:text="ongkir"
-                     android:textSize="16sp" />
-
-                 <TextView
-                     android:id="@+id/detail_ongkir"
-                     android:layout_width="0dp"
-                     android:layout_height="match_parent"
-                     android:layout_weight="0.5"
-                     android:gravity="end|center_vertical"
-                     android:text="Rp0" />
-             </LinearLayout>
-
-             <View
-                 android:layout_width="match_parent"
-                 android:layout_height="1dp"
-                 android:background="@color/abu_tua" />
-
-             <LinearLayout
-
-                 android:layout_width="match_parent"
-                 android:layout_height="wrap_content"
-                 android:orientation="horizontal"
-                 android:weightSum="1">
-
-                 <TextView
-                     android:layout_width="0dp"
-                     android:layout_height="wrap_content"
-                     android:layout_weight="0.5"
-
-                     android:text="total"
-                     android:textSize="16sp" />
-
-                 <TextView
-                     android:id="@+id/detail_totalsemua"
-                     android:layout_width="0dp"
-                     android:layout_height="match_parent"
-                     android:layout_weight="0.5"
-                     android:gravity="end|center_vertical"
-                     android:text="Rp 30.000" />
-             </LinearLayout>
-
-
-         </LinearLayout>
-
-
-     </androidx.constraintlayout.widget.ConstraintLayout>
-
-     <TextView
-
-         android:layout_marginTop="5dp"
-         android:layout_width="match_parent"
-         android:layout_height="wrap_content"
-         android:text="@string/catatan"
-         />
-
- </LinearLayout>
-
-</LinearLayout>
+</layout>

@@ -1,4 +1,4 @@
-package com.example.ayamjumpa
+package com.example.ayamjumpa.fragment
 
 
 import android.app.AlertDialog
@@ -10,11 +10,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.ayamjumpa.R
 import com.example.ayamjumpa.adapter.ListHpAdapter
 import com.example.ayamjumpa.dataClass.User
 import com.example.ayamjumpa.databinding.FragmentNomorHandphoneBinding

@@ -101,7 +101,7 @@
                     android:layout_weight="1"
                     android:layout_width="15dp"
                     android:layout_height="match_parent"
-                    android:src="@drawable/minus"
+                    android:src="@drawable/ic_baseline_remove_circle_outline_24"
                     />
                 <TextView
                     android:id="@+id/qty"
@@ -117,7 +117,7 @@
                     android:layout_weight="1"
                     android:layout_width="15dp"
                     android:layout_height="20dp"
-                    android:src="@drawable/plus"
+                    android:src="@drawable/ic_baseline_add_circle_outline_24"
                     />
 
             </LinearLayout>

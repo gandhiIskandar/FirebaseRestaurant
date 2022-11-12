@@ -14,5 +14,6 @@
     <string name="yakinn1">Yakin ingin hapus nomor \n%1$s ?</string>
     <string name="catatan"><b>Catatan:</b> %1$s </string>
     <string name="alamat">%1$s (%2$s)</string>
+    <string name="items">%1$s %2$sx</string>
 
 </resources>

@@ -8,12 +8,15 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.ayamjumpa.adapter.PesananAdapter
+import com.example.ayamjumpa.dataClass.Pesanan
 import com.example.ayamjumpa.databinding.FragmentRiwayatBinding
+import com.example.ayamjumpa.eventBus.StatusMessage
 import com.example.ayamjumpa.viewModel.CartViewModel
 import com.example.ayamjumpa.viewModel.CartViewModelFactory
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import org.greenrobot.eventbus.EventBus
 
 
 class RiwayatFragment : Fragment() {
@@ -32,7 +35,11 @@ class RiwayatFragment : Fragment() {
                 CartViewModelFactory(requireContext()),
             )[CartViewModel::class.java]
         }
-        pesananAdapter = PesananAdapter()
+        pesananAdapter = PesananAdapter(
+            onClick={
+                onClickDetail(it)
+            }
+        )
         firebaseAuth = Firebase.auth
         vm = viewModel
         vm.reqPesanan(firebaseAuth.uid!!)
@@ -53,6 +60,12 @@ class RiwayatFragment : Fragment() {
      }
 
 
+    }
+
+    private fun onClickDetail(pesanan: Pesanan){
+        val statusMessage = StatusMessage("pindah")
+        statusMessage.setPesanan(pesanan)
+        EventBus.getDefault().post(statusMessage)
     }
 
 

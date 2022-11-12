@@ -1,29 +1,36 @@
 package com.example.ayamjumpa.fragment
 
-import android.app.Activity
+
 import android.content.Context
+import android.content.res.AssetManager
+import android.graphics.Typeface
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.widget.SearchView
+import androidx.core.content.res.ResourcesCompat
+import androidx.core.content.res.ResourcesCompat.getFont
 import androidx.databinding.DataBindingUtil
-import androidx.recyclerview.widget.AsyncListDiffer
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.example.ayamjumpa.R
-import com.example.ayamjumpa.interfaces.MenuListener
-import com.example.ayamjumpa.interfaces.RecycleClickListener
 import com.example.ayamjumpa.adapter.MenuAdapter
 import com.example.ayamjumpa.dataClass.Cart
 import com.example.ayamjumpa.dataClass.Menu
 import com.example.ayamjumpa.databinding.FragmentMenuBinding
-
-
 import com.example.ayamjumpa.eventBus.StatusMessage
+import com.example.ayamjumpa.interfaces.MenuListener
+import com.example.ayamjumpa.interfaces.RecycleClickListener
 import com.google.android.gms.tasks.Task
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.ktx.auth
@@ -32,8 +39,10 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.*
-import kotlinx.coroutines.tasks.await
 import org.greenrobot.eventbus.EventBus
+import java.text.NumberFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 class MenuFragment : Fragment(), MenuListener, RecycleClickListener {
@@ -69,11 +78,18 @@ class MenuFragment : Fragment(), MenuListener, RecycleClickListener {
         layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
 
         scope.launch {
-
             loadMenu()
-
-
         }
+
+
+
+
+
+       // ganti font searchview, meni harus lewat program!
+        val myCustomFont = getFont(mContext,R.font.centurygothic)
+        val searchText = binding.menuSerach.findViewById<TextView>(androidx.appcompat.R.id.search_src_text)
+
+        searchText.typeface = myCustomFont
 
 
 
@@ -192,13 +208,6 @@ class MenuFragment : Fragment(), MenuListener, RecycleClickListener {
         binding.menuSerach.setQuery("", false)
     }
 
-    override fun onDestroyView() {
-
-          super.onDestroyView()
-
-
-    }
-
     override fun onAttach(context: Context) {
         super.onAttach(context)
         mContext = context
@@ -262,10 +271,10 @@ class MenuFragment : Fragment(), MenuListener, RecycleClickListener {
                     userCart.document(menu.key!!)
                         .update("qty", qty.toLong(), "totalharga", total.toLong())
                         .addOnSuccessListener {
-                            Snackbar.make(
-                                requireView(),
+                            Toast.makeText(
+                                requireContext(),
                                 "Barang berhasil dimasukan ke dalam keranjang",
-                                Snackbar.LENGTH_SHORT
+                                Toast.LENGTH_SHORT
                             ).show()
 
 
@@ -345,10 +354,65 @@ class MenuFragment : Fragment(), MenuListener, RecycleClickListener {
 
     override fun onItemClickListener(menu: Menu) {
 
-        addToCart(menu, auth.uid!!)
+
+
+        val dialog = BottomSheetDialog(requireContext())
+
+        dialog.behavior.state = BottomSheetBehavior.STATE_EXPANDED
+
+        val view = layoutInflater.inflate(R.layout.tambah_konfirmasi, null)
+
+
+        val foto = view.findViewById<ImageView>(R.id.foto_makanan)
+        val harga = view.findViewById<TextView>(R.id.hargamakanan)
+        val desc = view.findViewById<TextView>(R.id.desc_konfirmasi)
+
+        //deskripsi gimmick
+        val desc1 = view.findViewById<TextView>(R.id.desc1_tambah)
+
+        harga.text = formatRupiah(menu.harga.toInt())
+        desc.text = menu.deskripsi
+
+
+        Glide.with(requireContext())
+            .load(menu.foto)
+            .into(foto)
+
+
+        dialog.setContentView(view)
+
+        val buttonf = view.findViewById<LinearLayout>(R.id.cardButton)
+
+        buttonf.setOnClickListener {
+            dialog.dismiss()
+            addToCart(menu, auth.uid!!)
+
+        }
+
+
+
+        dialog.show()
+
+
+
+
     }
 
     override fun onMenuLoadFailed(message: String?) {
 
     }
+
+    private fun formatRupiah(number: Int): String {
+
+
+        val localeID = Locale("in", "ID")
+
+        val format = NumberFormat.getCurrencyInstance(localeID)
+
+        return format.format(number)
+
+
+    }
+
+
 }

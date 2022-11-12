@@ -20,6 +20,7 @@
         android:layout_height="wrap_content">
 
     <androidx.appcompat.widget.SearchView
+        app:queryBackground="@android:color/transparent"
         app:iconifiedByDefault="false"
         android:layout_weight="0.85"
         android:id="@+id/menu_serach"

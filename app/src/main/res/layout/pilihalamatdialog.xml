@@ -36,18 +36,41 @@
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recylerAlamat"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        tools:listitem="@layout/alamatholderuntukpilih" />
+                        android:layout_height="wrap_content"/>
+<!--                        tools:listitem="@layout/alamatholderuntukpilih"-->
 
 
+<LinearLayout
+    android:orientation="horizontal"
+    android:weightSum="1"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/ganti_password_submit"
-                        android:layout_width="match_parent"
+                        android:layout_weight="0.65"
+                        android:layout_width="0dp"
+                        android:textAllCaps="false"
+                        android:fontFamily="@font/centurygothic"
+                        android:textStyle="bold"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:paddingVertical="10dp"
                         android:text="Submit"
                         app:cornerRadius="20dp" />
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/tambahAlamatt"
+        android:layout_marginStart="5dp"
+        android:textAllCaps="false"
+        android:textStyle="bold"
+        android:layout_weight="0.35"
+        android:fontFamily="@font/centurygothic"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:paddingVertical="10dp"
+        android:text="Tambah"
+        app:cornerRadius="20dp" />
+</LinearLayout>
 
 
                 </LinearLayout>

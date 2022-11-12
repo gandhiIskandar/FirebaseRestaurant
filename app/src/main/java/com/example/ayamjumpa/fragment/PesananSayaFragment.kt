@@ -61,8 +61,13 @@ class PesananSayaFragment : Fragment() {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun goToDetail(statusMessage: StatusMessage) {
-        //ke halaman detail argumen pesanan
-        statusMessage.getPesanan()
+
+      val pesanan =  statusMessage.getPesanan()
+
+        val direction = PesananSayaFragmentDirections.actionPesananSayaToFragmentDetailPesanan(pesanan)
+
+        findNavController().navigate(direction)
+
 
     }
 

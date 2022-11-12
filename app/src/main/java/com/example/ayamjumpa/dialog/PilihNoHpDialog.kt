@@ -44,6 +44,10 @@ class PilihNoHpDialog(private val onClick: (String) -> Unit) : DialogFragment(),
             adapter.noHp = nomorku
         }
 
+        binding.close.setOnClickListener {
+            dismiss()
+        }
+
         recycler.adapter = adapter
 
         binding.gantiPasswordSubmit.setOnClickListener {

@@ -1,12 +1,27 @@
 package com.example.ayamjumpa
 
+import android.app.ActionBar
+import android.app.Fragment
+import android.content.Context
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
+import android.os.Build
 import com.example.ayamjumpa.util.*
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Html
+import android.util.AttributeSet
+import android.util.Log
+import android.view.View
+import androidx.annotation.RequiresApi
+import androidx.appcompat.widget.Toolbar
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentOnAttachListener
 import androidx.lifecycle.ViewModelProvider
 
 import androidx.navigation.NavController
+import androidx.navigation.NavDestination
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.ayamjumpa.interfaces.MenuListener
@@ -16,6 +31,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.*
 
 
 class MainMenuActivity : AppCompatActivity() {
@@ -41,7 +57,7 @@ class MainMenuActivity : AppCompatActivity() {
 
 
 
-      navHostFragment = supportFragmentManager
+        navHostFragment = supportFragmentManager
             .findFragmentById(R.id.fragmentContainerView2) as NavHostFragment
 
         navController = navHostFragment.navController
@@ -52,7 +68,44 @@ class MainMenuActivity : AppCompatActivity() {
 
         setupActionBarWithNavController(navController)
 
-        // bottomNavigation.setupWithNavController(navController)
+        supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.WHITE))
+        val defaultAppBar = supportActionBar?.customView
+        val defaultAppBardisplay = supportActionBar?.displayOptions
+
+        navController.addOnDestinationChangedListener { controller, destination, arguments ->
+
+
+            if (destination.label == "home") {
+
+                supportActionBar?.displayOptions =
+                    androidx.appcompat.app.ActionBar.DISPLAY_SHOW_CUSTOM
+                supportActionBar?.setCustomView(R.layout.supportactionbar)
+
+
+
+            } else {
+
+                supportActionBar?.displayOptions = defaultAppBardisplay!!
+                supportActionBar?.customView = defaultAppBar
+
+                supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_backerbutton)
+                    supportActionBar?.setTitle(
+                        Html.fromHtml(
+                            "<font color=\"#332C2B\" ><b>" + destination.label.toString() + "</b></font>",
+                            Html.FROM_HTML_MODE_LEGACY
+                        )
+                    )
+                } else {
+                    supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_backerbutton)
+                    supportActionBar?.setTitle(Html.fromHtml("<font color=\"#332C2B\" align=\"center\" ><b>" + destination.label.toString() + "</b></font>"))
+                }
+            }
+        }
+
 
 
 
@@ -71,23 +124,37 @@ class MainMenuActivity : AppCompatActivity() {
 
     }
 
+    override fun onCreateView(
+        parent: View?,
+        name: String,
+        context: Context,
+        attrs: AttributeSet
+    ): View? {
+
+
+        return super.onCreateView(parent, name, context, attrs)
+    }
 
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp() || super.onSupportNavigateUp()
     }
 
+    override fun setSupportActionBar(toolbar: Toolbar?) {
+        super.setSupportActionBar(toolbar)
+    }
+
+    override fun getSupportActionBar(): androidx.appcompat.app.ActionBar? {
+        return super.getSupportActionBar()
+    }
+
+    //previous fragment ketika klik backbutton
     override fun onBackPressed() {
-        if(navHostFragment.childFragmentManager.backStackEntryCount>0){
+        if (navHostFragment.childFragmentManager.backStackEntryCount > 0) {
             navController.popBackStack()
 
-        }else{
+        } else {
             super.onBackPressed()
         }
-
-
-
-
-
 
 
     }

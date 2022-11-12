@@ -14,7 +14,7 @@ import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
-class PesananAdapter: RecyclerView.Adapter<PesananAdapter.MyViewHolder>() {
+class PesananAdapter(private val onClick:(Pesanan)->Unit): RecyclerView.Adapter<PesananAdapter.MyViewHolder>() {
     private val diffUtilRepo = DiffUtilRepo<Pesanan>()
     val differ = AsyncListDiffer(this, diffUtilRepo)
 
@@ -37,7 +37,10 @@ class PesananAdapter: RecyclerView.Adapter<PesananAdapter.MyViewHolder>() {
         holder.text.text = currentItem.alamat!!.alamat
         holder.tanggal.text = dateString
         holder.total.text = formatRupiah(currentItem.totalHarga!!)
+
+
         holder.buttonDetail.setOnClickListener {
+            onClick.invoke(currentItem)
 
         }
     }

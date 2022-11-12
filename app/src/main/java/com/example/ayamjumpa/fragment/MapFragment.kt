@@ -1,6 +1,5 @@
-package com.example.ayamjumpa
+package com.example.ayamjumpa.fragment
 
-import android.Manifest
 import android.annotation.SuppressLint
 import android.content.pm.PackageManager
 import android.location.Geocoder
@@ -24,6 +23,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
 import androidx.databinding.DataBindingUtil
+import com.example.ayamjumpa.R
 
 import com.example.ayamjumpa.databinding.FragmentMapBinding
 import java.util.*
@@ -44,7 +44,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         savedInstanceState: Bundle?
     ): View? {
 
-        binding =  DataBindingUtil.inflate(inflater,R.layout.fragment_map, container, false)
+        binding =  DataBindingUtil.inflate(inflater, R.layout.fragment_map, container, false)
 
       return  binding.root
     }

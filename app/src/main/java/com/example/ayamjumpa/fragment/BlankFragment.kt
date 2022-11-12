@@ -1,4 +1,4 @@
-package com.example.ayamjumpa
+package com.example.ayamjumpa.fragment
 
 import android.app.AlertDialog
 import android.content.DialogInterface
@@ -13,6 +13,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.ayamjumpa.R
 import com.example.ayamjumpa.interfaces.OnClickMapViewHolder
 import com.example.ayamjumpa.adapter.AlamatAdapter
 import com.example.ayamjumpa.dataClass.Alamat

@@ -46,7 +46,11 @@ class DalamProsesFragment : Fragment() {
         val linearLayoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 
         binding.pesananRecycler.layoutManager = linearLayoutManager
-       pesananAdapter = PesananAdapter()
+       pesananAdapter = PesananAdapter(
+           onClick = {
+               onClickDetail(it)
+           }
+       )
         binding.pesananRecycler.adapter = pesananAdapter
 
         vm = viewModel
@@ -70,6 +74,8 @@ class DalamProsesFragment : Fragment() {
     }
 
     private fun onClickDetail(pesanan: Pesanan){
-        EventBus.getDefault().post(StatusMessage("pindah").setPesanan(pesanan))
+        val statusMessage = StatusMessage("pindah")
+        statusMessage.setPesanan(pesanan)
+        EventBus.getDefault().post(statusMessage)
     }
 }

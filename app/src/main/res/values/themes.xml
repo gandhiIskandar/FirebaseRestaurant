@@ -32,7 +32,10 @@
     <style name="bottomx" parent="Theme.Design.Light.BottomSheetDialog">
         <item name="bottomSheetStyle">@style/AppModalStyle</item>
     </style>
-
+    <style name="DialogNoAnimation">
+        <item name="android:windowEnterAnimation">@anim/dialogexitcepett</item>
+        <item name="android:windowExitAnimation">@anim/dialogexitcepet</item>
+    </style>
     <style name="AppModalStyle"
         parent="Widget.Design.BottomSheet.Modal">
         <item name="android:background">@drawable/botnav_background</item>

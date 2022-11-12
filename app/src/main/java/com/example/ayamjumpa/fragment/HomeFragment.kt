@@ -1,6 +1,12 @@
 package com.example.ayamjumpa.fragment
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
+import android.annotation.SuppressLint
 import android.content.Context
+import android.content.DialogInterface
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
@@ -9,32 +15,38 @@ import android.text.Html
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.view.ViewCompat.animate
+import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.example.ayamjumpa.R
+import com.example.ayamjumpa.adapter.*
 import com.example.ayamjumpa.interfaces.MenuListener
 import com.example.ayamjumpa.interfaces.RecycleClickListener
-import com.example.ayamjumpa.adapter.ImageSliderAdapter
-import com.example.ayamjumpa.adapter.KateogriAdapter
-import com.example.ayamjumpa.adapter.RasaAdapter
-import com.example.ayamjumpa.adapter.TerlarisAdapter
 import com.example.ayamjumpa.dataClass.*
 import com.example.ayamjumpa.databinding.FragmentHomeBinding
+import com.example.ayamjumpa.dialog.OptionDialog
 
 import com.example.ayamjumpa.eventBus.StatusMessage
+import com.example.ayamjumpa.interfaces.Navigation
 import com.example.ayamjumpa.viewModel.AuthViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -53,9 +65,12 @@ import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEventListener
 import org.greenrobot.eventbus.EventBus
 import java.lang.Runnable
+import java.text.NumberFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 
-class HomeFragment : Fragment(), MenuListener, RecycleClickListener {
+class HomeFragment : Fragment(), MenuListener, RecycleClickListener, Navigation {
     private lateinit var menuListener: MenuListener
     private lateinit var clickListener: RecycleClickListener
     private var adapterKategori: KateogriAdapter? = null
@@ -78,19 +93,38 @@ class HomeFragment : Fragment(), MenuListener, RecycleClickListener {
 
     private lateinit var handler: Handler
     private lateinit var runnable: Runnable
+    private lateinit var optionDialog: OptionDialog
+    private lateinit var navAdapter: NavAdapter
+
+    var aktifMenuorRasa = ""
+
+    private lateinit var pop: Animation
+    private lateinit var exitt: Animation
+    private  var animStart:Boolean = true
+
 
     private var scope: CoroutineScope? = null
+
+    @SuppressLint("ClickableViewAccessibility")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
+        pop = AnimationUtils.loadAnimation(mContext, R.anim.enter)
+
+        exitt = AnimationUtils.loadAnimation(mContext, R.anim.keluarr)
+
+
+
+
         handler = Handler(Looper.getMainLooper())
         runnable = object : Runnable {
             var index = 0
             override fun run() {
                 if (index == listImage.size)
                     index = 0
-                Log.d("ngawur",index.toString())
+                Log.d("ngawur", index.toString())
 
                 binding.viewPager.setCurrentItem(index)
                 index++
@@ -116,17 +150,74 @@ class HomeFragment : Fragment(), MenuListener, RecycleClickListener {
             setProfile()
         })
 
+
+//        binding.linearku.setOnTouchListener { v, event ->
+//            when (event!!.action) {
+//                MotionEvent.ACTION_MOVE -> {
+//                    if (binding.menuListView.visibility == View.VISIBLE && animStart) {
+//                        animStart = false
+//                        binding.menuListView.startAnimation(exitt)
+//
+//                        animationListener("exit", binding.menuListView)
+//
+//                        Log.d("scroller", "scroll")
+//
+//
+//                    }
+//                }
+//                MotionEvent.ACTION_UP -> {
+//                    if (binding.menuListView.visibility == View.GONE) {
+//
+//                handler.postDelayed({
+//                    binding.menuListView.visibility=View.VISIBLE
+//                    binding.menuListView.startAnimation(pop)
+//                    Log.d("scroller", "scroll stop")
+//                    animationListener("pop", binding.menuListView)
+//                },600)
+//
+//
+//                    }
+//
+//                }
+//            }
+//
+//            false
+//        }
+
+
+
+        navAdapter = NavAdapter(mContext, this)
+        val navArray = listOf("order", "menu", "rasa","minuman", "pesanan", "promo", "saya")
+        navAdapter.differ.submitList(navArray)
+
+        binding.recyclerMenu.layoutManager =
+            LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false)
+        binding.recyclerMenu.adapter = navAdapter
+
+        binding.recyclerMenu.itemAnimator = null
+        binding.recyclerMenu.setHasFixedSize(true)
+
+
+
         firestoreViewModel.getTotal().observe(viewLifecycleOwner) {
 
 
             if (it.size > 0) {
                 adaitem = true
-                binding.constraint11.visibility = View.VISIBLE
-                binding.itemtotal.text = it[1]
-                binding.hargatotal.text = it[0]
+                //  binding.floatingActionButton.visibility = View.VISIBLE
+                val item = if (it[1].toInt() > 1) "items" else "item"
+                binding.itemtotal.text = it[1] + " " + item
+                binding.hargatotal.text = formatRupiah(it[0].toInt())
+
+                navAdapter.cartCount = it[1].toInt()
+                navAdapter.notifyItemChanged(navArray.indexOf("order"))
+
+
             } else {
                 adaitem = false
-                binding.constraint11.visibility = View.GONE
+                binding.floatingActionButton.visibility = View.GONE
+                navAdapter.cartCount = 0
+                navAdapter.notifyItemChanged(navArray.indexOf("cart"))
             }
 
         }
@@ -139,7 +230,7 @@ class HomeFragment : Fragment(), MenuListener, RecycleClickListener {
                         binding.constraint11.visibility = View.GONE
                     } else {
                         if (adaitem) {
-                            Handler().postDelayed({
+                            Handler(Looper.getMainLooper()).postDelayed({
                                 binding.constraint11.visibility = View.VISIBLE
                             }, 500)
                         }
@@ -173,6 +264,7 @@ class HomeFragment : Fragment(), MenuListener, RecycleClickListener {
                 dots[i].textSize = 18f
 
                 binding.indicatorDot.addView(dots[i])
+
 
 
             }
@@ -223,13 +315,25 @@ class HomeFragment : Fragment(), MenuListener, RecycleClickListener {
         return binding.root
     }
 
+    private fun formatRupiah(number: Int): String {
+
+
+        val localeID = Locale("in", "ID")
+
+        val format = NumberFormat.getCurrencyInstance(localeID)
+
+        return format.format(number)
+
+
+    }
+
+
     override fun onDestroyView() {
 
         arrayKategori.clear()
         super.onDestroyView()
         cartLoader.remove()
         cartLoader1.remove()
-
 
 
     }
@@ -489,17 +593,14 @@ class HomeFragment : Fragment(), MenuListener, RecycleClickListener {
                 } else {
                     firestoreViewModel.setTotalItem(mutable)
                 }
-
-
             }
 
         }
 
-
     }
 
 
-
+    @SuppressLint("UseRequireInsteadOfGet")
     fun addToCart(menu: Menu, uid: String) {
 
         val userCart = firestore
@@ -518,13 +619,13 @@ class HomeFragment : Fragment(), MenuListener, RecycleClickListener {
                         .update("qty", qty.toLong(), "totalharga", total.toLong())
                         .addOnSuccessListener {
                             Snackbar.make(
-                                requireView(),
+                                activity!!.findViewById(R.id.parent),
                                 "Barang berhasil dimasukan ke keranjang",
                                 Snackbar.LENGTH_SHORT
                             ).show()
                         }.addOnCanceledListener {
                             Snackbar.make(
-                                requireView(),
+                                activity!!.findViewById(R.id.parent),
                                 it.exception?.message.toString(),
                                 Snackbar.LENGTH_SHORT
                             ).show()
@@ -541,14 +642,14 @@ class HomeFragment : Fragment(), MenuListener, RecycleClickListener {
 
                     userCart.document(mycart.key!!).set(mycart).addOnSuccessListener {
                         Snackbar.make(
-                            requireView(),
+                            activity!!.findViewById(R.id.parent),
                             "Barang berhasil dimasukan ke keranjang",
                             Snackbar.LENGTH_SHORT
                         ).show()
 
                     }.addOnCanceledListener {
                         Snackbar.make(
-                            requireView(),
+                            activity!!.findViewById(R.id.parent),
                             it.exception?.message.toString(),
                             Snackbar.LENGTH_SHORT
                         ).show()
@@ -566,6 +667,22 @@ class HomeFragment : Fragment(), MenuListener, RecycleClickListener {
             TerlarisAdapter(requireActivity(), menuList, clickListener, auth.uid!!)
 
         dataInitTerlaris(layoutManager1, terlarisAdapter)
+
+        //setup recyclerview
+
+//kategori adapter initialiasi di oncreateview paling atas
+
+      optionDialog = OptionDialog(navigasi = {
+          optionDialog.dismiss()
+          val navi = HomeFragmentDirections.actionHomeFragmentToMenuFragment(it)
+           findNavController().navigate(navi)
+      } ,menuList,{
+          val oldPos = navAdapter.position
+          navAdapter.position = -1
+          navAdapter.notifyItemChanged(oldPos)
+      })
+
+
 
     }
 
@@ -585,6 +702,14 @@ class HomeFragment : Fragment(), MenuListener, RecycleClickListener {
 
 
         val foto = view.findViewById<ImageView>(R.id.foto_makanan)
+        val harga = view.findViewById<TextView>(R.id.hargamakanan)
+        val desc = view.findViewById<TextView>(R.id.desc_konfirmasi)
+
+        //deskripsi gimmick
+        val desc1 = view.findViewById<TextView>(R.id.desc1_tambah)
+
+        harga.text = formatRupiah(menu.harga.toInt())
+        desc.text = menu.deskripsi
 
 
         Glide.with(requireContext())
@@ -604,8 +729,6 @@ class HomeFragment : Fragment(), MenuListener, RecycleClickListener {
 
 
 
-
-
         dialog.show()
 
 
@@ -614,4 +737,128 @@ class HomeFragment : Fragment(), MenuListener, RecycleClickListener {
     }
 
 
+    override fun showRasa() {
+        if(binding.floatingActionButton.isVisible){
+            binding.floatingActionButton.visibility = View.GONE
+        }
+
+        optionDialog.indikator ="rasa"
+        optionDialog.show(parentFragmentManager,"dialog")
+
+    }
+
+    override fun showCart(cartCount: Int) {
+
+        if (cartCount > 0) {
+            val pop = AnimationUtils.loadAnimation(mContext, R.anim.enter)
+            val exitt = AnimationUtils.loadAnimation(mContext, R.anim.keluarr)
+
+                if (binding.floatingActionButton.visibility == View.GONE) {
+                    binding.floatingActionButton.visibility = View.VISIBLE
+                    binding.floatingActionButton.startAnimation(pop)
+                } else {
+                    binding.floatingActionButton.startAnimation(exitt)
+
+                    animationListener("exit", binding.floatingActionButton)
+                }
+
+
+        } else {
+            Toast.makeText(mContext, "Keranjang belanja kamu kosong", Toast.LENGTH_SHORT).show()
+        }
+
+    }
+
+
+    override fun showMenu() {
+        if(binding.floatingActionButton.isVisible){
+            binding.floatingActionButton.visibility = View.GONE
+        }
+        optionDialog.indikator ="menu"
+       optionDialog.show(parentFragmentManager,"dialog")
+
+
+
+
+
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+//    private fun show(indicator: String) {
+//
+//
+//        val menuListViewcard = binding.menuListView
+//
+//        if (menuListViewcard.visibility == View.GONE) {
+//
+//            kategoriAdapter.indicator = indicator
+//            kategoriAdapter.notifyDataSetChanged()
+//            binding.menuListView.visibility = View.VISIBLE
+//
+//            if (binding.floatingActionButton.visibility == View.VISIBLE) {
+//                binding.floatingActionButton.visibility = View.GONE
+//            }
+//
+//
+//
+//            menuListViewcard.startAnimation(pop)
+//
+//            animationListener("pop", menuListViewcard)
+//
+//
+//            //set aktif indicator untuk memnentukan saat ini yang aktif rasa atau menu
+//            aktifMenuorRasa = indicator
+//
+//
+//        } else if (menuListViewcard.visibility == View.VISIBLE && aktifMenuorRasa == indicator) {
+//
+//            menuListViewcard.startAnimation(exitt)
+//            animationListener("exit", menuListViewcard)
+//
+//
+//        } else if (menuListViewcard.visibility == View.VISIBLE && aktifMenuorRasa != indicator) {
+//            kategoriAdapter.indicator = indicator
+//            kategoriAdapter.notifyDataSetChanged()
+//            aktifMenuorRasa = indicator
+//
+//
+//        }
+//
+//    }
+
+    private fun animationListener(jenis: String, menuListViewcard: View) {
+        menuListViewcard.animation.setAnimationListener(object : Animation.AnimationListener {
+            override fun onAnimationStart(animation: Animation?) {
+
+            }
+
+            override fun onAnimationEnd(animation: Animation?) {
+                menuListViewcard.clearAnimation()
+                if (jenis == "exit") {
+                    menuListViewcard.visibility = View.GONE
+                }
+                if(jenis == "pop"){
+                    animStart = true
+                }
+
+            }
+
+            override fun onAnimationRepeat(animation: Animation?) {
+
+            }
+        })
+    }
+
+    override fun toPesanan() {
+        findNavController().navigate(R.id.action_homeFragment_to_pesanan_saya)
+
+    }
+
+    override fun toProfile() {
+        findNavController().navigate(R.id.action_homeFragment_to_menuprofile)
+    }
+
+    override fun toPromo() {
+
+    }
 }

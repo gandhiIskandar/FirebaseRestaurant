@@ -72,13 +72,15 @@ class AlamatFragment : Fragment(), OnMapReadyCallback {
     var alamatPendek: String? = null
     var isConnected: Boolean = false
     var km = ""
-    private var kcak:CartViewModel?=null
-    private var alamataing:Alamat?=null
+    private var kcak: CartViewModel? = null
+    private var alamataing: Alamat? = null
 
     //digunakan untuk percabangan if melihat apakah edit alamat atau hanya tambah alamat
     var editLatLong: LatLng? = null
     var idalamatku: String? = null
     var alamatku_edit: String? = null
+
+    var prevnav: String? = null
 
     //loading dialog
     var dialogLoading: AlertDialogBuilder? = null
@@ -99,6 +101,7 @@ class AlamatFragment : Fragment(), OnMapReadyCallback {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        prevnav = findNavController().previousBackStackEntry?.destination?.label.toString().trim()
 
         dialogLoading = AlertDialogBuilder(mActivity)
 
@@ -158,15 +161,7 @@ class AlamatFragment : Fragment(), OnMapReadyCallback {
         )
 
 
-//        val mapFragment =
-//            childFragmentManager.findFragmentById(R.id.map_fragment) as SupportMapFragment
-//
-//
-//
-//        mapFragment.getMapAsync(this)
 
-
-        // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_alamat, container, false)
 
 
@@ -189,6 +184,7 @@ class AlamatFragment : Fragment(), OnMapReadyCallback {
             binding.tambahalamat.text = "edit alamat"
 
             idalamatku = alamatku.id
+            binding.alamatlengkap.text = alamatku_edit?.toEditable()
 
 
         }
@@ -265,8 +261,6 @@ class AlamatFragment : Fragment(), OnMapReadyCallback {
                             }
 
 
-
-
                     }
                     MyState.Error -> {
                         isConnected = false
@@ -283,7 +277,6 @@ class AlamatFragment : Fragment(), OnMapReadyCallback {
         // fetchLoaction()
 
     }
-
 
 
     private val long_atl = 104.97843902822282
@@ -332,7 +325,6 @@ class AlamatFragment : Fragment(), OnMapReadyCallback {
                 if (currentMarker != null) {
                     currentMarker?.remove()
                     val newLatLong = LatLng(p0.position.latitude, p0.position.longitude)
-                    alamatku_edit = null
                     drawMarker(newLatLong)
 
 
@@ -348,10 +340,9 @@ class AlamatFragment : Fragment(), OnMapReadyCallback {
     }
 
     private fun drawMarker(latlong: LatLng) {
-       val jarak = SphericalUtil.computeDistanceBetween(latlong,LatLng(lat_atl,long_atl))
- km = String.format(Locale.US,"%.1f", jarak/1000)
+        val jarak = SphericalUtil.computeDistanceBetween(latlong, LatLng(lat_atl, long_atl))
+        km = String.format(Locale.US, "%.1f", jarak / 1000)
         scope.launch {
-
 
 
             withContext(Dispatchers.Main) {
@@ -370,9 +361,6 @@ class AlamatFragment : Fragment(), OnMapReadyCallback {
 
 
                     currentMarker?.showInfoWindow()
-
-                    binding.alamatlengkap.text =
-                        if (!alamatku_edit.isNullOrBlank()) alamatku_edit?.toEditable() else "".toEditable()
 
 
 
@@ -518,8 +506,9 @@ class AlamatFragment : Fragment(), OnMapReadyCallback {
         alamatRef.document(idAlamat!!).set(alamatFix).addOnCompleteListener {
             if (it.isSuccessful) {
 
-                if(alamatku_edit!=null && alamataing!=null){
-                    if(alamataing!!.id == idalamatku){
+                if (alamatku_edit != null && alamataing != null) {
+                    if (alamataing!!.id == idalamatku) {
+
                         kcak?.setAlamat(alamat)
                     }
 
@@ -532,7 +521,13 @@ class AlamatFragment : Fragment(), OnMapReadyCallback {
                 )
                     .show()
 
-                findNavController().navigate(R.id.action_alamatFragment_to_blankFragment)
+                if (prevnav == "keranjang saya") {
+                    findNavController().navigate(R.id.action_alamatFragment_to_cartFragment2)
+                } else {
+                    findNavController().navigate(R.id.action_alamatFragment_to_blankFragment)
+                }
+
+
             } else {
 
                 Snackbar.make(

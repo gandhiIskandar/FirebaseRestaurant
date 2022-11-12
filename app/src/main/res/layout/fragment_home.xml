@@ -3,310 +3,349 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#FFFFFF"
-        tools:context=".HomeFragment">
 
-        <ScrollView
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
 
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="#FFFFFF"
+            tools:context=".HomeFragment">
 
 
-            <LinearLayout
+            <ScrollView
+                android:id="@+id/linearku"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
+                android:layout_height="match_parent">
 
-                android:paddingBottom="100dp"
-                app:layout_constraintTop_toTopOf="parent">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
+                <LinearLayout
+
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
 
-                    <TextView
-                        android:id="@+id/home_username"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="32dp"
-                        android:layout_marginTop="32dp"
-                        android:text="Loading.."
-                        android:textColor="@color/primary"
-                        android:textSize="28sp"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/textView2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="6dp"
-                        android:text="Selamat Datang "
-                        android:textSize="20sp"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="@+id/home_username"
-                        app:layout_constraintTop_toBottomOf="@+id/home_username" />
-
-                    <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/imageViewhome"
-                        android:layout_width="90dp"
-                        android:layout_height="90dp"
-                        android:layout_marginEnd="32dp"
-                        android:src="@drawable/user"
-                        app:layout_constraintBottom_toBottomOf="@+id/textView2"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/home_username" />
+                    android:paddingBottom="100dp"
+                    app:layout_constraintTop_toTopOf="parent">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginTop="15dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/imageViewhome">
+                        android:layout_height="wrap_content">
 
-                        <LinearLayout
-                            android:id="@+id/wraper"
-                            android:layout_width="match_parent"
+                        <TextView
+                            android:id="@+id/home_username"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:paddingHorizontal="10dp"
+                            android:layout_marginTop="32dp"
+                            android:text="Loading.."
+                            android:textColor="@color/abu_tua"
+                            android:textSize="28sp"
+                            android:textStyle="bold"
+                            app:layout_constraintEnd_toStartOf="@+id/imageViewhome"
+                       android:layout_marginEnd="10dp"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/textView2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp"
+                            android:text="selamat datang "
+                            android:textSize="20sp"
+                            android:textColor="@color/abu_tua"
+                            android:textStyle="bold"
+                            app:layout_constraintEnd_toEndOf="@+id/home_username"
+                            app:layout_constraintTop_toBottomOf="@+id/home_username" />
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/imageViewhome"
+                            android:layout_width="90dp"
+                            android:layout_height="90dp"
+                            android:layout_marginEnd="32dp"
+                            android:src="@drawable/user"
+                            app:layout_constraintBottom_toBottomOf="@+id/textView2"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/home_username" />
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="15dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent">
+                            app:layout_constraintTop_toBottomOf="@+id/imageViewhome">
 
-                            <androidx.cardview.widget.CardView
-
-                                android:id="@+id/imageView6"
+                            <LinearLayout
+                                android:id="@+id/wraper"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                app:cardCornerRadius="20dp">
+                                android:orientation="vertical"
+                                android:paddingHorizontal="10dp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent">
 
-                                <androidx.viewpager2.widget.ViewPager2
-                                    android:id="@+id/viewPager"
+                                <androidx.cardview.widget.CardView
+
+                                    android:id="@+id/imageView6"
                                     android:layout_width="match_parent"
-                                    android:layout_height="180dp"
-                                    android:adjustViewBounds="false"
-                                    android:scaleType="fitXY"
-                                    android:src="@drawable/untitled" />
+                                    android:layout_height="wrap_content"
+                                    app:cardCornerRadius="20dp">
 
-                            </androidx.cardview.widget.CardView>
+                                    <androidx.viewpager2.widget.ViewPager2
+                                        android:id="@+id/viewPager"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="180dp"
+                                        android:adjustViewBounds="false"
+                                        android:scaleType="fitXY"
+                                        android:src="@drawable/untitled" />
+
+                                </androidx.cardview.widget.CardView>
+
+
+                                <LinearLayout
+                                    android:id="@+id/indicator_dot"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginVertical="10dp"
+                                    android:orientation="horizontal" />
+                            </LinearLayout>
 
 
                             <LinearLayout
-                                android:id="@+id/indicator_dot"
+                                android:id="@+id/editTextTextPersonName2"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginVertical="10dp"
-                                android:orientation="horizontal" />
-                        </LinearLayout>
+                                android:layout_marginTop="10dp"
+                                android:focusable="false"
+                                android:focusableInTouchMode="true"
+                                android:paddingHorizontal="10dp"
+                                android:weightSum="1"
+                                app:layout_constraintTop_toBottomOf="@id/wraper">
 
+                                <androidx.appcompat.widget.SearchView
 
-                        <LinearLayout
-                            android:id="@+id/editTextTextPersonName2"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:focusable="false"
-                            android:focusableInTouchMode="true"
-                            android:paddingHorizontal="10dp"
-                            android:weightSum="1"
-                            app:layout_constraintTop_toBottomOf="@id/wraper">
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight=".8"
+                                    android:background="@drawable/button_putih"
+                                    android:ems="10"
+                                    android:hint="Cari menu favorit kamu"
+                                    android:inputType="textPersonName"
+                                    android:textSize="15sp"
+                                    app:layout_constraintTop_toBottomOf="@id/imageView6"
+                                    app:searchIcon="@drawable/ic_baseline_search_24"
+                                    tools:textStyle="italic" />
 
-                            <androidx.appcompat.widget.SearchView
+                                <androidx.constraintlayout.widget.ConstraintLayout
+                                    android:id="@+id/btnCart"
+                                    android:layout_width="0dp"
 
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight=".8"
-                                android:background="@drawable/button_putih"
-                                android:ems="10"
-                                android:hint="Cari menu favorit kamu"
-                                android:inputType="textPersonName"
-                                android:textSize="15sp"
-                                app:layout_constraintTop_toBottomOf="@id/imageView6"
-                                app:searchIcon="@drawable/ic_baseline_search_24"
-                                tools:textStyle="italic" />
-
-                            <androidx.constraintlayout.widget.ConstraintLayout
-                                android:id="@+id/btnCart"
-                                android:layout_width="0dp"
-
-                                android:layout_height="match_parent"
-                                android:layout_weight=".2">
-
-                                <ImageView
-                                    android:id="@+id/cart"
-
-                                    android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:src="@drawable/menu" />
+                                    android:layout_weight=".2">
 
-                            </androidx.constraintlayout.widget.ConstraintLayout>
-                        </LinearLayout>
+                                    <de.hdodenhof.circleimageview.CircleImageView
+                                        android:id="@+id/cart"
 
-                        <TextView
-                            android:id="@+id/textView4"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:paddingHorizontal="10dp"
-                            android:text="Aneka Menu"
-                            android:textColor="@color/black"
-                            android:textStyle="bold"
-                            app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName2"
-                            app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName2" />
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:src="@color/abu_tua" />
 
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/recyclerView_kategori"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_marginTop="7dp"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/textView4" />
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:text="menu"
+                                        android:textColor="@color/primary"
+                                        android:includeFontPadding="false"
+                                        android:gravity="center"
+                                        />
 
-                        <TextView
-                            android:id="@+id/anekarasa"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:paddingHorizontal="10dp"
-                            android:text="Aneka Rasa"
-                            android:textColor="@color/black"
-                            android:textStyle="bold"
-                            app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName2"
-                            app:layout_constraintTop_toBottomOf="@+id/recyclerView_kategori" />
+                                </androidx.constraintlayout.widget.ConstraintLayout>
+                            </LinearLayout>
+
+                            <TextView
+                                android:id="@+id/textView4"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:paddingHorizontal="10dp"
+                                android:text="Aneka Menu"
+                                android:textColor="@color/black"
+                                android:textStyle="bold"
+                                app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName2"
+                                app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName2" />
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/recyclerView_kategori"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginTop="7dp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+                            <TextView
+                                android:id="@+id/anekarasa"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:paddingHorizontal="10dp"
+                                android:text="Aneka Rasa"
+                                android:textColor="@color/black"
+                                android:textStyle="bold"
+                                app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName2"
+                                app:layout_constraintTop_toBottomOf="@+id/recyclerView_kategori" />
 
 
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/recyclerView_anekarasa"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/recyclerView_anekarasa"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
 
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.238"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/anekarasa" />
+                                app:layout_constraintEnd_toEndOf="parent"
 
-                        <TextView
-                            android:id="@+id/textView5"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:paddingHorizontal="10dp"
-                            android:text="Terlaris"
-                            android:textColor="@color/black"
-                            android:textStyle="bold"
-                            app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName2"
-                            app:layout_constraintTop_toBottomOf="@+id/recyclerView_anekarasa" />
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/anekarasa" />
 
-                        <TextView
-                            android:id="@+id/textView3"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Selengkapnya"
-                            android:textColor="@color/primary"
-                            app:layout_constraintBottom_toBottomOf="@+id/textView5"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="@+id/textView5" />
+                            <TextView
+                                android:id="@+id/textView5"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:paddingHorizontal="10dp"
+                                android:text="Terlaris"
+                                android:textColor="@color/black"
+                                android:textStyle="bold"
+                                app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName2"
+                                app:layout_constraintTop_toBottomOf="@+id/recyclerView_anekarasa" />
 
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/recyclerView_terlaris"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:padding="5dp"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/textView5" />
+                            <TextView
+                                android:id="@+id/textView3"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Selengkapnya"
+                                android:textColor="@color/primary"
+                                app:layout_constraintBottom_toBottomOf="@+id/textView5"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="@+id/textView5" />
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/recyclerView_terlaris"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:padding="5dp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
+                </LinearLayout>
 
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </LinearLayout>
+            </ScrollView>
 
 
-        </ScrollView>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraint11"
+
+
+
+
+
+    <LinearLayout
+        android:id="@+id/constraint11"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+
+        <androidx.cardview.widget.CardView
+            android:visibility="gone"
+            android:id="@+id/floatingActionButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="20dp"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent">
+            android:layout_marginHorizontal="10dp"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
+            <androidx.constraintlayout.widget.ConstraintLayout
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/floatingActionButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardCornerRadius="10dp"
-                app:cardElevation="10dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                android:background="@color/primary"
+                android:padding="10dp">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/itemtotal"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@color/primary"
-                    android:padding="10dp">
+                    android:text="1 items"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <LinearLayout
+                    android:id="@+id/linear44"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
                     <TextView
-                        android:id="@+id/itemtotal"
+                        android:id="@+id/hargatotal"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="1 items"
+                        android:layout_height="match_parent"
+                        android:layout_marginEnd="10dp"
+                        android:gravity="center_vertical"
+                        android:text="Rp 29.000"
                         android:textColor="@color/white"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
 
-                    <LinearLayout
-                        android:id="@+id/linear44"
+                    <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
-
-                        <TextView
-                            android:id="@+id/hargatotal"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_marginEnd="10dp"
-                            android:gravity="center_vertical"
-                            android:text="Rp 29.000"
-                            android:textColor="@color/white"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/ic_baseline_shopping_basket_24" />
+                        android:src="@drawable/ic_baseline_shopping_basket_24" />
 
 
-                    </LinearLayout>
+                </LinearLayout>
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-            </androidx.cardview.widget.CardView>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
 
 
 
+        <HorizontalScrollView
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            android:scrollbarThumbHorizontal="@android:color/transparent"
+            android:scrollbarSize="0dp"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.recyclerview.widget.RecyclerView
+
+                android:id="@+id/recyclerMenu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </HorizontalScrollView>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </layout>

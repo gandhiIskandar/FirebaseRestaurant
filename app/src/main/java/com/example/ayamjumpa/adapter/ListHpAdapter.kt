@@ -19,6 +19,7 @@ class ListHpAdapter(private val onKlikk: OnKlikk<Any>): RecyclerView.Adapter<Lis
     val differ = AsyncListDiffer(this, diffUtilRepo)
 
     private var editNomor:String?=null
+    var prevPosition = -1
 
     class MyViewHolder(itemView: View):RecyclerView.ViewHolder(itemView){
         //sebelum edit
@@ -90,8 +91,16 @@ nohptv.text = currentItem
 
 
             editt.setOnClickListener {
+
+                if(prevPosition!=-1){
+
+                    notifyItemChanged(prevPosition)
+                }
+
                 editNomor = currentItem
                 notifyItemChanged(position)
+
+                prevPosition = position
 
             }
         }

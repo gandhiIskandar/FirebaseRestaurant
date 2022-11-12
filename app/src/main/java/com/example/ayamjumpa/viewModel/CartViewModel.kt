@@ -6,6 +6,7 @@ import androidx.lifecycle.*
 import com.example.ayamjumpa.dataClass.Alamat
 import com.example.ayamjumpa.dataClass.Pesanan
 import com.example.ayamjumpa.repository.DataStoreRepository
+import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
@@ -80,7 +81,7 @@ class CartViewModel(context: Context) : ViewModel() {
     fun reqPesanan(uid:String){
         viewModelScope.launch(Dispatchers.IO) {
             val temp = mutableListOf<Pesanan>()
-            firebaseFirestore.collection("Pesanan").get()
+            firebaseFirestore.collection("Pesanan").orderBy("tanggal",Query.Direction.DESCENDING).get()
 
                 .addOnCompleteListener {
                     if(it.isSuccessful && it.result.size()>0){

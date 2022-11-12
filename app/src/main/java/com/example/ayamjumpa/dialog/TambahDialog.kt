@@ -21,7 +21,7 @@ class TambahDialog(
 ): DialogFragment() {
     private lateinit var binding:TambahKonfirmasiBinding
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        binding = TambahKonfirmasiBinding.inflate(LayoutInflater.from(context))
+        binding = TambahKonfirmasiBinding.inflate(layoutInflater)
 
 
 

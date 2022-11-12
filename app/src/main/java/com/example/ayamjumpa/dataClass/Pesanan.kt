@@ -15,5 +15,7 @@ data class Pesanan (
     var alamat: Alamat?=null,
     var status:String?=null,
     var totalHarga:Double?=null,
+    var catatan:String?=null,
+    var buktiTF:String?=null,
     var tanggal:Timestamp=Timestamp.now(),
         ):Parcelable
