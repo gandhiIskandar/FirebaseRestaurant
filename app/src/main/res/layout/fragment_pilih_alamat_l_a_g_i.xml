@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="15dp"
+    android:divider="@drawable/space"
+    android:showDividers="middle"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    tools:context=".PilihAlamatLAGI">
+
+    <TextView
+        android:textColor="@color/abu_tua"
+        android:layout_marginStart="15dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="alamat pengirim"
+        android:textStyle="bold"
+        />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+       app:hintEnabled="false"
+        android:layout_height="wrap_content"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        >
+
+        <AutoCompleteTextView
+
+            android:background="@drawable/button_putih"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+    <TextView
+        android:textColor="@color/abu_tua"
+        android:layout_marginStart="15dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="alamat penerima"
+        android:textStyle="bold"
+        />
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="370dp">
+
+    <androidx.recyclerview.widget.RecyclerView
+        tools:listitem="@layout/alamatviewholder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        />
+    </ScrollView>
+
+    <com.google.android.material.button.MaterialButton
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cornerRadius="20dp"
+        android:includeFontPadding="false"
+        android:text="simpan"
+        android:textSize="17sp"
+        android:textAllCaps="false"
+        android:fontFamily="@font/centurygothic"
+        android:textStyle="bold"
+        android:backgroundTint="@color/red"
+        />
+</LinearLayout>

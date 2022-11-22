@@ -70,8 +70,8 @@ class DaftarFragment : Fragment() {
 
         val watcher: TextWatcher = object : TextWatcher {
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                if (binding.email.text.isNotEmpty() && binding.password.text.isNotEmpty() && binding.password1.text.isNotEmpty() &&
-                    binding.username.text.isNotEmpty() && binding.nomorHp.text.isNotEmpty()
+                if (binding.email.text!!.isNotEmpty() && binding.password.text!!.isNotEmpty() && binding.password1.text!!.isNotEmpty() &&
+                    binding.username.text!!.isNotEmpty() && binding.nomorHp.text!!.isNotEmpty()
                 ) {
                     binding.daftar.isEnabled = true
 

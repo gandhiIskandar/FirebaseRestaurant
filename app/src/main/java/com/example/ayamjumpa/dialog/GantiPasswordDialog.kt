@@ -22,6 +22,7 @@ class GantiPasswordDialog(
 
         builder.setView(binding.root)
 
+
         binding.gantiPasswordSubmit.setOnClickListener {
             onSubmitClickListener.invoke(
                 listOf(

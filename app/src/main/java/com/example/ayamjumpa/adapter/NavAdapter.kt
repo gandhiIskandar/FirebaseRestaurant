@@ -54,17 +54,28 @@ class NavAdapter(private val context: Context, private val navigation: Navigatio
             holder.text.setTextColor(context.resources.getColor(R.color.abu_tua))
 
         } else {
-            holder.circleImageView.setImageResource(R.color.grey)
+            holder.circleImageView.setImageResource(R.color.abu_tua)
 
             holder.text.setTextColor(context.resources.getColor(R.color.primary))
 
         }
 
 
+
+        if(curItem=="order"){
+
+        }
+
+
         if (curItem.equals("order", true) && cartCount > 0) {
+
+
+
             holder.badge.visibility = View.VISIBLE
             holder.badge.setNumber(cartCount)
         } else {
+
+
             holder.badge.visibility = View.GONE
         }
 
@@ -97,7 +108,7 @@ class NavAdapter(private val context: Context, private val navigation: Navigatio
                 "rasa" -> {
                     navigation.showRasa()
                 }
-                "cart" -> {
+                "order" -> {
                     navigation.showCart(cartCount)
                 }
                 "pesanan" -> {

@@ -1,6 +1,7 @@
 package com.example.ayamjumpa.adapter
 
 import android.content.Context
+import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -37,8 +38,11 @@ class MenuAdapter(val context: Context
 
         val currentItem = differ.currentList[position]
 
-        holder.judul.text = currentItem.nama
+        holder.judul.text = currentItem.nama!!.lowercase()
+        holder.desc1.text = currentItem.deskripsi!!.lowercase()
+        holder.desc2.text = currentItem.deskripsi1!!.lowercase()
         holder.harga.text = formatRupiah(currentItem.harga)
+
 
         Glide.with(context)
             .load(currentItem.foto)
@@ -46,6 +50,16 @@ class MenuAdapter(val context: Context
 
         holder.btnTambah.setOnClickListener {
             clickListener.onItemClickListener(currentItem)
+        }
+
+
+
+        if (currentItem.promo){
+            holder.harga.textSize = 13f
+            holder.harga.paintFlags = holder.harga.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+            holder.promoText.text = formatRupiah(currentItem.harga - currentItem.potongan)
+            holder.promoText.visibility = View.VISIBLE
+
         }
 
     }
@@ -62,6 +76,9 @@ class MenuAdapter(val context: Context
         val harga = itemView.findViewById<TextView>(R.id.harga_menu)
         val gambar = itemView.findViewById<ImageView>(R.id.gambar_menu)
         val btnTambah = itemView.findViewById<Button>(R.id.button_tambah_menu)
+        val desc1 = itemView.findViewById<TextView>(R.id.isian_menu)
+        val desc2 = itemView.findViewById<TextView>(R.id.desc_menu)
+        val promoText = itemView.findViewById<TextView>(R.id.harga_menupromo)
     }
 
     private fun formatRupiah(number:Long) : String{

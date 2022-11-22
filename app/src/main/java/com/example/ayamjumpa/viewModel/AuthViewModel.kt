@@ -36,10 +36,10 @@ class AuthViewModel() : ViewModel() {
     val isLoading: LiveData<Boolean>
         get() = _isLoading
 
-    var _user : MutableLiveData<User> = MutableLiveData<User>()
-    var _total : MutableLiveData<MutableList<String>> = MutableLiveData<MutableList<String>>()
-    var _image : MutableLiveData<MutableList<ImageData>> = MutableLiveData<MutableList<ImageData>>()
-    var _kateogri : MutableLiveData<MutableList<Kategori>> = MutableLiveData<MutableList<Kategori>>()
+    var _user: MutableLiveData<User> = MutableLiveData<User>()
+    var _total: MutableLiveData<MutableList<String>> = MutableLiveData<MutableList<String>>()
+    var _image: MutableLiveData<MutableList<ImageData>> = MutableLiveData<MutableList<ImageData>>()
+    var _kateogri: MutableLiveData<MutableList<Kategori>> = MutableLiveData<MutableList<Kategori>>()
 
     private suspend fun _register(user: User) {
         withContext(Dispatchers.IO) {
@@ -55,28 +55,32 @@ class AuthViewModel() : ViewModel() {
 
     private suspend fun _login(email: String, password: String) {
         withContext(Dispatchers.Main) {
-            _isLogin.value= repository.login(email, password)
+            _isLogin.value = repository.login(email, password)
         }
     }
 
     fun login(email: String, password: String) {
-     viewModelScope.launch {
+        viewModelScope.launch {
             _login(email, password)
         }
     }
 
-    fun getUser(uid:String): LiveData<User>{
+    fun getUser(uid: String): LiveData<User> {
 
-            val ref = Firebase.firestore.collection("users").document(uid)
+        val ref = Firebase.firestore.collection("users").document(uid)
 
-            ref.addSnapshotListener { value, error ->
+        ref.addSnapshotListener { value, error ->
 
+            if (error == null) {
                 val user = value!!.toObject<User>()
-                _user.value = user!!
-
-
-
+                _user.value = user
             }
+            else{
+                Log.d("errorapasih", error.message!!)
+            }
+
+
+        }
 
 
 
@@ -84,24 +88,23 @@ class AuthViewModel() : ViewModel() {
 
     }
 
-    fun getImagedata():LiveData<MutableList<ImageData>>{
+    fun getImagedata(): LiveData<MutableList<ImageData>> {
         val ref = Firebase.firestore.collection("ImageData")
 
         val mutableData = arrayListOf<ImageData>()
 
         ref.addSnapshotListener { value, error ->
 
-       if(value!=null && error==null){
-           mutableData.clear()
+            if (value != null && error == null) {
+                mutableData.clear()
 
-           for(x in value){
-               mutableData.add(x.toObject<ImageData>())
-           }
+                for (x in value) {
+                    mutableData.add(x.toObject<ImageData>())
+                }
 
-           _image.value = mutableData
+                _image.value = mutableData
 
-       }
-
+            }
 
 
         }
@@ -109,52 +112,49 @@ class AuthViewModel() : ViewModel() {
         return _image
 
 
+    }
+
+    fun getKategori(): LiveData<MutableList<Kategori>> {
+
+        val ref = Firebase.firestore.collection("Kategori")
+
+        val mutableData = arrayListOf<Kategori>()
+
+        ref.addSnapshotListener { value, error ->
+
+            if (value != null && error == null) {
+                mutableData.clear()
+
+                for (x in value) {
+                    mutableData.add(x.toObject<Kategori>())
+                }
+
+                _kateogri.value = mutableData
+
+            }
+
+
+        }
+
+        return _kateogri
+
 
     }
 
-     fun getKategori():LiveData<MutableList<Kategori>>{
-
-         val ref = Firebase.firestore.collection("Kategori")
-
-         val mutableData = arrayListOf<Kategori>()
-
-         ref.addSnapshotListener { value, error ->
-
-             if(value!=null && error==null){
-                 mutableData.clear()
-
-                 for(x in value){
-                     mutableData.add(x.toObject<Kategori>())
-                 }
-
-                 _kateogri.value = mutableData
-
-             }
-
-
-
-         }
-
-         return _kateogri
-
-
-
-     }
-
-    fun isLoading(){
+    fun isLoading() {
         _isLoading.value = true
     }
 
-fun isNotLoading(){
-    _isLoading.value= false
-}
+    fun isNotLoading() {
+        _isLoading.value = false
+    }
 
-    fun setTotalItem(list:MutableList<String>){
+    fun setTotalItem(list: MutableList<String>) {
         _total.value = list
 
     }
 
-    fun getTotal():LiveData<MutableList<String>>{
+    fun getTotal(): LiveData<MutableList<String>> {
         return _total
     }
 

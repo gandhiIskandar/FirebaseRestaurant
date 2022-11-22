@@ -6,6 +6,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.DialogInterface
 import android.graphics.Color
+import android.graphics.Paint
 import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.os.Bundle
@@ -20,11 +21,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat.animate
 import androidx.core.view.isVisible
@@ -43,6 +42,7 @@ import com.example.ayamjumpa.interfaces.MenuListener
 import com.example.ayamjumpa.interfaces.RecycleClickListener
 import com.example.ayamjumpa.dataClass.*
 import com.example.ayamjumpa.databinding.FragmentHomeBinding
+
 import com.example.ayamjumpa.dialog.OptionDialog
 
 import com.example.ayamjumpa.eventBus.StatusMessage
@@ -57,6 +57,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreException
 import com.google.firebase.firestore.ListenerRegistration
+import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
@@ -100,7 +101,7 @@ class HomeFragment : Fragment(), MenuListener, RecycleClickListener, Navigation 
 
     private lateinit var pop: Animation
     private lateinit var exitt: Animation
-    private  var animStart:Boolean = true
+    private var animStart: Boolean = true
 
 
     private var scope: CoroutineScope? = null
@@ -114,7 +115,6 @@ class HomeFragment : Fragment(), MenuListener, RecycleClickListener, Navigation 
         pop = AnimationUtils.loadAnimation(mContext, R.anim.enter)
 
         exitt = AnimationUtils.loadAnimation(mContext, R.anim.keluarr)
-
 
 
 
@@ -145,11 +145,26 @@ class HomeFragment : Fragment(), MenuListener, RecycleClickListener, Navigation 
 
         layoutManager1 = GridLayoutManager(requireContext(), 2)
 
+
         firestoreViewModel.getUser(auth.uid!!).observe(viewLifecycleOwner, Observer {
             userData = it
             setProfile()
         })
 
+        binding.searchh.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                findNavController().navigate(
+                    HomeFragmentDirections.actionHomeFragmentToMenuFragment(arrayOf(query, "All"))
+                )
+
+
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                return false
+                }
+        })
 
 //        binding.linearku.setOnTouchListener { v, event ->
 //            when (event!!.action) {
@@ -185,9 +200,8 @@ class HomeFragment : Fragment(), MenuListener, RecycleClickListener, Navigation 
 //        }
 
 
-
         navAdapter = NavAdapter(mContext, this)
-        val navArray = listOf("order", "menu", "rasa","minuman", "pesanan", "promo", "saya")
+        val navArray = listOf("order", "menu", "rasa", "minuman", "pesanan", "promo", "saya")
         navAdapter.differ.submitList(navArray)
 
         binding.recyclerMenu.layoutManager =
@@ -201,8 +215,19 @@ class HomeFragment : Fragment(), MenuListener, RecycleClickListener, Navigation 
 
         firestoreViewModel.getTotal().observe(viewLifecycleOwner) {
 
+            if (it.size == 0) {
 
+                adaitem = false
+                binding.floatingActionButton.visibility = View.GONE
+                navAdapter.cartCount = 0
+                navAdapter.notifyItemChanged(navArray.indexOf("order"))
+            }
+
+
+            //Log.d("setann",it[1].toString())
             if (it.size > 0) {
+
+
                 adaitem = true
                 //  binding.floatingActionButton.visibility = View.VISIBLE
                 val item = if (it[1].toInt() > 1) "items" else "item"
@@ -213,11 +238,6 @@ class HomeFragment : Fragment(), MenuListener, RecycleClickListener, Navigation 
                 navAdapter.notifyItemChanged(navArray.indexOf("order"))
 
 
-            } else {
-                adaitem = false
-                binding.floatingActionButton.visibility = View.GONE
-                navAdapter.cartCount = 0
-                navAdapter.notifyItemChanged(navArray.indexOf("cart"))
             }
 
         }
@@ -264,7 +284,6 @@ class HomeFragment : Fragment(), MenuListener, RecycleClickListener, Navigation 
                 dots[i].textSize = 18f
 
                 binding.indicatorDot.addView(dots[i])
-
 
 
             }
@@ -458,7 +477,7 @@ class HomeFragment : Fragment(), MenuListener, RecycleClickListener, Navigation 
         withContext(Dispatchers.IO) {
 
             val menuModels: MutableList<Menu> = ArrayList()
-            val menucollection = firestore.collection("Menu")
+            val menucollection = firestore.collection("Menu").orderBy("terjual", Query.Direction.DESCENDING)
 
 
             cartLoader1 = menucollection.addSnapshotListener { value, error ->
@@ -544,7 +563,7 @@ class HomeFragment : Fragment(), MenuListener, RecycleClickListener, Navigation 
         val recyclerViewTerlaris = binding.recyclerViewTerlaris
 
         recyclerViewTerlaris.layoutManager = layoutManager
-        recyclerViewTerlaris.setHasFixedSize(true)
+      //  recyclerViewTerlaris.setHasFixedSize(true)
         recyclerViewTerlaris.adapter = adapter
 
 
@@ -633,12 +652,18 @@ class HomeFragment : Fragment(), MenuListener, RecycleClickListener, Navigation 
                 } else {
                     val mycart = Cart()
 
+                    val harga =
+                        if (menu.potongan > 0L) (menu.harga - menu.potongan).toString() else menu.harga.toString()
+
                     mycart.key = menu.key
                     mycart.qty = 1
-                    mycart.totalharga = menu.harga
+                    mycart.totalharga = harga.toLong()
                     mycart.name = menu.nama
-                    mycart.harga = menu.harga.toString()
+                    mycart.harga = harga
                     mycart.foto = menu.foto
+                    mycart.desc1 = menu.deskripsi
+                    mycart.desc2 = menu.deskripsi1
+                    mycart.potongan = menu.potongan
 
                     userCart.document(mycart.key!!).set(mycart).addOnSuccessListener {
                         Snackbar.make(
@@ -664,7 +689,7 @@ class HomeFragment : Fragment(), MenuListener, RecycleClickListener, Navigation 
 
     override fun onMenuLoadSucces(menuList: MutableList<Menu>) {
         val terlarisAdapter =
-            TerlarisAdapter(requireActivity(), menuList, clickListener, auth.uid!!)
+            TerlarisAdapter(requireActivity(), menuList, clickListener)
 
         dataInitTerlaris(layoutManager1, terlarisAdapter)
 
@@ -672,16 +697,15 @@ class HomeFragment : Fragment(), MenuListener, RecycleClickListener, Navigation 
 
 //kategori adapter initialiasi di oncreateview paling atas
 
-      optionDialog = OptionDialog(navigasi = {
-          optionDialog.dismiss()
-          val navi = HomeFragmentDirections.actionHomeFragmentToMenuFragment(it)
-           findNavController().navigate(navi)
-      } ,menuList,{
-          val oldPos = navAdapter.position
-          navAdapter.position = -1
-          navAdapter.notifyItemChanged(oldPos)
-      })
-
+        optionDialog = OptionDialog(navigasi = {
+            optionDialog.dismiss()
+            val navi = HomeFragmentDirections.actionHomeFragmentToMenuFragment(it)
+            findNavController().navigate(navi)
+        }, menuList, {
+            val oldPos = navAdapter.position
+            navAdapter.position = -1
+            navAdapter.notifyItemChanged(oldPos)
+        })
 
 
     }
@@ -704,12 +728,25 @@ class HomeFragment : Fragment(), MenuListener, RecycleClickListener, Navigation 
         val foto = view.findViewById<ImageView>(R.id.foto_makanan)
         val harga = view.findViewById<TextView>(R.id.hargamakanan)
         val desc = view.findViewById<TextView>(R.id.desc_konfirmasi)
+        val nama = view.findViewById<TextView>(R.id.judulmakanan)
+        val hargaPromo = view.findViewById<TextView>(R.id.hargamakananpromo)
 
         //deskripsi gimmick
         val desc1 = view.findViewById<TextView>(R.id.desc1_tambah)
 
         harga.text = formatRupiah(menu.harga.toInt())
-        desc.text = menu.deskripsi
+        desc.text = menu.deskripsi!!.lowercase()
+        nama.text = menu.nama!!.lowercase()
+        desc1.text = menu.deskripsi1!!.lowercase()
+
+        if (menu.promo) {
+            hargaPromo.visibility = View.VISIBLE
+            harga.textSize = 15f
+
+
+            harga.paintFlags = harga.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+            hargaPromo.text = formatRupiah((menu.harga - menu.potongan).toInt())
+        }
 
 
         Glide.with(requireContext())
@@ -719,7 +756,7 @@ class HomeFragment : Fragment(), MenuListener, RecycleClickListener, Navigation 
 
         dialog.setContentView(view)
 
-        val buttonf = view.findViewById<LinearLayout>(R.id.cardButton)
+        val buttonf = view.findViewById<Button>(R.id.cardButton)
 
         buttonf.setOnClickListener {
             dialog.dismiss()
@@ -738,12 +775,12 @@ class HomeFragment : Fragment(), MenuListener, RecycleClickListener, Navigation 
 
 
     override fun showRasa() {
-        if(binding.floatingActionButton.isVisible){
+        if (binding.floatingActionButton.isVisible) {
             binding.floatingActionButton.visibility = View.GONE
         }
 
-        optionDialog.indikator ="rasa"
-        optionDialog.show(parentFragmentManager,"dialog")
+        optionDialog.indikator = "rasa"
+        optionDialog.show(parentFragmentManager, "dialog")
 
     }
 
@@ -753,14 +790,14 @@ class HomeFragment : Fragment(), MenuListener, RecycleClickListener, Navigation 
             val pop = AnimationUtils.loadAnimation(mContext, R.anim.enter)
             val exitt = AnimationUtils.loadAnimation(mContext, R.anim.keluarr)
 
-                if (binding.floatingActionButton.visibility == View.GONE) {
-                    binding.floatingActionButton.visibility = View.VISIBLE
-                    binding.floatingActionButton.startAnimation(pop)
-                } else {
-                    binding.floatingActionButton.startAnimation(exitt)
+            if (binding.floatingActionButton.visibility == View.GONE) {
+                binding.floatingActionButton.visibility = View.VISIBLE
+                binding.floatingActionButton.startAnimation(pop)
+            } else {
+                binding.floatingActionButton.startAnimation(exitt)
 
-                    animationListener("exit", binding.floatingActionButton)
-                }
+                animationListener("exit", binding.floatingActionButton)
+            }
 
 
         } else {
@@ -771,15 +808,16 @@ class HomeFragment : Fragment(), MenuListener, RecycleClickListener, Navigation 
 
 
     override fun showMenu() {
-        if(binding.floatingActionButton.isVisible){
+        if (binding.floatingActionButton.isVisible) {
             binding.floatingActionButton.visibility = View.GONE
         }
-        optionDialog.indikator ="menu"
-       optionDialog.show(parentFragmentManager,"dialog")
+        optionDialog.indikator = "menu"
+        optionDialog.show(parentFragmentManager, "dialog")
 
 
+    }
 
-
+    override fun showMinuman() {
 
     }
 
@@ -837,7 +875,7 @@ class HomeFragment : Fragment(), MenuListener, RecycleClickListener, Navigation 
                 if (jenis == "exit") {
                     menuListViewcard.visibility = View.GONE
                 }
-                if(jenis == "pop"){
+                if (jenis == "pop") {
                     animStart = true
                 }
 

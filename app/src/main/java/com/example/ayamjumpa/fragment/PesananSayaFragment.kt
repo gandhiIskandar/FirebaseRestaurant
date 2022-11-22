@@ -46,10 +46,13 @@ class PesananSayaFragment : Fragment() {
 
             TabLayoutMediator(tabLayout, viewPager){ tab, postion ->
 
+
                 when(postion){
-                    0-> tab.text ="Sedang dalam proses"
-                    1-> tab.text ="Riwayat"
+                    0-> tab.text ="dalam proses"
+                    1-> tab.text ="riwayat"
                 }
+
+
 
             }.attach()
 

@@ -2,10 +2,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
 
 
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingBottom="5dp"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:paddingBottom="5dp">
 
     <LinearLayout
         android:id="@+id/linearLayout2"
@@ -29,7 +29,7 @@
                 android:layout_width="23dp"
                 android:layout_height="23dp"
                 android:src="@color/primary"
-                app:layout_constraintBottom_toBottomOf="parent"
+
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -40,7 +40,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="6.5"
+            android:layout_weight="7"
             android:paddingVertical="5dp">
 
             <TextView
@@ -56,9 +56,9 @@
 
             <TextView
                 android:id="@+id/statusTanggal"
-                android:layout_marginTop="3dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
                 android:text="10/10/2022 - 12:05"
                 android:textSize="12sp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -69,8 +69,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="5dp"
-                android:textSize="16sp"
                 android:text="Rp 25000"
+                android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -80,30 +80,255 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="2.5"
+            android:layout_weight="2"
+            android:gravity="center"
             android:paddingHorizontal="7dp"
             android:paddingVertical="2dp">
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/statusButton"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fontFamily="@font/centurygothic"
-                android:text="check"
-                android:textAllCaps="false"
-                android:textSize="12sp"
-                android:textStyle="bold"
-                app:cornerRadius="20dp" />
+            <ImageView
+                android:id="@+id/expands"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="2dp"
+                android:src="@drawable/ic_baseline_expand_more_24"
+
+                />
         </LinearLayout>
     </LinearLayout>
 
     <View
-        android:layout_marginHorizontal="10dp"
+        android:id="@+id/gariss"
         android:layout_width="match_parent"
         android:layout_height="1dp"
+        android:layout_marginHorizontal="10dp"
         android:background="@color/grey"
         app:layout_constraintBottom_toBottomOf="@+id/linearLayout2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <LinearLayout
+
+        android:id="@+id/linearr"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp"
+        app:layout_constraintTop_toBottomOf="@+id/gariss">
+
+        <LinearLayout
+            android:paddingHorizontal="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingVertical="10dp"
+            android:weightSum="1">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:text="ringkasan pembayaran"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+
+            <TextView
+
+                android:id="@+id/detailid"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5"
+                android:gravity="end|center"
+                android:text="#id"
+                android:textAllCaps="true"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/cardview_stroke"
+            android:padding="11dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:divider="@drawable/space"
+                android:orientation="vertical"
+                android:showDividers="middle">
+
+                <LinearLayout
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="1">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:gravity="start"
+                        android:text="harga"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/detail_harga"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.5"
+                        android:gravity="end|center_vertical"
+                        android:text="Rp 20.000" />
+                </LinearLayout>
+
+                <LinearLayout
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="1">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:gravity="start|center_vertical"
+                        android:text="ongkir"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/detail_ongkir"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.5"
+                        android:gravity="end|center_vertical"
+                        android:text="Rp0" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/abu_tua" />
+
+                <LinearLayout
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="1">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+
+                        android:text="total"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/detail_totalsemua"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.5"
+                        android:gravity="end|center_vertical"
+                        android:text="Rp 30.000" />
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/detail_catatan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="@string/catatan" />
+
+        <LinearLayout
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="5dp"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:text="ditolak"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/indicator_ditolak"
+                android:layout_width="85dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/off" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="5dp"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:text="dalam proses"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/indicator_proses"
+                android:layout_width="85dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/proses2" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="5dp"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:text="dalam pengiriman"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/indicator_pengiriman"
+                android:layout_width="85dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/proses1" />
+
+
+        </LinearLayout>
+
+        <View
+            android:layout_marginTop="5dp"
+            android:id="@+id/garissds"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+
+            android:background="@color/grey"
+          />
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

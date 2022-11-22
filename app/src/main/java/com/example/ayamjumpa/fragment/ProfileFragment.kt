@@ -182,7 +182,7 @@ class ProfileFragment : Fragment() {
                     if (binding.profileEtEmail.text.toString() != userData.email || binding.profileEtNama.text.toString() != userData.username ||
                         binding.profileEtNohp.text.toString() != userData.noHp
                     ) {
-                        if (!binding.profileEtEmail.text.isEmpty() && !binding.profileEtNama.text!!.isEmpty() && !binding.profileEtNohp.text.isEmpty()) {
+                        if (binding.profileEtEmail.text.toString() !="" && !binding.profileEtNama.text!!.isEmpty() && binding.profileEtNohp.text.toString() != "") {
                             binding.editButtonProfile.isEnabled = true
                         } else {
                             binding.editButtonProfile.isEnabled = false

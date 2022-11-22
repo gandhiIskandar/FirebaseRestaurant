@@ -4,25 +4,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_margin="3dp"
+    app:cardElevation="0dp"
     android:layout_height="wrap_content"
     app:cardCornerRadius="20dp"
     >
 
     <androidx.constraintlayout.widget.ConstraintLayout
-
+        android:background="#F6F5F5"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="10dp">
-
 
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:divider="@drawable/space"
-            android:showDividers="middle"
             android:orientation="vertical"
             android:padding="10dp"
+            android:showDividers="middle"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -33,17 +34,18 @@
                 android:text="Judul Makanan"
                 android:textColor="@color/abu_tua"
                 android:textSize="18sp"
-                android:textStyle="bold"
-                />
+                android:textStyle="bold" />
+
             <TextView
                 android:id="@+id/cartdesc"
-                android:layout_width="wrap_content"
+                android:layout_width="185dp"
                 android:layout_height="wrap_content"
                 android:text="Nasi + Ayam Goreng + Es Teh"
                 android:textColor="@color/grey"
                 android:textSize="14sp"
 
                 />
+
             <TextView
                 android:id="@+id/cartdesc1"
                 android:layout_width="wrap_content"
@@ -53,8 +55,20 @@
                 android:textSize="15sp"
 
                 />
+
             <TextView
                 android:id="@+id/cartharga"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rp 25.000"
+                android:textColor="@color/abu_tua"
+                android:textSize="15sp"
+                android:textStyle="bold"
+
+                />
+            <TextView
+                android:visibility="gone"
+                android:id="@+id/carthargapromo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Rp 25.000"
@@ -81,9 +95,10 @@
 
                 <ImageView
                     android:id="@+id/foto_cart"
-                    android:layout_width="120dp"
+                    android:layout_width="110dp"
                     android:layout_height="110dp"
-                    android:scaleType="fitXY"
+                    android:scaleType="centerCrop"
+                    android:adjustViewBounds="true"
                     app:srcCompat="@drawable/nirmana" />
 
             </androidx.cardview.widget.CardView>

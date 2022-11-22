@@ -23,6 +23,8 @@ import com.example.ayamjumpa.viewModel.CartViewModelFactory
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ListenerRegistration
+import com.google.firebase.firestore.Query
+import com.google.firebase.firestore.QueryDocumentSnapshot
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
@@ -30,10 +32,10 @@ import kotlinx.coroutines.*
 
 
 class BlankFragment : Fragment(), OnClickMapViewHolder {
-private lateinit var adapter:AlamatAdapter
-private lateinit var kcak :CartViewModel
-private lateinit var alamataing :Alamat
-private lateinit var listenerkacau: ListenerRegistration
+    private lateinit var adapter: AlamatAdapter
+    private lateinit var kcak: CartViewModel
+    private lateinit var alamataing: Alamat
+    private lateinit var listenerkacau: ListenerRegistration
 
     private val scope = CoroutineScope(Job() + Dispatchers.Main)
     override fun editClik(alamat: Alamat) {
@@ -49,14 +51,12 @@ private lateinit var listenerkacau: ListenerRegistration
 
         with(builder) {
             setTitle("Hapus alamat")
-            setMessage(getString(R.string.yakinn,alamat.alamat))
+            setMessage(getString(R.string.yakinn, alamat.alamat))
             setPositiveButton(
                 "Iya",
                 DialogInterface.OnClickListener { dialog: DialogInterface, which: Int ->
                     val alamatRef =
                         firestore.collection("users").document(auth.uid!!).collection("alamat")
-
-
 
                     alamatRef.document(alamat.id.toString()).delete().addOnCompleteListener {
                         if (it.isSuccessful) {
@@ -66,12 +66,9 @@ private lateinit var listenerkacau: ListenerRegistration
                                 Snackbar.LENGTH_LONG
                             ).show()
 
-                            if(alamat.id==alamataing.id){
+                            if (alamat.id == alamataing.id) {
                                 kcak.clearAlamat()
-
                             }
-
-
 
                         } else if (it.isCanceled) {
                             Snackbar.make(
@@ -109,9 +106,8 @@ private lateinit var listenerkacau: ListenerRegistration
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
-        Log.d("kacauu","KREATROEORKIEJ")
         val viewModel: CartViewModel by lazy {
             ViewModelProvider(
                 this,
@@ -127,7 +123,7 @@ private lateinit var listenerkacau: ListenerRegistration
             alamataing = it
         })
 
-    adapter = AlamatAdapter(this)
+        adapter = AlamatAdapter(this)
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_blank, container, false)
 
@@ -148,7 +144,6 @@ private lateinit var listenerkacau: ListenerRegistration
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.d("kacauu","KRE12312KIEJ")
 
 
 
@@ -157,7 +152,7 @@ private lateinit var listenerkacau: ListenerRegistration
     override fun onResume() {
         super.onResume()
 
-        Log.d("kacauu","resumeer")
+
 
         scope.launch {
             getAlamat(auth.uid!!)
@@ -167,7 +162,7 @@ private lateinit var listenerkacau: ListenerRegistration
 
     override fun onStart() {
         super.onStart()
-        Log.d("kacauu","starterr")
+
 
 
     }
@@ -175,17 +170,17 @@ private lateinit var listenerkacau: ListenerRegistration
     override fun onDestroyView() {
         super.onDestroyView()
 
-     listenerkacau.remove()
+        listenerkacau.remove()
 
-        Log.d("kacauu","destroyerrr")
+
     }
 
     suspend fun getAlamat(id: String) {
         withContext(Dispatchers.IO) {
             val alamatList: MutableList<Alamat> = arrayListOf()
-            val fire = firestore.collection("users").document(id).collection("alamat")
+            val fire = firestore.collection("users").document(id).collection("alamat").orderBy("time", Query.Direction.ASCENDING)
 
-       listenerkacau =   fire.addSnapshotListener { value, error ->
+            listenerkacau = fire.addSnapshotListener { value, error ->
                 alamatList.clear()
 
                 if (value != null) {
@@ -213,8 +208,6 @@ private lateinit var listenerkacau: ListenerRegistration
 
 
             }
-
-
 
 
         }

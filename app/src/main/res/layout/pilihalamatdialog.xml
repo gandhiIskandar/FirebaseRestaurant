@@ -28,7 +28,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
-                        android:text="Pilih Alamat"
+                        android:text="pilih alamat"
+                        android:textStyle="bold"
                         android:textAlignment="center"
                         android:textColor="@color/black"
                         android:textSize="20sp" />
@@ -52,10 +53,12 @@
                         android:textAllCaps="false"
                         android:fontFamily="@font/centurygothic"
                         android:textStyle="bold"
+                        android:textColor="@color/abu_tua"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:paddingVertical="10dp"
-                        android:text="Submit"
+                        android:text="simpan"
+                        android:textSize="17sp"
                         app:cornerRadius="20dp" />
     <com.google.android.material.button.MaterialButton
         android:id="@+id/tambahAlamatt"
@@ -68,7 +71,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:paddingVertical="10dp"
-        android:text="Tambah"
+        android:text="tambah"
+        android:textSize="17sp"
+        android:textColor="@color/abu_tua"
         app:cornerRadius="20dp" />
 </LinearLayout>
 

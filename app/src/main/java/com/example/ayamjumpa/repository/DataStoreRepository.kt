@@ -2,7 +2,6 @@ package com.example.ayamjumpa.repository
 
 import android.content.Context
 import androidx.datastore.core.DataStore
-import androidx.datastore.dataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.doublePreferencesKey
 import androidx.datastore.preferences.core.edit
@@ -23,7 +22,7 @@ class DataStoreRepository(private val context: Context) {
         val ONGKIR = doublePreferencesKey("ongkir")
         val LAT = doublePreferencesKey("lat")
         val LONG = doublePreferencesKey("long")
-        val KETERANGAN = stringPreferencesKey("keterangan")
+        val NOHP = stringPreferencesKey("keterangan")
         val LABEL = stringPreferencesKey("label")
 
         //terpisah
@@ -41,7 +40,7 @@ class DataStoreRepository(private val context: Context) {
             alamat[LAT] = alamatt.lat!!
             alamat[LONG] = alamatt.long!!
             alamat[ID] = alamatt.id!!
-            alamat[KETERANGAN] = alamatt.keterangan!!
+            alamat[NOHP] = alamatt.nomorHp!!
             alamat[LABEL] = alamatt.label!!
 
 
@@ -90,7 +89,7 @@ suspend fun removeAlamat(){
                 lat = phonebook[LAT],
                 long = phonebook[LONG],
                id = phonebook[ID],
-                keterangan = phonebook[KETERANGAN],
+                nomorHp = phonebook[NOHP],
                 label = phonebook[LABEL]
             )
 

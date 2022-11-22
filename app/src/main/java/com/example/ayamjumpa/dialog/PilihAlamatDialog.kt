@@ -7,24 +7,24 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
 import androidx.fragment.app.DialogFragment
-import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.ayamjumpa.R
 import com.example.ayamjumpa.interfaces.Clicker
 import com.example.ayamjumpa.adapter.PilihAlamatAdapter
 import com.example.ayamjumpa.dataClass.Alamat
 import com.example.ayamjumpa.databinding.PilihalamatdialogBinding
+import com.example.ayamjumpa.interfaces.OnKlikk
 
-class PilihAlamatDialog(private val onClick: (Alamat) -> Unit,private val pindah: () -> Unit) : DialogFragment(), Clicker {
+class PilihAlamatDialog(private val onClick: (Alamat) -> Unit,private val pindah: () -> Unit, val onklik:OnKlikk<Any>) : DialogFragment(), Clicker {
     private lateinit var binding: PilihalamatdialogBinding
     private lateinit var adapter: PilihAlamatAdapter
     private lateinit var recycler: RecyclerView
     private var alamatku: Alamat? = null
-    private val alamat: MutableList<Alamat> = arrayListOf()
+val alamat: MutableList<Alamat> = arrayListOf()
     private var idalamat: String? = null
+
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         binding = PilihalamatdialogBinding.inflate(layoutInflater)
@@ -35,9 +35,9 @@ class PilihAlamatDialog(private val onClick: (Alamat) -> Unit,private val pindah
         val layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         recycler = binding.recylerAlamat
         recycler.layoutManager = layoutManager
-        recycler.setHasFixedSize(true)
 
-        adapter = PilihAlamatAdapter(this)
+
+        adapter = PilihAlamatAdapter(this, onklik)
 
         adapter.differ.submitList(alamat)
 
@@ -52,6 +52,7 @@ class PilihAlamatDialog(private val onClick: (Alamat) -> Unit,private val pindah
             dismiss()
 
            pindah.invoke()
+
         }
         recycler.adapter = adapter
 
@@ -64,7 +65,6 @@ class PilihAlamatDialog(private val onClick: (Alamat) -> Unit,private val pindah
 
                 onClick.invoke(alamatku!!)
             }
-
 
             dismiss()
         }
@@ -80,7 +80,7 @@ class PilihAlamatDialog(private val onClick: (Alamat) -> Unit,private val pindah
     @SuppressLint("NotifyDataSetChanged")
     override fun clickk(alamat: Alamat) {
 
-        Log.d("bajingan", alamat.keterangan.toString())
+
         alamatku = alamat
         recycler.post { adapter.notifyDataSetChanged() }
 
@@ -122,5 +122,11 @@ class PilihAlamatDialog(private val onClick: (Alamat) -> Unit,private val pindah
 
     override fun clickhp(hp: String) {
         //kosong
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun differListBaruSetelahHapus(){
+        adapter.differ.submitList(alamat)
+        adapter.notifyDataSetChanged()
     }
 }

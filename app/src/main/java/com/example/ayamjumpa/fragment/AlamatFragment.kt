@@ -3,14 +3,12 @@ package com.example.ayamjumpa.fragment
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.app.AlertDialog
 import android.content.Context
+import android.content.Context.LOCATION_SERVICE
 import android.content.pm.PackageManager
-import android.location.Address
-import android.location.Geocoder
 import android.location.Location
+import android.location.LocationManager
 import android.os.Bundle
-import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
@@ -45,7 +43,6 @@ import com.google.firebase.ktx.Firebase
 import com.google.maps.android.SphericalUtil
 import kotlinx.coroutines.*
 import java.io.IOException
-import java.text.NumberFormat
 import java.util.*
 import kotlin.collections.HashSet
 
@@ -62,12 +59,16 @@ class AlamatFragment : Fragment(), OnMapReadyCallback {
     private lateinit var locationRequest: LocationRequest
     private lateinit var locationCallback: LocationCallback
 
+    private lateinit var mGpsLocationClient: LocationManager
+    private lateinit var locationListener: android.location.LocationListener
+
 
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     var currentLocation: Location? = null
     var firestore = Firebase.firestore
     var auth = Firebase.auth
     var myLatlong: LatLng? = null
+
     var markerLatlong: LatLng? = null
     var alamatPendek: String? = null
     var isConnected: Boolean = false
@@ -96,11 +97,14 @@ class AlamatFragment : Fragment(), OnMapReadyCallback {
 
     private val scope = CoroutineScope(Job() + Dispatchers.Main)
 
+
     @SuppressLint("MissingPermission")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
+
         prevnav = findNavController().previousBackStackEntry?.destination?.label.toString().trim()
 
         dialogLoading = AlertDialogBuilder(mActivity)
@@ -113,6 +117,56 @@ class AlamatFragment : Fragment(), OnMapReadyCallback {
 
             Priority.PRIORITY_HIGH_ACCURACY
         }
+
+
+        //kentircodeee
+
+
+        mGpsLocationClient = requireContext().getSystemService(LOCATION_SERVICE) as LocationManager
+        locationListener = object : android.location.LocationListener {
+            override fun onLocationChanged(location: Location) {
+                if (location.longitude.toString() != "") {
+                    currentLocation = location
+
+
+
+                    dialogLoading!!.dismiss()
+
+                    fetchLoaction()
+
+
+                }
+            }
+
+            override fun onLocationChanged(locations: MutableList<Location>) {
+                super.onLocationChanged(locations)
+            }
+
+            override fun onFlushComplete(requestCode: Int) {
+                super.onFlushComplete(requestCode)
+            }
+
+            override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {
+
+            }
+
+            override fun onProviderEnabled(provider: String) {
+                super.onProviderEnabled(provider)
+            }
+
+            override fun onProviderDisabled(provider: String) {
+                super.onProviderDisabled(provider)
+            }
+        }
+
+
+        mGpsLocationClient.requestLocationUpdates(
+            LocationManager.GPS_PROVIDER,
+            0L, 0f, locationListener
+        )
+
+
+        //kentireee
 
         val viewModel: CartViewModel by lazy {
             ViewModelProvider(
@@ -130,35 +184,33 @@ class AlamatFragment : Fragment(), OnMapReadyCallback {
         }
 
 
-        locationCallback = object : LocationCallback() {
+//        locationCallback = object : LocationCallback() {
+//
+//
+//            override fun onLocationResult(p0: LocationResult) {
+//                super.onLocationResult(p0)
+//                Log.d("kentir", "gemblunf")
+//                for (location in p0.locations) {
+//
+//
+//                    if (location != null) {
+//                        currentLocation = location
+//
+//                        fetchLoaction()
+//                        dialogLoading!!.dismiss()
+//                        fusedLocationProviderClient.removeLocationUpdates(locationCallback)
+//
+//
+//                    }
+//
+//                }
+//
+//
+//            }
+//
+//
+//        }
 
-
-            override fun onLocationResult(p0: LocationResult) {
-
-
-                for (location in p0.locations) {
-
-                    if (location != null) {
-                        currentLocation = location
-
-                        fetchLoaction()
-                        dialogLoading!!.dismiss()
-                        fusedLocationProviderClient.removeLocationUpdates(locationCallback)
-
-
-                    }
-
-                }
-
-
-            }
-        }
-
-        fusedLocationProviderClient.requestLocationUpdates(
-            locationRequest,
-            locationCallback,
-            Looper.getMainLooper()
-        )
 
 
 
@@ -178,13 +230,15 @@ class AlamatFragment : Fragment(), OnMapReadyCallback {
 
             binding.labelalamat.text = alamatku.label?.toEditable()
             binding.alamatlengkap.text = alamatku_edit?.toEditable()
-            binding.keteranganalamat.text = alamatku.keterangan?.toEditable()
+            binding.keteranganalamat.text = alamatku.nomorHp?.toEditable()
             editLatLong = LatLng(alamatku.lat!!, alamatku.long!!)
 
             binding.tambahalamat.text = "edit alamat"
 
             idalamatku = alamatku.id
             binding.alamatlengkap.text = alamatku_edit?.toEditable()
+
+           // fetchLoaction()
 
 
         }
@@ -197,7 +251,7 @@ class AlamatFragment : Fragment(), OnMapReadyCallback {
                     long = markerLatlong?.longitude,
                     alamat = binding.alamatlengkap.text.toString(),
                     label = binding.labelalamat.text.toString(),
-                    keterangan = binding.keteranganalamat.text.toString(),
+                    nomorHp = binding.keteranganalamat.text.toString(),
                     alamatPendek = alamatPendek,
                     ongkir = km.toDouble() * 8000
 
@@ -245,6 +299,7 @@ class AlamatFragment : Fragment(), OnMapReadyCallback {
 
 
 
+
         scope.launch {
 
 
@@ -289,22 +344,30 @@ class AlamatFragment : Fragment(), OnMapReadyCallback {
         //binding.autoCompelete.setAdapter(arrayAdapter)
     }
 
+
     @SuppressLint("MissingPermission")
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
-
+        Log.d("test1233", "location.toString()")
 
         mMap!!.uiSettings.isMyLocationButtonEnabled = true
+
+
 
         mMap!!.isMyLocationEnabled = true
         val latlong = LatLng(currentLocation?.latitude!!, currentLocation?.longitude!!)
         myLatlong = latlong
 
         if (editLatLong == null) {
+            mMap?.animateCamera(CameraUpdateFactory.newLatLng(latlong))
 
+            mMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(latlong, 15f))
             drawMarker(latlong)
 
         } else {
+            mMap?.animateCamera(CameraUpdateFactory.newLatLng(editLatLong!!))
+
+            mMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(editLatLong!!, 15f))
             drawMarker(editLatLong!!)
 
         }
@@ -464,7 +527,7 @@ class AlamatFragment : Fragment(), OnMapReadyCallback {
             return
 
         } else {
-
+            mGpsLocationClient.removeUpdates(locationListener)
 
             val mapFragment =
                 childFragmentManager.findFragmentById(R.id.map_fragment) as SupportMapFragment
@@ -498,9 +561,11 @@ class AlamatFragment : Fragment(), OnMapReadyCallback {
             "long" to alamat.long,
             "alamat" to alamat.alamat,
             "label" to alamat.label,
-            "keterangan" to alamat.keterangan,
+            "nomorHp" to alamat.nomorHp,
             "alamatPendek" to alamat.alamatPendek,
-            "ongkir" to alamat.ongkir
+            "ongkir" to alamat.ongkir,
+            "time" to alamat.time
+
         )
 
         alamatRef.document(idAlamat!!).set(alamatFix).addOnCompleteListener {
@@ -521,7 +586,7 @@ class AlamatFragment : Fragment(), OnMapReadyCallback {
                 )
                     .show()
 
-                if (prevnav == "keranjang saya") {
+                if (prevnav == "keranjang") {
                     findNavController().navigate(R.id.action_alamatFragment_to_cartFragment2)
                 } else {
                     findNavController().navigate(R.id.action_alamatFragment_to_blankFragment)

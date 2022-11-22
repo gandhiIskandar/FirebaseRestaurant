@@ -92,7 +92,7 @@ class MainMenuActivity : AppCompatActivity() {
 
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                    supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_backerbutton)
+                    supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_back1)
                     supportActionBar?.setTitle(
                         Html.fromHtml(
                             "<font color=\"#332C2B\" ><b>" + destination.label.toString() + "</b></font>",
@@ -100,7 +100,7 @@ class MainMenuActivity : AppCompatActivity() {
                         )
                     )
                 } else {
-                    supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_backerbutton)
+                    supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_back1)
                     supportActionBar?.setTitle(Html.fromHtml("<font color=\"#332C2B\" align=\"center\" ><b>" + destination.label.toString() + "</b></font>"))
                 }
             }
@@ -112,13 +112,13 @@ class MainMenuActivity : AppCompatActivity() {
 
 
         viewModel.state.observe(this) {
-            Snackbar.make(
-                findViewById(R.id.fragmentContainerView2), when (it) {
-                    MyState.Fetched -> "Terhubung"
-                    MyState.Error -> "Tidak Terhubung"
-
-                }, Snackbar.LENGTH_LONG
-            ).show()
+//            Snackbar.make(
+//                findViewById(R.id.fragmentContainerView2), when (it) {
+//                    MyState.Fetched -> "Terhubung"
+//                    MyState.Error -> "Tidak Terhubung"
+//
+//                }, Snackbar.LENGTH_LONG
+//            ).show()
         }
 
 

@@ -42,7 +42,7 @@
     <fragment
         android:id="@+id/cartFragment2"
         android:name="com.example.ayamjumpa.fragment.CartFragment"
-        android:label="keranjang saya"
+        android:label="keranjang"
         tools:layout="@layout/fragment_cart">
         <action
             android:id="@+id/action_cartFragment2_to_homeFragment2"
@@ -60,7 +60,7 @@
     <fragment
         android:id="@+id/menuFragment"
         android:name="com.example.ayamjumpa.fragment.MenuFragment"
-        android:label="fragment_menu"
+        android:label="menu"
         tools:layout="@layout/fragment_menu" >
         <action
             android:id="@+id/action_menuFragment_to_homeFragment"
@@ -75,7 +75,7 @@
     <fragment
         android:id="@+id/profileFragment2"
         android:name="com.example.ayamjumpa.fragment.ProfileFragment"
-        android:label="fragment_profile"
+        android:label="profile"
         tools:layout="@layout/fragment_profile" >
         <action
             android:id="@+id/action_profileFragment2_to_menuprofile"
@@ -196,4 +196,9 @@
 
             />
     </fragment>
+    <fragment
+        android:id="@+id/pilihAlamatLAGI"
+        android:name="com.example.ayamjumpa.PilihAlamatLAGI"
+        android:label="fragment_pilih_alamat_l_a_g_i"
+        tools:layout="@layout/fragment_pilih_alamat_l_a_g_i" />
 </navigation>

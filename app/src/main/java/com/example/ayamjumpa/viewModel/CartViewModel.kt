@@ -1,6 +1,5 @@
 package com.example.ayamjumpa.viewModel
 
-import android.app.PendingIntent
 import android.content.Context
 import androidx.lifecycle.*
 import com.example.ayamjumpa.dataClass.Alamat
@@ -11,7 +10,6 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 
@@ -43,7 +41,7 @@ class CartViewModel(context: Context) : ViewModel() {
                     lat = alamat.lat,
                     long = alamat.long,
                     id = alamat.id,
-                    keterangan = alamat.keterangan,
+                    nomorHp = alamat.nomorHp,
                     label = alamat.label
                 )
             )

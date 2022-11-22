@@ -74,14 +74,20 @@ android:id="@+id/fotonyaa"
 
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_weight="0.2"
+
     android:layout_width="0dp"
     android:layout_height="match_parent">
 
-    <ImageView
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btnEdit"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:src="@drawable/edit"
+        android:layout_width="wrap_content"
+        app:cornerRadius="20dp"
+        android:text="edit"
+        android:backgroundTint="@color/abu_tua"
+        android:fontFamily="@font/centurygothic"
+        android:textStyle="bold"
+        android:textAllCaps="false"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -214,54 +220,7 @@ android:id="@+id/fotonyaa"
                 android:layout_height="1dp"
                 android:background="@color/grey"
                 />
-            <LinearLayout
-                android:id="@+id/btnnohp"
-                android:clickable="true"
-                android:focusable="true"
-                android:background="?attr/selectableItemBackground"
-                android:weightSum="1"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:layout_weight="0.1"
-                    android:layout_width="0dp"
-                    android:layout_height="35dp"
-                    android:src="@color/grey"/>
 
-                <TextView
-                    android:layout_weight="0.8"
-                    android:paddingHorizontal="5dp"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:text="nomor handphone"
-                    android:textColor="@color/abu_tua"
-                    android:textStyle="bold"
-                    android:gravity="center_vertical"
-
-                    />
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.1">
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:src="@drawable/ic_baseline_keyboard_arrow_right_24"
-
-
-                        />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/grey"
-                />
             <LinearLayout
                 android:clickable="true"
                 android:focusable="true"

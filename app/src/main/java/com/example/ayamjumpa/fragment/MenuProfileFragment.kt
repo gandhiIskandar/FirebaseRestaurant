@@ -47,9 +47,9 @@ class MenuProfileFragment : Fragment() {
         binding.btnpesanan.setOnClickListener {
             findNavController().navigate(R.id.action_menuprofile_to_pesanan_saya)
         }
-        binding.btnnohp.setOnClickListener {
-            findNavController().navigate(R.id.action_menuprofile_to_nomorHandphoneFragment)
-        }
+//        binding.btnnohp.setOnClickListener {
+//            findNavController().navigate(R.id.action_menuprofile_to_nomorHandphoneFragment)
+//        }
         binding.btnEdit.setOnClickListener {
             findNavController().navigate(R.id.action_menuprofile_to_profileFragment2)
         }

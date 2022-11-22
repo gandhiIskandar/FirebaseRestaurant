@@ -46,7 +46,7 @@ private val args :FragmentDetailPesananArgs by navArgs()
 
     private fun setView() {
         binding.detailAlamat.text =
-            getString(R.string.alamat, pesanan.alamat?.alamat, pesanan.alamat?.keterangan)
+            getString(R.string.alamat, pesanan.alamat?.alamat, pesanan.alamat?.nomorHp)
         binding.detailTanggal.text = formatTanggal()
         binding.detailHarga.text = formatRupiah(pesanan.totalHarga?.minus(pesanan.alamat?.ongkir!!)!!)
         binding.detailOngkir.text = formatRupiah(pesanan.alamat?.ongkir!! )

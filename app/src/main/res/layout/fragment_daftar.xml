@@ -17,98 +17,169 @@
     android:showDividers="middle"
     android:divider="@drawable/space"
     tools:context=".fragment.DaftarFragment">
-    <EditText
-        android:drawableStart="@drawable/account_state"
-        android:drawablePadding="12dp"
-        android:background="@drawable/custom_input"
-        android:padding="10dp"
-        android:id="@+id/username"
+    <com.google.android.material.textfield.TextInputLayout
+
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Nama Lengkap"
-        android:inputType="text"
-        />
+        android:layout_marginBottom="5dp"
+        android:textColor="@color/black"
+        app:boxCornerRadiusBottomEnd="25dp"
+        app:boxCornerRadiusBottomStart="25dp"
+        app:boxCornerRadiusTopEnd="25dp"
+
+        app:boxCornerRadiusTopStart="25dp"
+        app:hintEnabled="false"
+        app:startIconDrawable="@drawable/ic_account"
+
+        app:startIconTint="@color/focuss">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/username"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/centurygothic"
+            android:hint="username"
+            android:inputType="textEmailAddress"
+
+
+            />
+
+    </com.google.android.material.textfield.TextInputLayout>
 
 
 
-    <EditText
-        android:id="@+id/nomor_hp"
-        android:drawableStart="@drawable/phone_state"
-        android:drawablePadding="12dp"
-        android:background="@drawable/custom_input"
-
-        android:padding="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Nomor Handphone"
-        android:inputType="number"
-        android:maxLength="13"
-        />
-    <EditText
-        android:background="@drawable/custom_input"
-        android:padding="10dp"
-        android:drawableStart="@drawable/email_state"
-        android:drawablePadding="12dp"
-       android:id="@+id/email"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Email"
-        android:inputType="textEmailAddress"
-        />
 
     <com.google.android.material.textfield.TextInputLayout
 
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:textColor="@color/black"
+        app:boxCornerRadiusBottomEnd="25dp"
+        app:boxCornerRadiusBottomStart="25dp"
+        app:boxCornerRadiusTopEnd="25dp"
+
+        app:boxCornerRadiusTopStart="25dp"
+        app:hintEnabled="false"
+        app:startIconDrawable="@drawable/ic_phone"
+
+        app:startIconTint="@color/focuss">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/nomor_hp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/centurygothic"
+            android:hint="nomor handphone"
+            android:inputType="number"
+
+
+            />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:textColor="@color/black"
+        app:boxCornerRadiusBottomEnd="25dp"
+        app:boxCornerRadiusBottomStart="25dp"
+        app:boxCornerRadiusTopEnd="25dp"
+
+        app:boxCornerRadiusTopStart="25dp"
+        app:hintEnabled="false"
+        app:startIconDrawable="@drawable/ic_email"
+
+        app:startIconTint="@color/focuss">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/email"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/centurygothic"
+            android:hint="alamat email"
+            android:inputType="textEmailAddress"
+
+
+            />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:textColor="@color/black"
+        app:boxCornerRadiusBottomEnd="25dp"
+        app:boxCornerRadiusBottomStart="25dp"
+        app:boxCornerRadiusTopEnd="25dp"
+        app:boxCornerRadiusTopStart="25dp"
         app:hintEnabled="false"
         app:passwordToggleEnabled="true"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textPassword"
-        >
-        <EditText
+        app:startIconDrawable="@drawable/ic_lock"
 
-            android:drawableStart="@drawable/lock_state"
-            android:drawablePadding="12dp"
-            android:background="@drawable/custom_input"
-            android:padding="10dp"
+        app:startIconTint="@color/focuss">
+
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/password"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Password"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/centurygothic"
+            android:hint="password"
             android:inputType="textPassword"
 
+
             />
+
     </com.google.android.material.textfield.TextInputLayout>
     <com.google.android.material.textfield.TextInputLayout
 
-
-        app:passwordToggleEnabled="true"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
-       app:hintEnabled="false"
         android:layout_height="wrap_content"
-        android:inputType="textPassword"
-        >
+        android:layout_marginBottom="5dp"
+        android:textColor="@color/black"
+        app:boxCornerRadiusBottomEnd="25dp"
+        app:boxCornerRadiusBottomStart="25dp"
+        app:boxCornerRadiusTopEnd="25dp"
+        app:boxCornerRadiusTopStart="25dp"
+        app:hintEnabled="false"
+        app:passwordToggleEnabled="true"
+        app:startIconDrawable="@drawable/ic_lock"
 
-        <EditText
-            android:drawableStart="@drawable/lock_state"
-            android:drawablePadding="12dp"
-            android:background="@drawable/custom_input"
-            android:padding="10dp"
+        app:startIconTint="@color/focuss">
+
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/password1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Konfirmasi Password"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/centurygothic"
+            android:hint="konfirmasi password"
             android:inputType="textPassword"
+
 
             />
 
     </com.google.android.material.textfield.TextInputLayout>
 
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/daftar"
-        android:background="@drawable/button_disable_orange"
+        app:cornerRadius="20dp"
+        android:textAllCaps="false"
+        android:fontFamily="@font/centurygothic"
+        android:textStyle="bold"
         android:layout_width="match_parent"
-        android:textColor="@color/white"
+        android:textColor="@color/textbuttonstate"
+        android:textSize="17sp"
         android:enabled="false"
         android:layout_height="wrap_content"
         android:text="daftar"/>

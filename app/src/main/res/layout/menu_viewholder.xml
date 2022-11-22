@@ -1,21 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    app:cardCornerRadius="10dp"
-    android:layout_margin="5dp"
 
-    app:cardElevation="10dp"
-
-    >
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+
+        android:layout_marginHorizontal="5dp"
+
+        android:layout_height="wrap_content"
+       >
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cons1"
@@ -41,25 +36,26 @@
 
 
                     <ImageView
-                        android:adjustViewBounds="true"
                         android:id="@+id/gambar_menu"
                         android:layout_width="100dp"
                         android:layout_height="100dp"
-                        android:scaleType="fitXY"
+                        android:adjustViewBounds="true"
+                        android:scaleType="centerCrop"
                         android:src="@drawable/nirmana" />
                 </androidx.cardview.widget.CardView>
 
                 <com.google.android.material.button.MaterialButton
-                   app:cornerRadius="20dp"
                     android:id="@+id/button_tambah_menu"
                     android:layout_width="0dp"
                     android:layout_height="40dp"
+                    android:fontFamily="@font/centurygothic"
                     android:text="tambah"
+
                     android:textAllCaps="false"
-                    android:textColor="@color/white"
+                    android:textColor="@color/abu_tua"
                     android:textSize="15sp"
                     android:textStyle="normal"
-                    android:fontFamily="@font/centurygothic"
+                    app:cornerRadius="20dp"
                     app:layout_constraintBottom_toBottomOf="parent"
 
                     app:layout_constraintEnd_toEndOf="parent"
@@ -115,18 +111,29 @@
                     android:textColor="@color/abu_tua"
                     android:textSize="15sp"
                     android:textStyle="bold" />
+
+                <TextView
+                    android:visibility="gone"
+                    android:id="@+id/harga_menupromo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="Rp.15000"
+                    android:textColor="@color/abu_tua"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
             </LinearLayout>
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_baseline_share_24"
-                app:layout_constraintBottom_toBottomOf="@+id/kons"
-                app:layout_constraintStart_toStartOf="parent"
-             />
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.1dp"
+                android:background="@color/grey"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/kons"
+                android:layout_marginTop="10dp"
+                 />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-</androidx.cardview.widget.CardView>

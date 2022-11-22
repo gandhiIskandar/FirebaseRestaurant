@@ -3,16 +3,14 @@ package com.example.ayamjumpa.fragment
 
 import android.content.Context
 import android.content.res.AssetManager
+import android.graphics.Paint
 import android.graphics.Typeface
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.widget.SearchView
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.content.res.ResourcesCompat.getFont
@@ -281,7 +279,7 @@ class MenuFragment : Fragment(), MenuListener, RecycleClickListener {
                         }.addOnCanceledListener {
                             EventBus.getDefault().post(StatusMessage(it.exception.toString()))
                         }
-                } else {
+                } else if(!it.result.exists()) {
                     val mycart = Cart()
 
                     mycart.key = menu.key
@@ -290,17 +288,26 @@ class MenuFragment : Fragment(), MenuListener, RecycleClickListener {
                     mycart.name = menu.nama
                     mycart.harga = menu.harga.toString()
                     mycart.foto = menu.foto
+                    mycart.desc1 = menu.deskripsi
+                    mycart.desc2 = menu.deskripsi1
 
                     userCart.document(mycart.key!!).set(mycart).addOnSuccessListener {
-                        //  EventBus.getDefault().post(StatusMessage("Barang berhasil dimasukan ke dalam keranjang"))
-
-                    }.addOnCanceledListener {
-                        EventBus.getDefault().post(StatusMessage(it.exception.toString()))
+                        Toast.makeText(
+                            requireContext(),
+                            "Barang berhasil dimasukan ke dalam keranjang",
+                            Toast.LENGTH_SHORT
+                        ).show()
 
 
                     }
 
 
+
+
+
+
+                }else if(it.exception!=null){
+                    EventBus.getDefault().post(StatusMessage(it.exception.toString()))
                 }
             }
 
@@ -325,21 +332,29 @@ class MenuFragment : Fragment(), MenuListener, RecycleClickListener {
             if (tipe == "menu") {
                 selected = 3
                 berdasarkan = "menu"
-            } else {
+            } else if(tipe=="rasa") {
                 selected = 4
                 berdasarkan = "rasa"
+            }else if(tipe=="All"){
+                selected= 0
+                berdasarkan= "All"
+
+            // temp.addAll(menuList.filter{menu->menu.nama!!.contains(nama as CharSequence, true)})
+
             }
             menuList.forEach { menu ->
 
-
-                if (if (tipe == "menu") menu.menuKey == nama else menu.rasaKey == nama) {
-
-                    temp.add(menu)
+                when(tipe){
+                    "menu"->if(menu.menuKey==nama){temp.add(menu)}
+                    "rasa"->if(menu.rasaKey==nama){temp.add(menu)}
+                    "All"->if(menu.nama!!.contains(nama as CharSequence, true)){temp.add(menu)}
                 }
+
+
 
             }
 
-            Log.d("bgst", temp.size.toString())
+
 
             menuAdapter.differ.submitList(temp)
 
@@ -366,12 +381,18 @@ class MenuFragment : Fragment(), MenuListener, RecycleClickListener {
         val foto = view.findViewById<ImageView>(R.id.foto_makanan)
         val harga = view.findViewById<TextView>(R.id.hargamakanan)
         val desc = view.findViewById<TextView>(R.id.desc_konfirmasi)
+        val judul = view.findViewById<TextView>(R.id.judulmakanan)
+        val hargaPromo = view.findViewById<TextView>(R.id.hargamakananpromo)
+
+
 
         //deskripsi gimmick
         val desc1 = view.findViewById<TextView>(R.id.desc1_tambah)
 
         harga.text = formatRupiah(menu.harga.toInt())
-        desc.text = menu.deskripsi
+        desc.text = menu.deskripsi!!.lowercase()
+        desc1.text =menu.deskripsi1!!.lowercase()
+        judul.text = menu.nama!!.lowercase()
 
 
         Glide.with(requireContext())
@@ -381,12 +402,22 @@ class MenuFragment : Fragment(), MenuListener, RecycleClickListener {
 
         dialog.setContentView(view)
 
-        val buttonf = view.findViewById<LinearLayout>(R.id.cardButton)
+        val buttonf = view.findViewById<Button>(R.id.cardButton)
 
         buttonf.setOnClickListener {
-            dialog.dismiss()
             addToCart(menu, auth.uid!!)
+            dialog.dismiss()
 
+
+        }
+
+        if (menu.promo) {
+            hargaPromo.visibility = View.VISIBLE
+            harga.textSize = 15f
+
+
+            harga.paintFlags = harga.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+            hargaPromo.text = formatRupiah((menu.harga - menu.potongan).toInt())
         }
 
 

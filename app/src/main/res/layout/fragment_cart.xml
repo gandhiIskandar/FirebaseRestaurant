@@ -52,10 +52,21 @@
                     android:orientation="vertical"
                     android:paddingHorizontal="10dp">
 
+                    <TextView
+                        android:id="@+id/dikirimkan"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:text="pilih alamat"
+                        android:textSize="17sp"
+                        android:textStyle="bold" />
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
+                        android:paddingHorizontal="10dp"
                         android:paddingVertical="10dp"
                         android:weightSum="1">
 
@@ -175,46 +186,397 @@
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
-                    <TextView
-                        android:textStyle="bold"
-                        android:id="@+id/dikirimkan"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:text="Mohon pilih alamat" />
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/alamatkirim"
+
+                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="61dp"
+                        android:textSize="16sp"
                         android:layout_marginTop="5dp"
                         android:fontFamily="@font/centurygothic"
-                        android:text="pilih alamat pengiriman"
+                        android:includeFontPadding="false"
+                        android:text="pilih alamat"
                         android:textAllCaps="false"
+                        android:textColor="@color/abu_tua"
                         android:textStyle="bold"
-                        app:cornerRadius="10dp" />
+                        app:cornerRadius="20dp"
+
+                        app:elevation="0dp"
+                        app:strokeColor="@color/abu_tua" />
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/pilihnohp"
+                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/centurygothic"
                         android:text="pilih nomor telfon penerima"
                         android:textAllCaps="false"
+                        android:textColor="@color/abu_tua"
                         android:textStyle="bold"
-                        app:cornerRadius="10dp" />
+                        android:visibility="gone"
+                        app:cornerRadius="10dp"
+                        app:strokeColor="@color/abu_tua" />
+
+
+
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="52dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@android:color/transparent"
+                        app:cardCornerRadius="20dp"
+                        app:cardElevation="0dp">
+
+
+                        <LinearLayout
+
+                            android:id="@+id/linearr1"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/cardview_stroke"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+
+
+                                >
+
+                                <ImageView
+                                    android:layout_width="100dp"
+                                    android:layout_height="50dp"
+                                    android:layout_marginStart="10dp"
+                                    android:paddingVertical="5dp"
+
+                                    android:src="@drawable/ic_gopay1"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                                <ImageView
+                                    android:id="@+id/gopay_expand"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_marginEnd="10dp"
+                                    android:layout_weight="0.2"
+                                    android:src="@drawable/ic_baseline_expand_more_24"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/norek_gopay"
+                        android:layout_width="match_parent"
+                        android:layout_height="52dp"
+                        android:layout_marginTop="5dp"
+                        android:visibility="gone"
+                        app:cardCornerRadius="20dp"
+                        app:cardElevation="0dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:background="@color/primary"
+                            android:weightSum="1"
+                            android:orientation="horizontal"
+                            >
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_weight="0.8"
+                                android:layout_height="match_parent"
+
+                                android:gravity="center"
+                                android:padding="5dp"
+                                android:text="081367649994"
+                                android:textAlignment="center"
+                                android:textColor="@color/abu_tua"
+
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+
+                            <ImageView
+                                android:id="@+id/gopay_copy"
+                                android:layout_gravity="center_vertical"
+                                android:layout_width="0dp"
+                                android:layout_height="35dp"
+                                android:layout_weight="0.2"
+                                android:src="@drawable/ic_copy_svgrepo_com"
+                                />
+
+
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+
+                        android:layout_width="match_parent"
+                        android:layout_height="52dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@android:color/transparent"
+                        app:cardCornerRadius="20dp"
+                        app:cardElevation="0dp">
+
+
+                        <LinearLayout
+
+                            android:id="@+id/linearrku_dana"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/cardview_stroke"
+                            android:orientation="vertical">
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <ImageView
+
+                                    android:layout_width="100dp"
+                                    android:layout_height="50dp"
+                                    android:layout_marginStart="10dp"
+
+                                    android:paddingVertical="5dp"
+
+                                    android:src="@drawable/ic_dana1"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                                <ImageView
+                                    android:id="@+id/expand_dana"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_marginEnd="10dp"
+                                    android:layout_weight="0.2"
+                                    android:src="@drawable/ic_baseline_expand_more_24"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/norek_dana"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:visibility="gone"
+                        app:cardCornerRadius="20dp"
+                        app:cardElevation="0dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:background="@color/primary"
+                            android:weightSum="1"
+                            android:orientation="horizontal"
+                            >
+
+                            <TextView
+                                android:id="@+id/transfer_dana"
+                                android:layout_width="0dp"
+                                android:layout_weight="0.78"
+                                android:layout_height="match_parent"
+
+                                android:gravity="center"
+                                android:padding="5dp"
+                                android:text="081367649994"
+                                android:textAlignment="center"
+                                android:textColor="@color/abu_tua"
+
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+
+                            <ImageView
+                                android:id="@+id/dana_copy"
+                               android:layout_gravity="center_vertical"
+                                android:layout_width="0dp"
+                                android:layout_height="35dp"
+                                android:layout_weight="0.22"
+                                android:src="@drawable/ic_copy_svgrepo_com"
+                                />
+
+
+                        </LinearLayout>
+
+
+
+                    </androidx.cardview.widget.CardView>
+
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="52dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@android:color/transparent"
+                        app:cardCornerRadius="20dp"
+                        app:cardElevation="0dp">
+
+
+                        <LinearLayout
+
+                            android:id="@+id/linearrku"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/cardview_stroke"
+                            android:orientation="vertical">
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <ImageView
+                                    android:layout_width="100dp"
+                                    android:layout_height="50dp"
+                                    android:layout_marginStart="10dp"
+                                    android:padding="3dp"
+
+                                    android:paddingVertical="5dp"
+
+                                    android:src="@drawable/ic_mandiri1"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                                <ImageView
+                                    android:id="@+id/expand"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_marginEnd="10dp"
+                                    android:layout_weight="0.2"
+                                    android:src="@drawable/ic_baseline_expand_more_24"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/norek"
+                        android:layout_width="match_parent"
+                        android:layout_height="52dp"
+                        android:layout_marginTop="5dp"
+                        android:visibility="gone"
+                        app:cardCornerRadius="20dp"
+                        app:cardElevation="0dp">
+
+                        <LinearLayout
+
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:background="@color/primary"
+                            android:weightSum="1"
+                            android:orientation="horizontal"
+                            >
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_weight="0.8"
+                                android:layout_height="match_parent"
+
+                                android:gravity="center"
+                                android:padding="5dp"
+                                android:text="114-000-482-446-5\natas nama Vincentius Probo Sulistyo"
+                                android:textAlignment="center"
+                                android:textColor="@color/abu_tua"
+
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+
+                            <ImageView
+                                android:id="@+id/mandiri_copy"
+                                android:layout_gravity="center_vertical"
+                                android:layout_width="0dp"
+                                android:layout_height="35dp"
+                                android:layout_weight="0.2"
+                                android:src="@drawable/ic_copy_svgrepo_com"
+                                />
+
+
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"
+
+                        android:layout_marginTop="10dp"
+                        android:backgroundTint="#F1F1F1"
+                        app:cardCornerRadius="20dp">
+
+                        <LinearLayout
+
+                            android:id="@+id/uploadBukti"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:weightSum="1">
+
+                            <ImageView
+                                android:id="@+id/imagerr"
+                                android:layout_width="wrap_content"
+                                android:layout_height="0dp"
+                                android:layout_weight="1"
+                                android:adjustViewBounds="true"
+                                android:src="@drawable/ic_phone"
+                                android:visibility="gone" />
+
+                            <ImageView
+                                android:id="@+id/buktiTransfer"
+                                android:layout_width="50dp"
+                                android:layout_height="0dp"
+                                android:layout_weight="0.7"
+                                android:src="@drawable/ic_baseline_add_circle_24" />
+
+                            <TextView
+                                android:id="@+id/tecter"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Upload Bukti Pembayaran"
+                                android:textAlignment="center" />
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnBayar"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="60dp"
+                        android:layout_marginTop="5dp"
                         android:backgroundTint="@color/enabledd"
                         android:enabled="false"
                         android:fontFamily="@font/centurygothic"
                         android:text="bayar"
                         android:textAllCaps="false"
+                        android:textSize="17sp"
                         android:textStyle="bold"
-                        app:cornerRadius="10dp" />
+                        app:cornerRadius="20dp" />
 
 
                 </LinearLayout>

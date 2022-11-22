@@ -3,12 +3,9 @@ package com.example.ayamjumpa.fragment
 
 import android.app.Activity
 import android.app.AlertDialog
-import android.content.Context
-import android.content.DialogInterface
-import android.content.Intent
+import android.content.*
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -42,10 +39,10 @@ import com.example.ayamjumpa.dataClass.User
 import com.example.ayamjumpa.databinding.DialogCheckoutBinding
 
 import com.example.ayamjumpa.databinding.FragmentCartBinding
-import com.example.ayamjumpa.dialog.CheckOutDialog
 import com.example.ayamjumpa.dialog.PilihAlamatDialog
 import com.example.ayamjumpa.dialog.PilihNoHpDialog
 import com.example.ayamjumpa.eventBus.StatusMessage
+import com.example.ayamjumpa.interfaces.OnKlikk
 import com.example.ayamjumpa.repository.RepositoryImpl
 import com.example.ayamjumpa.util.AlertDialogBuilder
 
@@ -66,7 +63,6 @@ import kotlinx.coroutines.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
-import org.w3c.dom.Text
 import java.io.ByteArrayOutputStream
 import java.io.IOException
 import java.text.NumberFormat
@@ -75,7 +71,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 
-class CartFragment : Fragment(), CartLoadListener {
+class CartFragment : Fragment(), CartLoadListener, OnKlikk<Any> {
 
     var adakahnohp: Boolean = false
     private lateinit var cartModelx: MutableList<Cart>
@@ -87,7 +83,7 @@ class CartFragment : Fragment(), CartLoadListener {
     private var reqCode = 0
     private lateinit var cartListener: CartLoadListener
     private var totalHarga: Int = 0
-    private var expander:String=""
+    private var expander: String = ""
     private lateinit var resultLauncher: ActivityResultLauncher<Intent>
     private lateinit var mContext: Context
     private lateinit var vm: CartViewModel
@@ -101,8 +97,8 @@ class CartFragment : Fragment(), CartLoadListener {
     private var nohp: ArrayList<String>? = null
     private var loadingg: AlertDialogBuilder? = null
 
-    private lateinit var dialogBinding:DialogCheckoutBinding
-    private lateinit var firebaseStorage:FirebaseStorage
+    private lateinit var dialogBinding: DialogCheckoutBinding
+    private lateinit var firebaseStorage: FirebaseStorage
     private lateinit var bitmap: Bitmap
 
     override fun onCreateView(
@@ -112,13 +108,13 @@ class CartFragment : Fragment(), CartLoadListener {
 
         dialogBinding = DialogCheckoutBinding.inflate(layoutInflater)
 
-     resultLauncher=resultLauncer(dialogBinding)
+        resultLauncher = resultLauncer()
 
 
         firebaseStorage = FirebaseStorage.getInstance()
 
         cartListener = this
-       // resultLauncher = resultLauncer()
+
         loadingg = AlertDialogBuilder(requireActivity())
         val viewModel: CartViewModel by lazy {
             ViewModelProvider(
@@ -133,8 +129,6 @@ class CartFragment : Fragment(), CartLoadListener {
         val time = Calendar.getInstance().time
         val formatter = SimpleDateFormat("yyyy-MM-dd HH:mm")
         val current = formatter.format(time)
-
-
 
 
         repositoryImpl = RepositoryImpl()
@@ -168,6 +162,78 @@ class CartFragment : Fragment(), CartLoadListener {
         EventBus.getDefault().register(this)
     }
 
+
+    override fun onClickEdit(data: Any){
+        val alamat= data as Alamat
+
+        pilihAlamatDialog.dismiss()
+
+        val nav = CartFragmentDirections.actionCartFragment2ToAlamatFragment(alamat)
+
+        findNavController().navigate(nav)
+    }
+
+    override fun onClickHapus(data: Any) {
+
+        val alamat = data as Alamat
+
+        val builder = AlertDialog.Builder(activity)
+
+        with(builder) {
+            setTitle("Hapus alamat")
+            setMessage(getString(com.example.ayamjumpa.R.string.yakinn, alamat.alamat))
+            setPositiveButton(
+                "Iya",
+                android.content.DialogInterface.OnClickListener { dialog: DialogInterface, which: Int ->
+                    val alamatRef =
+                        firestore.collection("users").document(auth.uid!!).collection("alamat")
+
+                    alamats.remove(alamat)
+
+//                    alamats.forEach {
+//                        Log.d("okee", it.alamat!!)
+//                    }
+
+                    alamatRef.document(alamat.id.toString()).delete().addOnCompleteListener {
+                        if (it.isSuccessful) {
+                            com.google.android.material.snackbar.Snackbar.make(
+                                requireView(),
+                                "Alamat berhasil dihapus",
+                                com.google.android.material.snackbar.Snackbar.LENGTH_LONG
+                            ).show()
+
+                            if (alamat.id == alamatPesan?.id) {
+                               vm.clearAlamat()
+                            }
+
+                           pilihAlamatDialog.alamat.remove(alamat)
+                            pilihAlamatDialog.differListBaruSetelahHapus()
+
+                        } else if (it.isCanceled) {
+                            com.google.android.material.snackbar.Snackbar.make(
+                                requireView(),
+                                "Alamat gagal dihapus,mohon cek koneksi internet anda",
+                                com.google.android.material.snackbar.Snackbar.LENGTH_LONG
+                            ).show()
+                        }
+                    }
+
+                })
+            setNegativeButton("Tidak", android.content.DialogInterface.OnClickListener { dialog, which ->
+
+                dialog.dismiss()
+
+            })
+
+
+        }
+        val dialog = builder.create()
+        dialog.setCancelable(false)
+        dialog.show()
+        dialog.getButton(AlertDialog.BUTTON_POSITIVE).isAllCaps = false
+        dialog.getButton(AlertDialog.BUTTON_NEGATIVE).isAllCaps = false
+    }
+
     override fun onStop() {
         super.onStop()
         if (EventBus.getDefault().hasSubscriberForEvent(StatusMessage::class.java))
@@ -187,43 +253,79 @@ class CartFragment : Fragment(), CartLoadListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
+        //CartFragmentDirections.actionCartFragment2ToAlamatFragment()
+
+
         val dialoge = BottomSheetDialog(requireContext())
         dialoge.behavior.state = BottomSheetBehavior.STATE_EXPANDED
         dialoge.setContentView(dialogBinding.root)
 
-        binding.btnBayar.setOnClickListener {
-            temporaryDisable(it)
-
-            dialogBinding.expand.setOnClickListener {
-                expand(dialogBinding.root)
-            }
-
-          dialogBinding.gopayExpand.setOnClickListener {
-              expandGopay(dialogBinding.root)
-          }
-
-            dialogBinding.submitBayar.isEnabled = false
-            dialogBinding.submitBayar.setBackgroundResource(R.color.grey)
-
-          dialogBinding.submitBayar.setOnClickListener {
-                val builder = AlertDialog.Builder(activity)
-                builder.apply {
-                    setTitle("Konfirmasi Pembayaran")
-                    setMessage("Setelah pembayaran, staff kami akan memeriksa mutasi, mohon menunggu ")
-                    setPositiveButton("OK") { dialog, which ->
-                        prosesPesanan(dialogBinding.checkoutCatatan.text.toString(), dialoge)
-                    }
-                    show()
-                }
-            }
-            dialogBinding.totale.text =
-                formatRupiah(totalHargaplusongkir.toInt())
-            dialogBinding.uploadBukti.setOnClickListener {
-                selectImage()
-            }
-
-            dialoge.show()
+        binding.expand.setOnClickListener {
+            expand()
         }
+
+        binding.gopayExpand.setOnClickListener {
+            expandGopay()
+        }
+
+        binding.expandDana.setOnClickListener {
+            expandDana()
+        }
+
+        binding.mandiriCopy.setOnClickListener {
+            copyToclipBoard("1140004824465")
+        }
+
+        binding.gopayCopy.setOnClickListener {
+            copyToclipBoard("081367649994")
+        }
+
+        binding.danaCopy.setOnClickListener {
+            copyToclipBoard("081367649994")
+        }
+
+        binding.uploadBukti.setOnClickListener {
+            selectImage()
+        }
+
+        binding.btnBayar.setOnClickListener {
+            prosesPesanan("")
+        }
+
+//        binding.btnBayar.setOnClickListener {
+//            temporaryDisable(it)
+//
+//            dialogBinding.expand.setOnClickListener {
+//                expand()
+//            }
+//
+//          dialogBinding.gopayExpand.setOnClickListener {
+//              expandGopay()
+//          }
+//
+//            dialogBinding.submitBayar.isEnabled = false
+//            dialogBinding.submitBayar.setBackgroundResource(R.color.grey)
+//
+//          dialogBinding.submitBayar.setOnClickListener {
+//                val builder = AlertDialog.Builder(activity)
+//                builder.apply {
+//                    setTitle("Konfirmasi Pembayaran")
+//                    setMessage("Setelah pembayaran, staff kami akan memeriksa mutasi, mohon menunggu ")
+//                    setPositiveButton("OK") { dialog, which ->
+//                        prosesPesanan(dialogBinding.checkoutCatatan.text.toString(), dialoge)
+//                    }
+//                    show()
+//                }
+//            }
+//            dialogBinding.totale.text =
+//                formatRupiah(totalHargaplusongkir.toInt())
+//            dialogBinding.uploadBukti.setOnClickListener {
+//                selectImage()
+//            }
+//
+//            dialoge.show()
+//        }
 
         pilihNoHpDialog = PilihNoHpDialog(onClick = {
             nomorPesan = it
@@ -234,15 +336,15 @@ class CartFragment : Fragment(), CartLoadListener {
 
         pilihAlamatDialog = PilihAlamatDialog(onClick = {
             alamatPesan = it
-            Log.d("edann", it.keterangan.toString())
+            Log.d("edann", it.nomorHp.toString())
             vm.setAlamat(alamatPesan!!)
 
 
-        }, pindah={
+        }, pindah = {
             findNavController().navigate(R.id.action_cartFragment2_to_alamatFragment)
 
 
-        })
+        },this)
 
         vm.getAlamat()
         vm.getNomor()
@@ -258,15 +360,15 @@ class CartFragment : Fragment(), CartLoadListener {
                     binding.ongkirr.text = formatRupiah(it.ongkir!!.toInt())
 
                     binding.dikirimkan.text = buildString {
-                        append("Dikirimkan ke: ")
-                        append(it.alamat)
+                        append("dikirimkan ke: ")
+                        append(it.label!!.lowercase())
                     }
                     pilihAlamatDialog.setChecked(it.id!!)
 
 
                     setTotal(it.ongkir!!, totalHarga.toDouble())
 
-                    binding.btnBayar.isEnabled = true
+                    //    binding.btnBayar.isEnabled = true
 
                 }
 
@@ -283,10 +385,10 @@ class CartFragment : Fragment(), CartLoadListener {
                     nomorPesan = it
                     pilihNoHpDialog.setChecked(it)
                     adakahnohp = true
-                    Log.d("gablegkontol",it.toString())
+
 
                 } else {
-                    Log.d("gablegkontol",adakahnohp.toString())
+
                     adakahnohp = false
                 }
             }
@@ -300,12 +402,25 @@ class CartFragment : Fragment(), CartLoadListener {
 
     }
 
+    private fun checkButtonBayarEnabled() {
 
-    private fun expand(view: View) {
+        if (this::bitmap.isInitialized && alamatPesan != null) {
+            binding.btnBayar.isEnabled = true
+        }
+    }
 
-        val norek = view.findViewById<TextView>(R.id.norek)
+    private fun copyToclipBoard(data:String){
+            val clipboardmanager = requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+            val clipData = ClipData.newPlainText("text",data)
+            clipboardmanager.setPrimaryClip(clipData)
+            Toast.makeText(requireContext(),"text telah dicopy ke clipboard", Toast.LENGTH_SHORT).show()
+    }
 
-        val expand = view.findViewById<ImageView>(R.id.expand)
+    private fun expand() {
+
+        val norek = binding.norek
+
+        val expand = binding.expand
 
 
         val v = if (norek.visibility == View.GONE) View.VISIBLE else View.GONE
@@ -316,30 +431,32 @@ class CartFragment : Fragment(), CartLoadListener {
             expand.setImageResource(R.drawable.ic_baseline_expand_less_24)
         }
 
-        if(expander==""){
+        if (expander == "") {
             norek.visibility = v
-            expander="mandiri"
-        }else if(expander=="gojek"){
-           norek.visibility = v
-            view.findViewById<TextView>(R.id.norek_gopay).visibility = View.GONE
-            view.findViewById<ImageView>(R.id.gopay_expand).setImageResource(R.drawable.ic_baseline_expand_more_24)
-            expander= "mandiri"
-        }else if(expander=="mandiri"){
-            norek.visibility =v
+            expander = "mandiri"
+        } else if (expander == "gojek") {
+            norek.visibility = v
+            binding.norekGopay.visibility = View.GONE
+            binding.gopayExpand.setImageResource(R.drawable.ic_baseline_expand_more_24)
+            expander = "mandiri"
+        } else if (expander == "mandiri") {
+            norek.visibility = v
+            expander = ""
+        } else if(expander =="dana"){
+            norek.visibility = v
+            binding.norekDana.visibility = View.GONE
+            binding.expandDana.setImageResource(R.drawable.ic_baseline_expand_more_24)
+            expander ="mandiri"
         }
-
-
-
-
 
 
     }
 
-    private fun expandGopay(view: View) {
+    private fun expandGopay() {
 
-        val norek = view.findViewById<TextView>(R.id.norek_gopay)
+        val norek = binding.norekGopay
 
-        val expand = view.findViewById<ImageView>(R.id.gopay_expand)
+        val expand = binding.gopayExpand
 
         val v = if (norek.visibility == View.GONE) View.VISIBLE else View.GONE
 
@@ -349,21 +466,60 @@ class CartFragment : Fragment(), CartLoadListener {
             expand.setImageResource(R.drawable.ic_baseline_expand_less_24)
         }
 
-        if(expander==""){
+        if (expander == "") {
             norek.visibility = v
-            expander="gojek"
-        }else if(expander=="mandiri"){
+            expander = "gojek"
+        } else if (expander == "mandiri") {
             norek.visibility = v
-            view.findViewById<TextView>(R.id.norek).visibility = View.GONE
-            view.findViewById<ImageView>(R.id.expand).setImageResource(R.drawable.ic_baseline_expand_more_24)
-            expander= "gojek"
-        }else if(expander=="gojek"){
+            binding.norek.visibility = View.GONE
+            binding.expand.setImageResource(R.drawable.ic_baseline_expand_more_24)
+            expander = "gojek"
+        } else if (expander == "gojek") {
             norek.visibility = v
+            expander = ""
+        }else if(expander =="dana"){
+            norek.visibility = v
+            binding.norekDana.visibility = View.GONE
+            binding.expandDana.setImageResource(R.drawable.ic_baseline_expand_more_24)
+            expander ="gojek"
         }
 
 
     }
 
+    private fun expandDana(){
+
+        val norek = binding.norekDana
+
+        val expand = binding.expandDana
+
+        val v = if (norek.visibility == View.GONE) View.VISIBLE else View.GONE
+
+        if (v == View.GONE) {
+            expand.setImageResource(R.drawable.ic_baseline_expand_more_24)
+        } else {
+            expand.setImageResource(R.drawable.ic_baseline_expand_less_24)
+        }
+
+        if (expander == "") {
+            norek.visibility = v
+            expander = "dana"
+        } else if (expander == "mandiri") {
+            norek.visibility = v
+            binding.norek.visibility = View.GONE
+            binding.expand.setImageResource(R.drawable.ic_baseline_expand_more_24)
+            expander = "dana"
+        } else if (expander == "dana") {
+            norek.visibility = v
+            expander = ""
+        }else if(expander =="gojek"){
+            norek.visibility = v
+            binding.norekGopay.visibility = View.GONE
+            binding.gopayExpand.setImageResource(R.drawable.ic_baseline_expand_more_24)
+            expander ="dana"
+        }
+
+    }
 
 
     override fun onDestroyView() {
@@ -372,7 +528,7 @@ class CartFragment : Fragment(), CartLoadListener {
 
     }
 
-    fun prosesPesanan(catatan:String, dialog:BottomSheetDialog) {
+    fun prosesPesanan(catatan: String) {
 
         loadingg?.startAlertDialog("Menyelesaikan Transaksi")
 
@@ -386,27 +542,26 @@ class CartFragment : Fragment(), CartLoadListener {
                 cartModelx,
                 user.username,
                 auth.uid,
-                nomorPesan,
                 alamatPesan,
-                "proses",
+                "pending",
                 totalHargaplusongkir,
-              if(catatan=="") "-" else catatan,
+                if (catatan == "") "-" else catatan,
 
-            )
+                )
         ).addOnCompleteListener {
             if (it.isSuccessful) {
 
                 uploadImage(bitmap, id_pesanan)
 
-                val cartcollection = firestore.collection("Cart").document(auth.uid!!).collection("myCart")
+                val cartcollection =
+                    firestore.collection("Cart").document(auth.uid!!).collection("myCart")
 
                 val batch = firestore.batch()
 
-                cartModelx.forEach{ cart->
-                  val each = cartcollection.document(cart.key!!)
+                cartModelx.forEach { cart ->
+                    val each = cartcollection.document(cart.key!!)
                     batch.delete(each)
-                    dialog.dismissWithAnimation= true
-                    dialog.dismiss()
+
                 }
 
 
@@ -415,9 +570,12 @@ class CartFragment : Fragment(), CartLoadListener {
                     loadingg?.dismiss()
                     findNavController().navigate(R.id.action_cartFragment2_to_homeFragment2)
                 }
-            }
-            else {
-                Toast.makeText(context, "Transaksi gagal, ${it.exception!!.message}",Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(
+                    context,
+                    "Transaksi gagal, ${it.exception!!.message}",
+                    Toast.LENGTH_SHORT
+                ).show()
                 loadingg?.dismiss()
             }
 
@@ -433,7 +591,7 @@ class CartFragment : Fragment(), CartLoadListener {
             ref.get().addOnSuccessListener {
                 user = it.toObject<User>()!!
             }.continueWith {
-                ref.collection("alamat").get().addOnSuccessListener { value->
+                ref.collection("alamat").get().addOnSuccessListener { value ->
                     if (value?.size()!! > 0) {
                         for (x in value) {
 
@@ -443,7 +601,9 @@ class CartFragment : Fragment(), CartLoadListener {
 
                         alamats.addAll(alamat)
 
-                        pilihAlamatDialog.setAlamat(alamats)
+
+
+                        pilihAlamatDialog.setAlamat(alamats.sortedBy{ it.time} as MutableList<Alamat>)
 
 
                     }
@@ -481,12 +641,13 @@ class CartFragment : Fragment(), CartLoadListener {
 
         }
     }
+
     private fun selectImage() {
 
 
-        val items = arrayOf<String>("Take Photo", "Choose from Library", "Cancel")
+        val items = arrayOf<String>("ambil foto", "pilih dari galeri", "batal")
         val builder = AlertDialog.Builder(requireActivity())
-        builder.setTitle("Upload foto bukti pembayaran")
+        builder.setTitle("upload foto bukti pembayaran")
 
 
 
@@ -520,35 +681,43 @@ class CartFragment : Fragment(), CartLoadListener {
 
     }
 
-    fun resultLauncer(dialogBinding:DialogCheckoutBinding): ActivityResultLauncher<Intent> = registerForActivityResult(
+    fun resultLauncer(): ActivityResultLauncher<Intent> = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) { result ->
 
 
         if (result.resultCode == Activity.RESULT_OK) {
 
-            dialogBinding.tecter.visibility = View.GONE
+            binding.tecter.visibility = View.GONE
 
-            (dialogBinding.buktiTransfer.layoutParams as LinearLayout.LayoutParams).weight = 1f
+//            (binding.buktiTransfer.layoutParams as LinearLayout.LayoutParams).weight = 1f
+//
+//            binding.buktiTransfer.adjustViewBounds = true
+//
+//            val params = binding.buktiTransfer.layoutParams
+//
+//            params.height = ViewGroup.LayoutParams.MATCH_PARENT
+//            params.width = ViewGroup.LayoutParams.WRAP_CONTENT
+//
+//            binding.buktiTransfer.layoutParams = params
 
-            dialogBinding.buktiTransfer.adjustViewBounds = true
 
-            dialogBinding.uploadBukti.requestLayout()
+            binding.buktiTransfer.visibility = View.GONE
+            binding.imagerr.visibility = View.VISIBLE
+
+
+           binding.uploadBukti.requestLayout()
 
             if (reqCode == 10) {
                 val extras = result!!.data?.extras
-                 bitmap = extras!!.get("data") as Bitmap
+                bitmap = extras!!.get("data") as Bitmap
                 Log.d("requCd", "masukk")
 
                 Glide.with(requireContext())
                     .load(bitmap)
-                    .into(dialogBinding.buktiTransfer)
+                    .into(binding.imagerr)
 
-                dialogBinding.submitBayar.isEnabled = true
-                dialogBinding.submitBayar.setBackgroundResource(R.color.primary)
-
-
-
+                checkButtonBayarEnabled()
 
 
             } else if (reqCode == 20) {
@@ -556,13 +725,12 @@ class CartFragment : Fragment(), CartLoadListener {
                     Log.d("requCd", "masukk1")
                     val path = result!!.data?.data
                     val inputStream = context?.contentResolver!!.openInputStream(path!!)
-                  bitmap = BitmapFactory.decodeStream(inputStream)
+                    bitmap = BitmapFactory.decodeStream(inputStream)
 
                     Glide.with(requireContext())
                         .load(bitmap)
-                        .into( dialogBinding.buktiTransfer)
-                    dialogBinding.submitBayar.isEnabled = true
-                    dialogBinding.submitBayar.setBackgroundResource(R.color.primary)
+                        .into(binding.imagerr)
+                    checkButtonBayarEnabled()
 
 
                 } catch (e: IOException) {
@@ -637,7 +805,7 @@ class CartFragment : Fragment(), CartLoadListener {
         binding.ctotal.text = formatRupiah(ongkir.toInt() + harga.toInt())
         totalHargaplusongkir = ongkir + harga
 
-        binding.btnBayar.isEnabled = true
+        checkButtonBayarEnabled()
     }
 
     override fun onLoadCartSuccess(cartModelList: List<Cart>) {
@@ -727,34 +895,34 @@ class CartFragment : Fragment(), CartLoadListener {
 
     }
 
-    fun uploadImage(bitmap:Bitmap, idpesanan:String){
+    fun uploadImage(bitmap: Bitmap, idpesanan: String) {
 
 
-        val storage=  firebaseStorage.reference.child("images/transaksi/${idpesanan}.jpg")
+        val storage = firebaseStorage.reference.child("images/transaksi/${idpesanan}.jpg")
 
         val baos = ByteArrayOutputStream()
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
-        val data =baos.toByteArray()
+        val data = baos.toByteArray()
 
         val uploadTask = storage.putBytes(data)
 
         uploadTask.addOnSuccessListener {
 
-            it.metadata?.reference?.downloadUrl?.addOnCompleteListener { up->
+            it.metadata?.reference?.downloadUrl?.addOnCompleteListener { up ->
 
-                if(up.isSuccessful){
+                if (up.isSuccessful) {
 
                     firestore.collection("Pesanan").document(idpesanan).update(
-                        "buktiTF", up.result)
+                        "buktiTF", up.result
+                    )
 
                 }
             }
 
-        }.addOnFailureListener{
+        }.addOnFailureListener {
 
 
-
-            Snackbar.make(requireView(),it.toString(), Snackbar.LENGTH_LONG).show()
+            Snackbar.make(requireView(), it.toString(), Snackbar.LENGTH_LONG).show()
 
             Log.d("storagee", it.toString())
 

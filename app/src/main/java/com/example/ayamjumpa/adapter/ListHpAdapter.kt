@@ -63,6 +63,17 @@ class ListHpAdapter(private val onKlikk: OnKlikk<Any>): RecyclerView.Adapter<Lis
                 nohpet.requestFocus()
 
 
+            }else{
+                nohptv.visibility = View.VISIBLE
+                hapuss.visibility = View.VISIBLE
+                editt.visibility =View.VISIBLE
+
+                nohpet.visibility = View.GONE
+                editSubmit.visibility = View.GONE
+                editCancel.visibility = View.GONE
+
+
+
             }
             //v ending
 
@@ -93,7 +104,7 @@ nohptv.text = currentItem
             editt.setOnClickListener {
 
                 if(prevPosition!=-1){
-
+                    editNomor = null
                     notifyItemChanged(prevPosition)
                 }
 

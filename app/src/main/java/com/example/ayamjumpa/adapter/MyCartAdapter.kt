@@ -1,6 +1,7 @@
 package com.example.ayamjumpa.adapter
 
 import android.content.Context
+import android.graphics.Paint
 import android.text.Editable
 
 import android.view.LayoutInflater
@@ -13,6 +14,7 @@ import com.bumptech.glide.Glide
 import com.example.ayamjumpa.R
 import com.example.ayamjumpa.interfaces.CartLoadListener
 import com.example.ayamjumpa.dataClass.Cart
+import org.w3c.dom.Text
 import java.text.NumberFormat
 import java.util.*
 
@@ -33,6 +35,10 @@ class MyCartAdapter(
             var deskripsi1:TextView?=null
             var deskripsi:TextView?=null
 
+            var cartdesc = itemView.findViewById<TextView>(R.id.cartdesc)
+            var cartdesc1 = itemView.findViewById<TextView>(R.id.cartdesc1)
+            var promotext = itemView.findViewById<TextView>(R.id.carthargapromo)
+
 
             init {
                 btnMinus = itemView.findViewById(R.id.btnMinus)
@@ -43,6 +49,7 @@ class MyCartAdapter(
                 qty = itemView.findViewById(R.id.qty)
                deskripsi = itemView.findViewById(R.id.cartdesc)
                deskripsi1 = itemView.findViewById(R.id.cartdesc1)
+
 
             }
 
@@ -76,9 +83,28 @@ class MyCartAdapter(
             .into(holder.imageView!!)
 
 
-        holder.txtName!!.text = currentItem.name
+        holder.txtName!!.text = currentItem.name!!.lowercase()
+
+        holder.cartdesc.text = currentItem.desc1!!.lowercase()
+        holder.cartdesc1.text = currentItem.desc2!!.lowercase()
         holder.txtPrice!!.text = formatRupiah(currentItem.totalharga)
        // holder.txtTotalPrice!!.text = currentItem.totalharga.toString()
+
+
+        if(currentItem.potongan>0L){
+            holder.promotext.visibility = View.VISIBLE
+            holder.txtPrice!!.textSize = 13f
+
+            val hargaasli = currentItem.harga!!.toLong() + currentItem.potongan
+
+            holder.txtPrice!!.text = formatRupiah(hargaasli)
+
+            holder.txtPrice!!.paintFlags = holder.txtPrice!!.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+            holder.promotext.text = formatRupiah(currentItem.harga!!.toLong())
+
+        }
+
+
         holder.qty!!.text = currentItem.qty.toString()
 
         holder.btnMinus!!.setOnClickListener {

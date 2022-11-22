@@ -11,11 +11,11 @@ data class Pesanan (
     var item:List<Cart> ?= null,
     var username:String?=null,
     var idPelanggan:String?=null,
-    var nomorHP:String?=null,
     var alamat: Alamat?=null,
     var status:String?=null,
     var totalHarga:Double?=null,
     var catatan:String?=null,
     var buktiTF:String?=null,
     var tanggal:Timestamp=Timestamp.now(),
+    var expanded:Boolean = false,
         ):Parcelable

@@ -6,6 +6,7 @@ interface Navigation {
     fun showCart(cartCount:Int)
     fun showMenu()
     fun showRasa()
+    fun showMinuman()
     fun toPesanan()
     fun toProfile()
     fun toPromo()
