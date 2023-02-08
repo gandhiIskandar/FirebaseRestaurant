@@ -8,6 +8,8 @@
         <item name="android:titleTextAppearance">@font/centurygothic</item>
         <item name="titleTextAppearance">@font/centurygothic</item>
 
+        <item name="actionOverflowButtonStyle">@style/toolbar</item>
+
         <item name="bottomSheetDialogTheme">@style/bottomx</item>
 
         <item name= "android:textViewStyle" > @style/centuryTextViewStyle </item>
@@ -20,7 +22,9 @@
         <item name="colorSecondaryVariant">@color/teal_700</item>
         <item name="colorOnSecondary">#FFFFFF</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimary</item>
+        <item name="android:statusBarColor" >?attr/colorPrimary</item>
+
+
         <!-- Customize your theme here. -->
     </style>
 
@@ -59,6 +63,10 @@
         <item name="android:textStyle">bold</item>
         <item name="android:fontFamily">@font/centurygothic</item>
         <item name="android:textColor">@color/abu_tua</item>
+    </style>
+
+    <style name="toolbar" parent="android:Widget.ActionButton.Overflow">
+        <item name="android:tint">@color/primary</item>
     </style>
 
 

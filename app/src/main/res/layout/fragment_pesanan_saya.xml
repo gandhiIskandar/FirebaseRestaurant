@@ -9,10 +9,11 @@
     tools:context=".fragment.PesananSayaFragment">
 
     <com.google.android.material.tabs.TabLayout
-        style="@style/MyCustomTabLayout"
         android:id="@+id/tabLayout"
+        style="@style/MyCustomTabLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:contentDescription="@string/app_name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

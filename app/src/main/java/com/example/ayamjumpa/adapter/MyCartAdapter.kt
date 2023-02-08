@@ -1,6 +1,8 @@
 package com.example.ayamjumpa.adapter
 
 import android.content.Context
+import android.graphics.ColorMatrix
+import android.graphics.ColorMatrixColorFilter
 import android.graphics.Paint
 import android.text.Editable
 
@@ -38,6 +40,7 @@ class MyCartAdapter(
             var cartdesc = itemView.findViewById<TextView>(R.id.cartdesc)
             var cartdesc1 = itemView.findViewById<TextView>(R.id.cartdesc1)
             var promotext = itemView.findViewById<TextView>(R.id.carthargapromo)
+            var stoktext = itemView.findViewById<TextView>(R.id.stok_habis)
 
 
             init {
@@ -68,8 +71,19 @@ class MyCartAdapter(
         val localeID = Locale("in", "ID")
 
         val format = NumberFormat.getCurrencyInstance(localeID)
+        var withrp = format.format(number)
+        withrp = withrp.substring(2, withrp.lastIndex + 1)
 
-        return format.format(number)
+        if (withrp.contains(',')) {
+
+            val lastidx = withrp.indexOf(',')
+
+            withrp = withrp.substring(0, lastidx)
+
+        }
+
+
+        return withrp
 
 
 
@@ -95,16 +109,14 @@ class MyCartAdapter(
             holder.promotext.visibility = View.VISIBLE
             holder.txtPrice!!.textSize = 13f
 
-            val hargaasli = currentItem.harga!!.toLong() + currentItem.potongan
+            val hargaasli = currentItem.totalharga + (currentItem.potongan * currentItem.qty)
 
             holder.txtPrice!!.text = formatRupiah(hargaasli)
 
-            holder.txtPrice!!.paintFlags = holder.txtPrice!!.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
-            holder.promotext.text = formatRupiah(currentItem.harga!!.toLong())
+           holder.txtPrice!!.paintFlags = holder.txtPrice!!.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+            holder.promotext.text = formatRupiah(currentItem.totalharga!!.toLong())
 
         }
-
-
         holder.qty!!.text = currentItem.qty.toString()
 
         holder.btnMinus!!.setOnClickListener {
@@ -117,11 +129,22 @@ class MyCartAdapter(
 
         }
 
+
+
+
         holder.btnPlus!!.setOnClickListener {
             plusCartItem(holder,currentItem)
         }
 
 
+
+
+        if(currentItem.name!!.contains("|")){
+            val idx = currentItem.name!!.indexOf("|")
+            val judul = currentItem.name!!.substring(0,idx)
+
+            holder.txtName!!.text = judul
+        }
 
 
 

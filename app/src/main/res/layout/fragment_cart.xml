@@ -38,6 +38,8 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/cart_recyclerView"
+                    android:overScrollMode="never"
+                    android:nestedScrollingEnabled="false"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
 
@@ -249,7 +251,7 @@
                                 >
 
                                 <ImageView
-                                    android:layout_width="100dp"
+                                    android:layout_width="80dp"
                                     android:layout_height="50dp"
                                     android:layout_marginStart="10dp"
                                     android:paddingVertical="5dp"
@@ -299,10 +301,10 @@
                                 android:layout_weight="0.8"
                                 android:layout_height="match_parent"
 
-                                android:gravity="center"
-                                android:padding="5dp"
+                                android:gravity="center_vertical"
+                                android:layout_marginStart="15dp"
                                 android:text="081367649994"
-                                android:textAlignment="center"
+
                                 android:textColor="@color/abu_tua"
 
                                 android:textSize="16sp"
@@ -312,7 +314,7 @@
                                 android:id="@+id/gopay_copy"
                                 android:layout_gravity="center_vertical"
                                 android:layout_width="0dp"
-                                android:layout_height="35dp"
+                                android:layout_height="28dp"
                                 android:layout_weight="0.2"
                                 android:src="@drawable/ic_copy_svgrepo_com"
                                 />
@@ -345,7 +347,7 @@
 
                                 <ImageView
 
-                                    android:layout_width="100dp"
+                                    android:layout_width="80dp"
                                     android:layout_height="50dp"
                                     android:layout_marginStart="10dp"
 
@@ -394,13 +396,13 @@
                             <TextView
                                 android:id="@+id/transfer_dana"
                                 android:layout_width="0dp"
-                                android:layout_weight="0.78"
+                                android:layout_marginStart="15dp"
+                                android:layout_weight="0.8"
                                 android:layout_height="match_parent"
+                                android:includeFontPadding="false"
+                                android:gravity="center_vertical"
 
-                                android:gravity="center"
-                                android:padding="5dp"
                                 android:text="081367649994"
-                                android:textAlignment="center"
                                 android:textColor="@color/abu_tua"
 
                                 android:textSize="16sp"
@@ -410,8 +412,8 @@
                                 android:id="@+id/dana_copy"
                                android:layout_gravity="center_vertical"
                                 android:layout_width="0dp"
-                                android:layout_height="35dp"
-                                android:layout_weight="0.22"
+                                android:layout_height="28dp"
+                                android:layout_weight="0.20"
                                 android:src="@drawable/ic_copy_svgrepo_com"
                                 />
 
@@ -445,12 +447,12 @@
                                 android:layout_height="wrap_content">
 
                                 <ImageView
-                                    android:layout_width="100dp"
+                                    android:layout_width="80dp"
                                     android:layout_height="50dp"
                                     android:layout_marginStart="10dp"
                                     android:padding="3dp"
 
-                                    android:paddingVertical="5dp"
+                                    android:paddingBottom="10dp"
 
                                     android:src="@drawable/ic_mandiri1"
                                     app:layout_constraintBottom_toBottomOf="parent"
@@ -498,10 +500,11 @@
                                 android:layout_weight="0.8"
                                 android:layout_height="match_parent"
 
-                                android:gravity="center"
-                                android:padding="5dp"
+                                android:gravity="center_vertical"
+                                android:layout_marginStart="15dp"
+
                                 android:text="114-000-482-446-5\natas nama Vincentius Probo Sulistyo"
-                                android:textAlignment="center"
+
                                 android:textColor="@color/abu_tua"
 
                                 android:textSize="16sp"
@@ -511,7 +514,7 @@
                                 android:id="@+id/mandiri_copy"
                                 android:layout_gravity="center_vertical"
                                 android:layout_width="0dp"
-                                android:layout_height="35dp"
+                                android:layout_height="28dp"
                                 android:layout_weight="0.2"
                                 android:src="@drawable/ic_copy_svgrepo_com"
                                 />
@@ -570,10 +573,25 @@
                         android:layout_height="60dp"
                         android:layout_marginTop="5dp"
                         android:backgroundTint="@color/enabledd"
-                        android:enabled="false"
                         android:fontFamily="@font/centurygothic"
                         android:text="bayar"
                         android:textAllCaps="false"
+                        android:textSize="17sp"
+                        android:textStyle="bold"
+                        app:cornerRadius="20dp" />
+
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnOffline"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_marginTop="5dp"
+                        android:backgroundTint="@color/grey"
+                       android:enabled="false"
+                        android:text="tidak ada internet"
+                        android:textAllCaps="false"
+                        android:visibility="gone"
+                        android:fontFamily="@font/centurygothic"
                         android:textSize="17sp"
                         android:textStyle="bold"
                         app:cornerRadius="20dp" />

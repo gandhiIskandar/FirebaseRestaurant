@@ -48,8 +48,8 @@ class PesananSayaFragment : Fragment() {
 
 
                 when(postion){
-                    0-> tab.text ="dalam proses"
-                    1-> tab.text ="riwayat"
+                    0-> tab.text ="order aktif"
+                    1-> tab.text ="riwayat order"
                 }
 
 

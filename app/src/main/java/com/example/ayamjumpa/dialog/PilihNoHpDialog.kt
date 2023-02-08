@@ -25,7 +25,7 @@ class PilihNoHpDialog(private val onClick: (String) -> Unit) : DialogFragment(),
     private var nomorarray: MutableList<String> = arrayListOf()
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        binding = PilihnohpdialogBinding.inflate(LayoutInflater.from(context))
+        binding = PilihnohpdialogBinding.inflate(layoutInflater)
 
         val builder = AlertDialog.Builder(requireActivity())
         builder.setView(binding.root)

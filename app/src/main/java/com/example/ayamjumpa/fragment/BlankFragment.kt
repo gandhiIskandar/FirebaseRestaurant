@@ -235,7 +235,7 @@ class BlankFragment : Fragment(), OnClickMapViewHolder {
     fun setupRecycler(alamat: MutableList<Alamat>) {
 
 
-        adapter.differ.submitList(alamat)
+        adapter.differ.submitList(alamat.sortedBy { data -> data.time })
 
         binding.alamatListk.adapter = adapter
 

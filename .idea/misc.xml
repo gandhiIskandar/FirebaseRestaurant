@@ -22,6 +22,7 @@
         <entry key="..\:/Users/PERWARA/AndroidStudioProjects/AyamJumpa/app/src/main/res/drawable/ic_account_focused.xml" value="0.124" />
         <entry key="..\:/Users/PERWARA/AndroidStudioProjects/AyamJumpa/app/src/main/res/drawable/ic_baccker.xml" value="0.1985" />
         <entry key="..\:/Users/PERWARA/AndroidStudioProjects/AyamJumpa/app/src/main/res/drawable/ic_back.xml" value="0.193" />
+        <entry key="..\:/Users/PERWARA/AndroidStudioProjects/AyamJumpa/app/src/main/res/drawable/ic_back1.xml" value="0.199" />
         <entry key="..\:/Users/PERWARA/AndroidStudioProjects/AyamJumpa/app/src/main/res/drawable/ic_backerbutton.xml" value="0.1975" />
         <entry key="..\:/Users/PERWARA/AndroidStudioProjects/AyamJumpa/app/src/main/res/drawable/ic_backkereeere.xml" value="0.1985" />
         <entry key="..\:/Users/PERWARA/AndroidStudioProjects/AyamJumpa/app/src/main/res/drawable/ic_baseline_account_circle_24.xml" value="0.124" />
@@ -36,6 +37,7 @@
         <entry key="..\:/Users/PERWARA/AndroidStudioProjects/AyamJumpa/app/src/main/res/drawable/ic_baseline_expand_less_24.xml" value="0.1985" />
         <entry key="..\:/Users/PERWARA/AndroidStudioProjects/AyamJumpa/app/src/main/res/drawable/ic_baseline_expand_more_24.xml" value="0.1985" />
         <entry key="..\:/Users/PERWARA/AndroidStudioProjects/AyamJumpa/app/src/main/res/drawable/ic_baseline_image_24.xml" value="0.201" />
+        <entry key="..\:/Users/PERWARA/AndroidStudioProjects/AyamJumpa/app/src/main/res/drawable/ic_baseline_keyboard_arrow_left_24.xml" value="0.192" />
         <entry key="..\:/Users/PERWARA/AndroidStudioProjects/AyamJumpa/app/src/main/res/drawable/ic_baseline_keyboard_arrow_right_24.xml" value="0.281" />
         <entry key="..\:/Users/PERWARA/AndroidStudioProjects/AyamJumpa/app/src/main/res/drawable/ic_baseline_location_on_24.xml" value="0.193" />
         <entry key="..\:/Users/PERWARA/AndroidStudioProjects/AyamJumpa/app/src/main/res/drawable/ic_baseline_person_24.xml" value="0.193" />
@@ -73,23 +75,23 @@
         <entry key="..\:/Users/PERWARA/AndroidStudioProjects/AyamJumpa/app/src/main/res/layout/cart_viewholder.xml" value="0.33" />
         <entry key="..\:/Users/PERWARA/AndroidStudioProjects/AyamJumpa/app/src/main/res/layout/datapesanan_vh.xml" value="0.33" />
         <entry key="..\:/Users/PERWARA/AndroidStudioProjects/AyamJumpa/app/src/main/res/layout/dialog_checkout.xml" value="0.33" />
-        <entry key="..\:/Users/PERWARA/AndroidStudioProjects/AyamJumpa/app/src/main/res/layout/dialogoption.xml" value="0.2" />
+        <entry key="..\:/Users/PERWARA/AndroidStudioProjects/AyamJumpa/app/src/main/res/layout/dialogoption.xml" value="0.67" />
         <entry key="..\:/Users/PERWARA/AndroidStudioProjects/AyamJumpa/app/src/main/res/layout/dropdown_item.xml" value="0.33" />
         <entry key="..\:/Users/PERWARA/AndroidStudioProjects/AyamJumpa/app/src/main/res/layout/fragment_alamat.xml" value="0.33" />
         <entry key="..\:/Users/PERWARA/AndroidStudioProjects/AyamJumpa/app/src/main/res/layout/fragment_bayar.xml" value="0.1570175438596491" />
         <entry key="..\:/Users/PERWARA/AndroidStudioProjects/AyamJumpa/app/src/main/res/layout/fragment_blank.xml" value="0.22" />
-        <entry key="..\:/Users/PERWARA/AndroidStudioProjects/AyamJumpa/app/src/main/res/layout/fragment_cart.xml" value="0.41135573580533025" />
+        <entry key="..\:/Users/PERWARA/AndroidStudioProjects/AyamJumpa/app/src/main/res/layout/fragment_cart.xml" value="0.37727759914255093" />
         <entry key="..\:/Users/PERWARA/AndroidStudioProjects/AyamJumpa/app/src/main/res/layout/fragment_checkout.xml" value="0.16271929824561404" />
         <entry key="..\:/Users/PERWARA/AndroidStudioProjects/AyamJumpa/app/src/main/res/layout/fragment_daftar.xml" value="0.25" />
         <entry key="..\:/Users/PERWARA/AndroidStudioProjects/AyamJumpa/app/src/main/res/layout/fragment_dalam_proses.xml" value="0.33" />
         <entry key="..\:/Users/PERWARA/AndroidStudioProjects/AyamJumpa/app/src/main/res/layout/fragment_detail_pesanan.xml" value="0.33" />
-        <entry key="..\:/Users/PERWARA/AndroidStudioProjects/AyamJumpa/app/src/main/res/layout/fragment_home.xml" value="0.5" />
-        <entry key="..\:/Users/PERWARA/AndroidStudioProjects/AyamJumpa/app/src/main/res/layout/fragment_login.xml" value="0.2" />
+        <entry key="..\:/Users/PERWARA/AndroidStudioProjects/AyamJumpa/app/src/main/res/layout/fragment_home.xml" value="0.24100475220638154" />
+        <entry key="..\:/Users/PERWARA/AndroidStudioProjects/AyamJumpa/app/src/main/res/layout/fragment_login.xml" value="0.3009833262077811" />
         <entry key="..\:/Users/PERWARA/AndroidStudioProjects/AyamJumpa/app/src/main/res/layout/fragment_map.xml" value="0.33" />
         <entry key="..\:/Users/PERWARA/AndroidStudioProjects/AyamJumpa/app/src/main/res/layout/fragment_menu.xml" value="0.41223103057757643" />
         <entry key="..\:/Users/PERWARA/AndroidStudioProjects/AyamJumpa/app/src/main/res/layout/fragment_menuprofile.xml" value="0.33" />
         <entry key="..\:/Users/PERWARA/AndroidStudioProjects/AyamJumpa/app/src/main/res/layout/fragment_nomor_handphone.xml" value="0.16271929824561404" />
-        <entry key="..\:/Users/PERWARA/AndroidStudioProjects/AyamJumpa/app/src/main/res/layout/fragment_pesanan_saya.xml" value="0.3087719298245614" />
+        <entry key="..\:/Users/PERWARA/AndroidStudioProjects/AyamJumpa/app/src/main/res/layout/fragment_pesanan_saya.xml" value="0.16766467065868262" />
         <entry key="..\:/Users/PERWARA/AndroidStudioProjects/AyamJumpa/app/src/main/res/layout/fragment_pilih_alamat_l_a_g_i.xml" value="0.5" />
         <entry key="..\:/Users/PERWARA/AndroidStudioProjects/AyamJumpa/app/src/main/res/layout/fragment_profile.xml" value="0.5" />
         <entry key="..\:/Users/PERWARA/AndroidStudioProjects/AyamJumpa/app/src/main/res/layout/fragment_riwayat.xml" value="0.25" />
@@ -97,13 +99,14 @@
         <entry key="..\:/Users/PERWARA/AndroidStudioProjects/AyamJumpa/app/src/main/res/layout/item_slide.xml" value="0.1" />
         <entry key="..\:/Users/PERWARA/AndroidStudioProjects/AyamJumpa/app/src/main/res/layout/kategori_viewholder.xml" value="0.5" />
         <entry key="..\:/Users/PERWARA/AndroidStudioProjects/AyamJumpa/app/src/main/res/layout/konfirmasi_tambah.xml" value="0.15964912280701754" />
-        <entry key="..\:/Users/PERWARA/AndroidStudioProjects/AyamJumpa/app/src/main/res/layout/loadingbar.xml" value="0.5" />
+        <entry key="..\:/Users/PERWARA/AndroidStudioProjects/AyamJumpa/app/src/main/res/layout/loadingbar.xml" value="0.33" />
         <entry key="..\:/Users/PERWARA/AndroidStudioProjects/AyamJumpa/app/src/main/res/layout/menu_list_vh.xml" value="0.67" />
         <entry key="..\:/Users/PERWARA/AndroidStudioProjects/AyamJumpa/app/src/main/res/layout/menu_vh.xml" value="0.33" />
         <entry key="..\:/Users/PERWARA/AndroidStudioProjects/AyamJumpa/app/src/main/res/layout/menu_viewholder.xml" value="0.5" />
         <entry key="..\:/Users/PERWARA/AndroidStudioProjects/AyamJumpa/app/src/main/res/layout/nohp_viewholder.xml" value="0.33" />
         <entry key="..\:/Users/PERWARA/AndroidStudioProjects/AyamJumpa/app/src/main/res/layout/nohpvh.xml" value="0.33" />
         <entry key="..\:/Users/PERWARA/AndroidStudioProjects/AyamJumpa/app/src/main/res/layout/nohpviewholder.xml" value="0.16271929824561404" />
+        <entry key="..\:/Users/PERWARA/AndroidStudioProjects/AyamJumpa/app/src/main/res/layout/offline_dialog.xml" value="0.33" />
         <entry key="..\:/Users/PERWARA/AndroidStudioProjects/AyamJumpa/app/src/main/res/layout/pesanan_viewholder.xml" value="0.5" />
         <entry key="..\:/Users/PERWARA/AndroidStudioProjects/AyamJumpa/app/src/main/res/layout/pilihalamatdialog.xml" value="0.3852544132917965" />
         <entry key="..\:/Users/PERWARA/AndroidStudioProjects/AyamJumpa/app/src/main/res/layout/pilihnohpdialog.xml" value="0.33" />
@@ -111,10 +114,12 @@
         <entry key="..\:/Users/PERWARA/AndroidStudioProjects/AyamJumpa/app/src/main/res/layout/supportactionbar.xml" value="0.25" />
         <entry key="..\:/Users/PERWARA/AndroidStudioProjects/AyamJumpa/app/src/main/res/layout/tambah_konfirmasi.xml" value="0.25" />
         <entry key="..\:/Users/PERWARA/AndroidStudioProjects/AyamJumpa/app/src/main/res/layout/tambahnomordialog.xml" value="0.25" />
+        <entry key="..\:/Users/PERWARA/AndroidStudioProjects/AyamJumpa/app/src/main/res/layout/terlaris_linearviewholder.xml" value="0.29743589743589743" />
         <entry key="..\:/Users/PERWARA/AndroidStudioProjects/AyamJumpa/app/src/main/res/layout/terlaris_viewholder.xml" value="0.5" />
         <entry key="..\:/Users/PERWARA/AndroidStudioProjects/AyamJumpa/app/src/main/res/menu/menu.xml" value="0.33" />
         <entry key="..\:/Users/PERWARA/AndroidStudioProjects/AyamJumpa/app/src/main/res/menu/menu2.xml" value="0.15964912280701754" />
         <entry key="..\:/Users/PERWARA/AndroidStudioProjects/AyamJumpa/app/src/main/res/menu/menu3.xml" value="0.25" />
+        <entry key="..\:/Users/PERWARA/AndroidStudioProjects/AyamJumpa/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1945" />
         <entry key="..\:/Users/PERWARA/AndroidStudioProjects/AyamJumpa/app/src/main/res/xml/shimmering.xml" value="0.1" />
       </map>
     </option>

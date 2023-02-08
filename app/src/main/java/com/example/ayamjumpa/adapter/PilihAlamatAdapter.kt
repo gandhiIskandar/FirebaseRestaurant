@@ -53,7 +53,7 @@ class PilihAlamatAdapter(
         val currentItem = differ.currentList[position]
 
         holder.hapus.setOnClickListener {
-editatauhapus.onClickHapus(currentItem)
+            editatauhapus.onClickHapus(currentItem)
         }
         holder.edit.setOnClickListener {
             editatauhapus.onClickEdit(currentItem)
@@ -113,7 +113,7 @@ editatauhapus.onClickHapus(currentItem)
 
         }
 
-        if(holder.adapterPosition == 0){
+        if (holder.adapterPosition == 0) {
 
             holder.bookmark.setImageResource(R.drawable.ic_baseline_person_24)
             holder.hapus.visibility = View.GONE

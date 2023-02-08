@@ -1,10 +1,13 @@
 package com.example.ayamjumpa.util
 
 import android.content.Context
+import android.location.Location
 import android.net.ConnectivityManager
 import android.net.Network
 import android.net.NetworkCapabilities
 import android.net.NetworkRequest
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 
 import androidx.lifecycle.ViewModel
 
@@ -26,6 +29,15 @@ sealed class MyState {
 class NetworkStatusViewModel(
     networkStatusTracker: NetworkStatusTracker,
 ) : ViewModel() {
+
+    private val currentLocation=MutableLiveData<Location>()
+    val currentLocationLiveData:LiveData<Location>
+    get() = currentLocation
+
+    fun setCurrentLocation(location: Location){
+        currentLocation.value = location
+    }
+
 
     val state =
         networkStatusTracker.networkStatus

@@ -1,12 +1,16 @@
 package com.example.ayamjumpa.fragment
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -14,6 +18,7 @@ import com.example.ayamjumpa.MainMenuActivity
 import com.example.ayamjumpa.R
 import com.example.ayamjumpa.databinding.FragmentLoginBinding
 import com.example.ayamjumpa.eventBus.StatusMessage
+import com.example.ayamjumpa.util.AlertDialogBuilder
 import com.example.ayamjumpa.viewModel.AuthViewModel
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.AuthResult
@@ -34,7 +39,13 @@ class LoginFragment : Fragment() {
     private lateinit var firebaseAuth: FirebaseAuth
     private val authh=FirebaseAuth.getInstance()
     private val scope = CoroutineScope(Job() + Dispatchers.IO)
-    private val authViewModel: AuthViewModel by viewModels()
+
+
+    private val handler : Handler by lazy{
+        Handler(Looper.getMainLooper())
+    }
+
+    private lateinit var mContext : Context
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,6 +53,7 @@ class LoginFragment : Fragment() {
     ): View {
         firebaseAuth = Firebase.auth
 
+        val loading = AlertDialogBuilder(requireActivity())
 
 
         if (firebaseAuth.currentUser != null) {
@@ -59,11 +71,22 @@ class LoginFragment : Fragment() {
 
             if (email.isNotEmpty() && password.isNotEmpty()) {
 
+                val runnable = timeOut(loading)
+
+                loading.startAlertDialog("Loading..")
+
+                handler.postDelayed(runnable, 10000)
+
                 scope.launch {
                   authh.signInWithEmailAndPassword(email, password).addOnCompleteListener {
                        if(it.isSuccessful){
-                           Log.d("haha","hahaha")
+                           handler.removeCallbacks(runnable)
+                           masukMenuUtama()
                        }else{
+
+                           handler.removeCallbacks(runnable)
+                           loading.dismiss()
+
                            Snackbar.make(
                                requireView(),
                                "Gagal Login",
@@ -109,6 +132,12 @@ class LoginFragment : Fragment() {
 
     }
 
+    private fun timeOut(loading:AlertDialogBuilder) = Runnable{
+        Toast.makeText(mContext, "Gagal login, mohon periksa koneksi internet anda", Toast.LENGTH_SHORT).show()
+        loading.dismiss()
+
+    }
+
     override fun onStart() {
         super.onStart()
         EventBus.getDefault().register(this)
@@ -117,6 +146,12 @@ class LoginFragment : Fragment() {
     override fun onStop() {
         super.onStop()
         EventBus.getDefault().unregister(this)
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        mContext = context
     }
 
     private fun masukMenuUtama() {

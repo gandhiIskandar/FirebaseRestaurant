@@ -14,5 +14,5 @@ data class Cart(
     var desc1: String? = null,
     var desc2:String?=null,
     var potongan:Long=0L,
-) : Parcelable
+    ) : Parcelable
 

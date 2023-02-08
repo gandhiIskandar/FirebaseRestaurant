@@ -1,20 +1,22 @@
 package com.example.ayamjumpa.adapter
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.RecyclerView
-import com.example.ayamjumpa.dataClass.Menu
 import com.example.ayamjumpa.databinding.MenuListVhBinding
 import com.example.ayamjumpa.util.DiffUtilRepo
 
 class KategoriListAdapter(private val context: Context, private val navigaton:(Array<String>)->Unit) : RecyclerView.Adapter<KategoriListAdapter.MyViewHolder>() {
-    private val diffUtilRepo = DiffUtilRepo<Menu>()
+    private val diffUtilRepo = DiffUtilRepo<String>()
 
     val differ = AsyncListDiffer(this,diffUtilRepo)
+
+    private var hasmap : Map<String?,Int>? = null
+
+
 
     var indicator ="menu"
 
@@ -36,30 +38,21 @@ class KategoriListAdapter(private val context: Context, private val navigaton:(A
 
         val currentItem = differ.currentList[position]
 
-        holder.namaKategori.text = if (indicator =="menu") currentItem.menuKey else currentItem.rasaKey
-
-        var count= 0
-
-        differ.currentList.forEach { menu->
-            if(if(indicator=="menu")menu.menuKey == currentItem.menuKey else menu.rasaKey == currentItem.rasaKey){
-                count++
-
-            }
-
-
-        }
-
-        holder.jumlahKategori.text = count.toString()
+holder.namaKategori.text = currentItem
+        holder.jumlahKategori.text = hasmap?.get(currentItem).toString()
 
         holder.itemView.setOnClickListener {
 
             if(indicator=="menu"){
 
-                navigaton.invoke(arrayOf(currentItem.menuKey!!,"menu"))
+                navigaton.invoke(arrayOf(currentItem,"menu"))
+            }
+            else if(indicator=="minuman"){
+                navigaton.invoke(arrayOf(currentItem,"minuman"))
             }
 
             else{
-                navigaton.invoke(arrayOf(currentItem.rasaKey!!,"rasa"))
+                navigaton.invoke(arrayOf(currentItem,"rasa"))
             }
 
 
@@ -68,5 +61,12 @@ class KategoriListAdapter(private val context: Context, private val navigaton:(A
 
     }
 
+
+
     override fun getItemCount(): Int = differ.currentList.size
+
+
+    fun setHashMap(data:Map<String?,Int>){
+        hasmap = data
+    }
 }

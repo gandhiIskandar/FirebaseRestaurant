@@ -49,8 +49,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2dp"
-                        android:text="selamat datang"
                         android:includeFontPadding="false"
+                        android:text="selamat datang"
                         android:textColor="@color/abu_tua"
                         android:textSize="17sp"
                         android:textStyle="bold"
@@ -121,6 +121,7 @@
                             android:focusable="false"
                             android:focusableInTouchMode="true"
                             android:paddingHorizontal="10dp"
+                            android:visibility="gone"
                             android:weightSum="1"
                             app:layout_constraintTop_toBottomOf="@id/wraper">
 
@@ -129,12 +130,12 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight=".8"
-                                app:queryBackground="@android:color/transparent"
                                 android:background="@drawable/button_putih"
                                 android:ems="10"
                                 android:hint="Cari menu favorit kamu"
                                 android:inputType="textPersonName"
                                 android:textSize="15sp"
+                                app:queryBackground="@android:color/transparent"
 
 
                                 tools:textStyle="italic" />
@@ -165,75 +166,19 @@
                             </androidx.constraintlayout.widget.ConstraintLayout>
                         </LinearLayout>
 
-                        <TextView
-                            android:id="@+id/textView4"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:textSize="20sp"
-                            android:paddingHorizontal="15dp"
-                            android:text="aneka menu"
-                            android:textColor="@color/black"
-                            android:textStyle="bold"
-                            app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName2"
-                            app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName2" />
 
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/recyclerView_kategori"
+                        <LinearLayout
+
+                            android:id="@+id/linearRv"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_marginTop="7dp"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/textView4" />
-
-                        <TextView
-                            android:id="@+id/anekarasa"
-                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:paddingHorizontal="15dp"
-                            android:text="aneka rasa"
-                            android:textSize="20sp"
-                            android:textColor="@color/black"
-                            android:textStyle="bold"
-                            app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName2"
-                            app:layout_constraintTop_toBottomOf="@+id/recyclerView_kategori" />
+                            android:orientation="vertical"
+                            app:layout_constraintTop_toBottomOf="@+id/wraper"
+
+                            >
 
 
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/recyclerView_anekarasa"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-
-                            app:layout_constraintEnd_toEndOf="parent"
-
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/anekarasa" />
-
-                        <TextView
-                            android:id="@+id/textView5"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:paddingHorizontal="15dp"
-                            android:text="terlaris"
-                            android:textSize="20sp"
-                            android:textColor="@color/black"
-                            android:textStyle="bold"
-                            app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName2"
-                            app:layout_constraintTop_toBottomOf="@+id/recyclerView_anekarasa" />
-
-
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/recyclerView_terlaris"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:padding="5dp"
-                            android:nestedScrollingEnabled="false"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/textView5" />
+                        </LinearLayout>
 
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -259,7 +204,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="15dp"
-                android:visibility="visible"
+                android:visibility="gone"
                 app:cardCornerRadius="30dp"
                 app:cardElevation="0dp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -270,9 +215,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/primary"
-                    android:paddingVertical="8dp"
                     android:paddingHorizontal="20dp"
-                    >
+                    android:paddingVertical="8dp">
 
                     <TextView
                         android:id="@+id/itemtotal"
@@ -280,8 +224,8 @@
                         android:layout_height="wrap_content"
                         android:text="1 items"
                         android:textColor="@color/abu_tua"
-                        android:textStyle="bold"
                         android:textSize="18sp"
+                        android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -319,20 +263,13 @@
             </androidx.cardview.widget.CardView>
 
 
-            <HorizontalScrollView
+            <androidx.recyclerview.widget.RecyclerView
 
-                android:layout_width="match_parent"
+                android:id="@+id/recyclerMenu"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false" />
 
-                android:scrollbarSize="0dp"
-                android:scrollbarThumbHorizontal="@android:color/transparent">
-
-                <androidx.recyclerview.widget.RecyclerView
-
-                    android:id="@+id/recyclerMenu"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-            </HorizontalScrollView>
 
         </LinearLayout>
 

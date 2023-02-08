@@ -19,17 +19,18 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:divider="@drawable/space"
+
             android:orientation="vertical"
             android:padding="10dp"
-            android:showDividers="middle"
+
+
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
                 android:id="@+id/cartnama"
-                android:layout_width="wrap_content"
+                android:layout_width="180sp"
                 android:layout_height="wrap_content"
                 android:text="Judul Makanan"
                 android:textColor="@color/abu_tua"
@@ -40,9 +41,10 @@
                 android:id="@+id/cartdesc"
                 android:layout_width="185dp"
                 android:layout_height="wrap_content"
-                android:text="Nasi + Ayam Goreng + Es Teh"
+
+                android:text="nasi + ayam"
                 android:textColor="@color/grey"
-                android:textSize="14sp"
+                android:textSize="18sp"
 
                 />
 
@@ -50,6 +52,7 @@
                 android:id="@+id/cartdesc1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+
                 android:text="Pedesnya bikin nagih!"
                 android:textColor="@color/abu_tua"
                 android:textSize="15sp"
@@ -60,14 +63,15 @@
                 android:id="@+id/cartharga"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:text="Rp 25.000"
                 android:textColor="@color/abu_tua"
                 android:textSize="15sp"
                 android:textStyle="bold"
 
                 />
+
             <TextView
-                android:visibility="gone"
                 android:id="@+id/carthargapromo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -75,6 +79,21 @@
                 android:textColor="@color/abu_tua"
                 android:textSize="15sp"
                 android:textStyle="bold"
+                android:visibility="gone"
+
+                />
+
+
+            <TextView
+                android:id="@+id/stok_habis"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="stok habis"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/red"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:visibility="gone"
 
                 />
 

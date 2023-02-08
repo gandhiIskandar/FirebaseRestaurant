@@ -54,7 +54,7 @@ class RiwayatFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
      vm.getPesananx.observe(viewLifecycleOwner){
-         val list = it.filter { pesanan -> pesanan.status == "selesai" }
+         val list = it.filter { pesanan -> pesanan.status == "selesai" || pesanan.status == "ditolak" }
          pesananAdapter.differ.submitList(list)
 
      }

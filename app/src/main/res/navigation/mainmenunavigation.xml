@@ -16,10 +16,6 @@
         <action
             android:id="@+id/action_homeFragment_to_cartFragment2"
             app:destination="@id/cartFragment2"
-            app:enterAnim="@android:anim/fade_in"
-            app:exitAnim="@android:anim/fade_out"
-            app:popEnterAnim="@android:anim/fade_in"
-            app:popExitAnim="@android:anim/fade_out"
             app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_homeFragment_to_menuFragment"
@@ -47,10 +43,6 @@
         <action
             android:id="@+id/action_cartFragment2_to_homeFragment2"
             app:destination="@id/homeFragment"
-            app:enterAnim="@android:anim/fade_in"
-            app:exitAnim="@android:anim/fade_out"
-            app:popEnterAnim="@android:anim/fade_in"
-            app:popExitAnim="@android:anim/fade_out"
             app:popUpTo="@id/homeFragment"
             app:popUpToInclusive="true" />
         <action
@@ -112,7 +104,7 @@
     <fragment
         android:id="@+id/pesanan_saya"
         android:name="com.example.ayamjumpa.fragment.PesananSayaFragment"
-        android:label="pesanan saya"
+        android:label="riwayat order"
         tools:layout="@layout/fragment_pesanan_saya">
         <action
             android:id="@+id/action_pesanan_saya_to_menuprofile"

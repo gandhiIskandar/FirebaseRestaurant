@@ -10,4 +10,5 @@ interface Navigation {
     fun toPesanan()
     fun toProfile()
     fun toPromo()
+    fun toPaket()
 }

@@ -23,7 +23,7 @@ private val args :FragmentDetailPesananArgs by navArgs()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         binding = FragmentDetailPesananBinding.inflate(inflater, container, false)
 

@@ -11,6 +11,8 @@ import android.graphics.BitmapFactory
 import android.graphics.Canvas
 import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextWatcher
@@ -27,6 +29,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.ayamjumpa.MainActivity
 import com.example.ayamjumpa.R
@@ -54,6 +57,7 @@ import com.google.firebase.storage.FirebaseStorage
 import kotlinx.coroutines.*
 import java.io.ByteArrayOutputStream
 import java.io.IOException
+import java.lang.Runnable
 import javax.security.auth.PrivateCredentialPermission
 
 
@@ -72,8 +76,13 @@ class ProfileFragment : Fragment() {
     private lateinit var authCredentialPermission: AuthCredential
 
     private lateinit var firebseStorage: FirebaseStorage
+
+    private lateinit var userEmail: String
     private lateinit var dialogLoading: AlertDialogBuilder
     private lateinit var mactivity: Activity
+    private lateinit var handler: Handler
+    private var connect: Boolean = false
+    private lateinit var runner: Runnable
     private lateinit var vm: CartViewModel
     private val nomoraing = arrayOfNulls<String>(2)
     private val firestoreViewModel: AuthViewModel by viewModels()
@@ -83,7 +92,24 @@ class ProfileFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+
+    ): View {
+        userEmail = Firebase.auth.currentUser?.email!!
+        handler = Handler(Looper.getMainLooper())
+        runner = Runnable {
+
+            dialogLoading.dismiss()
+
+            Toast.makeText(
+                requireContext(),
+                "Koneksi tidak stabil, data akan disimpan di penympanan lokal",
+                Toast.LENGTH_LONG
+            ).show()
+
+
+        }
+
+        dialogLoading = AlertDialogBuilder(mactivity)
 
         val viewModel: CartViewModel by lazy {
             ViewModelProvider(
@@ -105,59 +131,77 @@ class ProfileFragment : Fragment() {
 
         val dialog = GantiPasswordDialog(
             onSubmitClickListener = { data ->
-                firebaseAuth.currentUser!!.reauthenticate(authCredentialPermission)
-                    .addOnCompleteListener {
-                        if (it.isSuccessful) {
-                            if (data[1] == data[2] && data[0] == userData.password) {
-                                firebaseAuth.currentUser?.updatePassword(data[1])!!
-                                    .addOnCompleteListener {
-                                        if (it.isSuccessful) {
-                                            firebstore.collection("users")
-                                                .document(firebaseAuth.uid!!).update(
-                                                    "password", data[1]
-                                                )
-                                            Snackbar.make(
-                                                requireView(),
-                                                "Password berhasil diupdate",
-                                                Snackbar.LENGTH_SHORT
-                                            ).show()
-                                        } else {
-                                            Toast.makeText(
-                                                requireContext(),
-                                                "Password gagal diupdate ${it.exception}",
-                                                Toast.LENGTH_SHORT
-                                            ).show()
-                                        }
-                                    }
-                            } else {
-                                Snackbar.make(
-                                    requireView(),
-                                    "Password salah, mohon cek kembali",
-                                    Snackbar.LENGTH_SHORT
-                                ).show()
-                            }
 
+                if (connect) {
+                    firebaseAuth.currentUser!!.reauthenticate(authCredentialPermission)
+                        .addOnCompleteListener {
+                            if (it.isSuccessful) {
+                                if (data[1] == data[2] && data[0] == userData.password) {
+                                    firebaseAuth.currentUser?.updatePassword(data[1])!!
+                                        .addOnCompleteListener {
+                                            if (it.isSuccessful) {
+                                                firebstore.collection("users")
+                                                    .document(firebaseAuth.uid!!).update(
+                                                        "password", data[1]
+                                                    )
+                                                Snackbar.make(
+                                                    requireView(),
+                                                    "Password berhasil diupdate",
+                                                    Snackbar.LENGTH_SHORT
+                                                ).show()
+                                            } else {
+                                                Toast.makeText(
+                                                    requireContext(),
+                                                    "Password gagal diupdate ${it.exception}",
+                                                    Toast.LENGTH_SHORT
+                                                ).show()
+                                            }
+                                        }
+                                } else {
+                                    Snackbar.make(
+                                        requireView(),
+                                        "Password salah, mohon cek kembali",
+                                        Snackbar.LENGTH_SHORT
+                                    ).show()
+                                }
+
+                            }
                         }
-                    }
+                } else {
+                    Toast.makeText(
+                        requireContext(),
+                        "Koneksi bermasalah, mohon coba lagi nanti",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+
 
             }
         )
-
+        vm.getKoneksi()
         binding.editButtonProfile.setOnClickListener {
+            if (connect) {
+                updateFirestoreAndEmail(
+                    User(
+                        binding.profileEtEmail.text.toString(),
+                        userData.password,
+                        binding.profileEtNama.text.toString(),
+                        noHp = binding.profileEtNohp.text.toString(),
+                        isAdmin = false,
+                        foto = userData.foto
+                        // binding.profileEtAlamat.text.toString()
 
-            updateFirestoreAndEditEmail(
-                User(
-                    binding.profileEtEmail.text.toString(),
-                    userData.password,
-                    binding.profileEtNama.text.toString(),
-                    noHp = binding.profileEtNohp.text.toString(),
-                    isAdmin = false,
-                    foto = userData.foto
-                    // binding.profileEtAlamat.text.toString()
 
-
+                    )
                 )
-            )
+            } else {
+                Toast.makeText(
+                    requireContext(),
+                    "Koneksi bermasalah, mohon coba lagi nanti",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+
 
         }
 
@@ -182,7 +226,7 @@ class ProfileFragment : Fragment() {
                     if (binding.profileEtEmail.text.toString() != userData.email || binding.profileEtNama.text.toString() != userData.username ||
                         binding.profileEtNohp.text.toString() != userData.noHp
                     ) {
-                        if (binding.profileEtEmail.text.toString() !="" && !binding.profileEtNama.text!!.isEmpty() && binding.profileEtNohp.text.toString() != "") {
+                        if (binding.profileEtEmail.text.toString() != "" && !binding.profileEtNama.text!!.isEmpty() && binding.profileEtNohp.text.toString() != "") {
                             binding.editButtonProfile.isEnabled = true
                         } else {
                             binding.editButtonProfile.isEnabled = false
@@ -219,7 +263,7 @@ class ProfileFragment : Fragment() {
 
         firestoreViewModel.isLoading.observe(viewLifecycleOwner, Observer {
             if (it == true) {
-                dialogLoading = AlertDialogBuilder(mactivity)
+
                 dialogLoading.startAlertDialog("Uploading..")
             }
             if (it == false) {
@@ -235,6 +279,9 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        vm.koneksi?.observe(viewLifecycleOwner, Observer {
+            connect = it
+        })
 
 
         vm.nomorkuX?.observe(viewLifecycleOwner, Observer {
@@ -357,33 +404,83 @@ class ProfileFragment : Fragment() {
     }
 
 
-    fun updateFirestoreAndEditEmail(user: User) {
+    fun updateFirestoreAndEmail(user: User) {
+
+        dialogLoading.startAlertDialog("Updating data")
+        handler.postDelayed(runner, 20000)
+
+
         val ref = firebstore.collection("users").document(firebaseAuth.uid!!)
 
-        ref.set(user)
-            .addOnCompleteListener {
+
+        //Log.d("useremail", user.email)
+
+
+        ref.set(user).addOnCanceledListener {
+            Toast.makeText(requireContext(), "Gagal update data", Toast.LENGTH_LONG).show()
+        }
+            .addOnCompleteListener { it ->
                 if (it.isSuccessful) {
+                    Log.d("useremail", userData.email)
 
-                    val mutable: MutableList<String> = userData.noHPlain as MutableList<String>
-                    mutable[0] = user.noHp!!
+                    handler.removeCallbacks(runner)
+//                    val mutable: MutableList<String> = userData.noHPlain as MutableList<String>
+                   /* mutable[0] = user.noHp!!
 
-                    ref.update("noHPlain", mutable)
+                    ref.update("noHPlain", mutable)*/
 
                     //bug seharusnya nomor hp sebelum diganti baru dibandingkan
-                    if (nomoraing[0] == nomoraing[1]) {
+               /*     if (nomoraing[0] == nomoraing[1]) {
                         vm.setNomor(user.noHp!!)
                     }
+*/
 
 
 
-                    Snackbar.make(requireView(), "Data berhasil diupdate", Snackbar.LENGTH_SHORT)
-                        .show()
+                    if (user.email != userEmail) {
+                        firebaseAuth.signInWithEmailAndPassword(userEmail, user.password)
+                            .continueWith { userr ->
 
-                    if (user.email != userData.email) {
-                        firebaseAuth.currentUser?.updateEmail(user.email)!!
-                            .addOnCompleteListener { }
+                                if (userr.result != null) {
+
+                                    userr.result.user!!.updateEmail(user.email)
+                                        .addOnSuccessListener {
+                                            Toast.makeText(
+                                                requireContext(),
+                                                "Data berhasil diupdate, gunakan email baru untuk login",
+                                                Toast.LENGTH_LONG
+                                            ).show()
+                                            dialogLoading.dismiss()
+
+                                            findNavController().popBackStack()
+                                        }
+                                } else {
+                                    Toast.makeText(
+                                        requireContext(),
+                                        "Update data gagal, user tidak ditemukan",
+                                        Toast.LENGTH_LONG
+                                    ).show()
+                                }
+
+                            }
+                    } else {
+
+                        dialogLoading.dismiss()
+
+                        Toast.makeText(
+                            requireContext(),
+                            "Data berhasil diupdate",
+                            Toast.LENGTH_LONG
+                        ).show()
+                        findNavController().popBackStack()
                     }
 
+                } else if (it.exception != null) {
+                    Toast.makeText(
+                        requireContext(),
+                        "${it.exception.toString()},  Gagal update data",
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
             }
 

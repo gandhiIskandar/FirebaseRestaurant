@@ -3,35 +3,43 @@ package com.example.ayamjumpa.util
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
+import android.widget.ImageView
 import android.widget.TextView
+import com.bumptech.glide.Glide
 import com.example.ayamjumpa.R
 
-class AlertDialogBuilder(private val activity: Activity){
+class AlertDialogBuilder(private val activity: Activity) {
 
-  lateinit var alertDialog: AlertDialog
+    lateinit var alertDialog: AlertDialog
 
- fun startAlertDialog(statusnya:String){
-    val alertBuilder = AlertDialog.Builder(activity)
+    fun startAlertDialog(statusnya: String) {
+        val alertBuilder = AlertDialog.Builder(activity)
 
-    val inflater = activity.layoutInflater
+        val inflater = activity.layoutInflater
 
-     val inf = inflater.inflate(R.layout.loadingbar, null)
-     inf.findViewById<TextView>(R.id.statuss).text = statusnya
+        val inf = inflater.inflate(R.layout.loadingbar, null)
+        inf.findViewById<TextView>(R.id.statuss).text = statusnya
 
-    alertBuilder.setView(inf)
-    alertBuilder.setCancelable(false)
+        val image = inf.findViewById<ImageView>(R.id.progressBar)
 
-    alertDialog = alertBuilder.create()
+        Glide.with(activity).load(R.raw.ayamloading).into(image)
 
-    alertDialog.show()
+        alertBuilder.setView(inf)
+        alertBuilder.setCancelable(false)
+
+        alertDialog = alertBuilder.create()
+
+        alertDialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+        alertDialog.show()
 
 
-}
+    }
 
 
-
-
-    fun dismiss(){
+    fun dismiss() {
         alertDialog.dismiss()
     }
 

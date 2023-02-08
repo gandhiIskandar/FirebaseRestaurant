@@ -45,7 +45,7 @@ android:id="@+id/fotonyaa"
                     android:id="@+id/usernamenyaa"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Nama User"
+                    android:text="Loading.."
                     android:textColor="@color/abu_tua"
                     android:textStyle="bold"
                     android:textSize="20sp"
@@ -54,7 +54,7 @@ android:id="@+id/fotonyaa"
                     android:id="@+id/nomornyaa"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="08216678904"
+                    android:text=" "
                     android:textColor="@color/abu_tua"
 
                     android:textSize="16sp"
@@ -63,7 +63,7 @@ android:id="@+id/fotonyaa"
                     android:id="@+id/emailnyaa"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="gandhialfath98@gmail.com"
+                    android:text=""
                     android:textColor="@color/abu_tua"
 
                     android:textSize="17sp"
@@ -133,15 +133,16 @@ android:id="@+id/fotonyaa"
         <de.hdodenhof.circleimageview.CircleImageView
             android:layout_weight="0.1"
             android:layout_width="0dp"
-            android:layout_height="35dp"
-            android:src="@color/grey"/>
+            android:layout_height="25dp"
+            android:src="@color/primary"/>
 
         <TextView
             android:layout_weight="0.8"
             android:paddingHorizontal="5dp"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:text="pesanan saya"
+            android:text="riwayat order"
+            android:includeFontPadding="false"
             android:textColor="@color/abu_tua"
             android:textStyle="bold"
             android:gravity="center_vertical"
@@ -184,15 +185,16 @@ android:id="@+id/fotonyaa"
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:layout_weight="0.1"
                     android:layout_width="0dp"
-                    android:layout_height="35dp"
-                    android:src="@color/grey"/>
+                    android:layout_height="25dp"
+                    android:src="@color/primary"/>
 
                 <TextView
                     android:layout_weight="0.8"
                     android:paddingHorizontal="5dp"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:text="alamat pengiriman"
+                    android:text="edit alamat"
+                    android:includeFontPadding="false"
                     android:textColor="@color/abu_tua"
                     android:textStyle="bold"
                     android:gravity="center_vertical"
@@ -222,6 +224,7 @@ android:id="@+id/fotonyaa"
                 />
 
             <LinearLayout
+                android:id="@+id/kebijakan"
                 android:clickable="true"
                 android:focusable="true"
                 android:background="?attr/selectableItemBackground"
@@ -232,18 +235,19 @@ android:id="@+id/fotonyaa"
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:layout_weight="0.1"
                     android:layout_width="0dp"
-                    android:layout_height="35dp"
-                    android:src="@color/grey"/>
+                    android:layout_height="25dp"
+                    android:src="@color/primary"/>
 
                 <TextView
-                    android:layout_weight="0.8"
-                    android:paddingHorizontal="5dp"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:text="Pembayaran"
+                    android:layout_weight="0.8"
+                    android:gravity="center_vertical"
+                    android:paddingHorizontal="5dp"
+                    android:text="kebijakan"
+                    android:includeFontPadding="false"
                     android:textColor="@color/abu_tua"
                     android:textStyle="bold"
-                    android:gravity="center_vertical"
 
                     />
 
@@ -268,6 +272,7 @@ android:id="@+id/fotonyaa"
                 android:background="@color/grey"
                 />
             <LinearLayout
+                android:id="@+id/logout"
                 android:clickable="true"
                 android:focusable="true"
                 android:background="?attr/selectableItemBackground"
@@ -278,15 +283,16 @@ android:id="@+id/fotonyaa"
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:layout_weight="0.1"
                     android:layout_width="0dp"
-                    android:layout_height="35dp"
-                    android:src="@color/grey"/>
+                    android:layout_height="25dp"
+                    android:src="@color/primary"/>
 
                 <TextView
                     android:layout_weight="0.8"
                     android:paddingHorizontal="5dp"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:text="Kebijakan"
+                    android:text="log out"
+                    android:includeFontPadding="false"
                     android:textColor="@color/abu_tua"
                     android:textStyle="bold"
                     android:gravity="center_vertical"

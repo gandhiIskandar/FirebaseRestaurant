@@ -36,7 +36,12 @@ class AuthViewModel() : ViewModel() {
     val isLoading: LiveData<Boolean>
         get() = _isLoading
 
-    var _user: MutableLiveData<User> = MutableLiveData<User>()
+    private var _user: MutableLiveData<User?> = MutableLiveData<User?>()
+
+    val user:LiveData<User?>
+    get() = _user
+
+
     var _total: MutableLiveData<MutableList<String>> = MutableLiveData<MutableList<String>>()
     var _image: MutableLiveData<MutableList<ImageData>> = MutableLiveData<MutableList<ImageData>>()
     var _kateogri: MutableLiveData<MutableList<Kategori>> = MutableLiveData<MutableList<Kategori>>()
@@ -65,15 +70,19 @@ class AuthViewModel() : ViewModel() {
         }
     }
 
-    fun getUser(uid: String): LiveData<User> {
+    fun getUser(uid: String) {
 
         val ref = Firebase.firestore.collection("users").document(uid)
+
+
 
         ref.addSnapshotListener { value, error ->
 
             if (error == null) {
                 val user = value!!.toObject<User>()
                 _user.value = user
+
+
             }
             else{
                 Log.d("errorapasih", error.message!!)
@@ -84,7 +93,7 @@ class AuthViewModel() : ViewModel() {
 
 
 
-        return _user
+
 
     }
 

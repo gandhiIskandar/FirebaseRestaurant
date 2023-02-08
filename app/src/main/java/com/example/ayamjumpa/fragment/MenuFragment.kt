@@ -6,6 +6,8 @@ import android.content.res.AssetManager
 import android.graphics.Paint
 import android.graphics.Typeface
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -26,6 +28,7 @@ import com.example.ayamjumpa.databinding.FragmentMenuBinding
 import com.example.ayamjumpa.eventBus.StatusMessage
 import com.example.ayamjumpa.interfaces.MenuListener
 import com.example.ayamjumpa.interfaces.RecycleClickListener
+import com.example.ayamjumpa.util.AlertDialogBuilder
 import com.google.android.gms.tasks.Task
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -38,6 +41,7 @@ import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.*
 import org.greenrobot.eventbus.EventBus
+import java.lang.Runnable
 import java.text.NumberFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -53,8 +57,15 @@ class MenuFragment : Fragment(), MenuListener, RecycleClickListener {
     private var berdasarkan = "makanan"
     private lateinit var kacrut : Task<QuerySnapshot>
 
+    private val loadingDialog : AlertDialogBuilder by lazy {
+        AlertDialogBuilder(requireActivity())
+    }
+
+    private lateinit var handler:Handler
+    private lateinit var callback:Runnable
+
     private var selected = 0
-    private val arrayBerdasarkan = arrayOf("All", "Makanan", "Minuman", "Menu", "Rasa")
+    private val arrayBerdasarkan = arrayOf("all", "makanan", "minuman", "menu", "rasa","promo","jenis minuman")
     private val menuModels: MutableList<Menu> = ArrayList()
 
     private val scope = CoroutineScope(Job() + Dispatchers.Main)
@@ -72,6 +83,11 @@ class MenuFragment : Fragment(), MenuListener, RecycleClickListener {
 
         clickListener = this
         menuListener = this
+
+        handler = Handler(Looper.getMainLooper())
+        callback = kotlinx.coroutines.Runnable {
+            Toast.makeText(mContext, "tidak dapat terhubung mohon periksa koneksi internet anda", Toast.LENGTH_SHORT).show()
+        }
 
         layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
 
@@ -103,7 +119,12 @@ class MenuFragment : Fragment(), MenuListener, RecycleClickListener {
                 val searchVal = arrayListOf<Menu>()
 
                 menuModels.forEach {
-                    if (berdasarkan.equals(
+
+                    if(it.nama!!.contains(newText as CharSequence, true)){
+                        searchVal.add(it)
+                    }
+
+            /*        if (berdasarkan.equals(
                             it.tipe,
                             true
                         ) && it.nama!!.contains(newText as CharSequence, true)
@@ -128,7 +149,13 @@ class MenuFragment : Fragment(), MenuListener, RecycleClickListener {
                         )
                     ) {
                         searchVal.add(it)
+                    }else if(selected ==5 && it.nama!!.contains(newText as CharSequence)&&it.promo){
+                        searchVal.add(it)
+                    }else if(selected==6 &&it.tipe=="minuman" &&it.tipeMinuman!!.contains(newText as CharSequence)){
+                        searchVal.add(it)
                     }
+*/
+
                 }
 
                 menuAdapter.differ.submitList(searchVal)
@@ -158,9 +185,11 @@ class MenuFragment : Fragment(), MenuListener, RecycleClickListener {
             val prevSelected = selected
             val prevBerdasarkan = berdasarkan
             MaterialAlertDialogBuilder(requireContext())
-                .setTitle("Cari Berdasarkan")
+                .setTitle("cari berdasarkan")
                 .setSingleChoiceItems(arrayBerdasarkan, selected) { dialog, which ->
                     selected = which
+
+                    Log.d("seleksi", selected.toString())
 
                     berdasarkan = arrayBerdasarkan[which]
 
@@ -180,13 +209,25 @@ class MenuFragment : Fragment(), MenuListener, RecycleClickListener {
                         menuAdapter.differ.submitList(menuModels as List<Menu>)
 
 
-                    } else if (selected > 2) {
+                    } else if (selected==3 || selected==4) {
                         clearQuery()
                         menuAdapter.differ.submitList(menuModels.filter { menu ->
                             menu.tipe.equals(
                                 "makanan",
                                 true
                             )
+                        })
+                    } else if(selected == 5){
+                        Log.d("selecterr",selected.toString())
+                        clearQuery()
+                        menuAdapter.differ.submitList(menuModels.filter { menu->
+                            menu.promo
+                        })
+                    }else if(selected==6){
+                        clearQuery()
+                        menuAdapter.differ.submitList(menuModels.filter{ menu->
+                            menu.tipe.equals("minuman",true)
+
                         })
                     }
 
@@ -238,7 +279,7 @@ class MenuFragment : Fragment(), MenuListener, RecycleClickListener {
     }
 
 
-    fun dataInitMenu(layoutManager: LinearLayoutManager, adapter: MenuAdapter) {
+    private fun dataInitMenu(layoutManager: LinearLayoutManager, adapter: MenuAdapter) {
 
 
         val recyclerViewMenu = binding.listMenu
@@ -252,7 +293,7 @@ class MenuFragment : Fragment(), MenuListener, RecycleClickListener {
 
     }
 
-    fun addToCart(menu: Menu, uid: String) {
+  private fun addToCart(menu: Menu, uid: String) {
 
         val userCart = firestore
             .collection("Cart")
@@ -262,6 +303,10 @@ class MenuFragment : Fragment(), MenuListener, RecycleClickListener {
             .get()
             .addOnCompleteListener {
 
+
+
+                loadingDialog.dismiss()
+                handler.removeCallbacks(callback)
                 if (it.isSuccessful && it.result.exists()) {
                     val mycart = it.result.toObject<Cart>()
                     val qty = mycart!!.qty + 1
@@ -293,7 +338,7 @@ class MenuFragment : Fragment(), MenuListener, RecycleClickListener {
 
                     userCart.document(mycart.key!!).set(mycart).addOnSuccessListener {
                         Toast.makeText(
-                            requireContext(),
+                            mContext,
                             "Barang berhasil dimasukan ke dalam keranjang",
                             Toast.LENGTH_SHORT
                         ).show()
@@ -322,13 +367,27 @@ class MenuFragment : Fragment(), MenuListener, RecycleClickListener {
 
             dataInitMenu(layoutManager, menuAdapter)
         }
+
         val bundle = arguments
         if (!bundle!!.isEmpty) {
             val args = MenuFragmentArgs.fromBundle(bundle)
             val nama = args.query[0]
             val tipe = args.query[1]
-            binding.menuSerach.setQuery(nama, false)
-            val temp = mutableListOf<Menu>()
+
+
+
+            if(tipe == "promo"){
+                menuAdapter.differ.submitList(menuList.filter{x -> x.promo})
+            }else if(tipe == "minuman"){
+                menuAdapter.differ.submitList(menuList.filter{x -> x.tipeMinuman == nama})
+
+            }else if(tipe == "paket"){
+                menuAdapter.differ.submitList(menuList.filter{x -> x.tipe == tipe})
+            }else{
+                binding.menuSerach.setQuery(nama, true)
+
+            }
+            /* val temp = mutableListOf<Menu>()
             if (tipe == "menu") {
                 selected = 3
                 berdasarkan = "menu"
@@ -341,13 +400,20 @@ class MenuFragment : Fragment(), MenuListener, RecycleClickListener {
 
             // temp.addAll(menuList.filter{menu->menu.nama!!.contains(nama as CharSequence, true)})
 
-            }
+            }else if(tipe=="promo"){
+                selected = 5
+                berdasarkan = "promo"
+            }else if(tipe=="minuman"){
+                selected = 6
+                berdasarkan= "jenis minuman"            }
             menuList.forEach { menu ->
 
                 when(tipe){
                     "menu"->if(menu.menuKey==nama){temp.add(menu)}
                     "rasa"->if(menu.rasaKey==nama){temp.add(menu)}
                     "All"->if(menu.nama!!.contains(nama as CharSequence, true)){temp.add(menu)}
+                    "promo"->if(menu.promo){temp.add(menu)}
+                    "minuman"->if(menu.tipeMinuman==nama){temp.add(menu)}
                 }
 
 
@@ -358,7 +424,7 @@ class MenuFragment : Fragment(), MenuListener, RecycleClickListener {
 
             menuAdapter.differ.submitList(temp)
 
-
+*/
         } else {
 
             menuAdapter.differ.submitList(menuList)
@@ -385,6 +451,10 @@ class MenuFragment : Fragment(), MenuListener, RecycleClickListener {
         val hargaPromo = view.findViewById<TextView>(R.id.hargamakananpromo)
 
 
+        if(menu.tipe=="minuman"){
+            desc.visibility = View.GONE
+        }
+
 
         //deskripsi gimmick
         val desc1 = view.findViewById<TextView>(R.id.desc1_tambah)
@@ -405,6 +475,8 @@ class MenuFragment : Fragment(), MenuListener, RecycleClickListener {
         val buttonf = view.findViewById<Button>(R.id.cardButton)
 
         buttonf.setOnClickListener {
+            loadingDialog.startAlertDialog("loading..")
+            handler.postDelayed(callback, 15000)
             addToCart(menu, auth.uid!!)
             dialog.dismiss()
 
@@ -440,7 +512,7 @@ class MenuFragment : Fragment(), MenuListener, RecycleClickListener {
 
         val format = NumberFormat.getCurrencyInstance(localeID)
 
-        return format.format(number)
+        return format.format(number).substring(2,format.format(number).length)
 
 
     }

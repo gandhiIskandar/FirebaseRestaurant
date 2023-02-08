@@ -119,18 +119,29 @@ class PesananAdapter(private val onClick: (Pesanan) -> Unit) :
 
         val format = NumberFormat.getCurrencyInstance(localeID)
 
-        return format.format(number)
+        var withrp = format.format(number)
+
+        withrp = withrp.substring(2, withrp.lastIndex + 1)
+
+        if (withrp.contains(',')) {
+
+            val lastidx = withrp.indexOf(',')
+
+            withrp = withrp.substring(0, lastidx)
+
+        }
 
 
+        return withrp
     }
 
     private fun setStatus(current:String){
 
        when(current){
            "ditolak" -> ditolak()
-           "proses1" -> proses1()
-           "proses2" -> proses2()
-           "pengiriman1" -> pengiriman1()
+
+           "dimasak" -> proses2()
+           "dikirim" -> pengiriman1()
            "selesai" -> selesai()
            "pending" -> pending()
        }

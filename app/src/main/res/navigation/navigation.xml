@@ -8,8 +8,8 @@
     <fragment
         android:id="@+id/daftarFragment"
         android:name="com.example.ayamjumpa.fragment.DaftarFragment"
-        android:label="fragment_daftar"
-        tools:layout="@layout/fragment_daftar" >
+        android:label="daftar"
+        tools:layout="@layout/fragment_daftar">
         <action
             android:id="@+id/action_daftarFragment_to_loginFragment"
             app:destination="@id/loginFragment"
@@ -17,14 +17,14 @@
             app:popUpToInclusive="true" />
         <argument
             android:name="status"
-            app:argType="string"
-            android:defaultValue="Berhasil daftar" />
+            android:defaultValue="Berhasil daftar"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.example.ayamjumpa.fragment.LoginFragment"
-        android:label="fragment_login"
-        tools:layout="@layout/fragment_login" >
+        android:label="login"
+        tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_loginFragment_to_daftarFragment"
             app:destination="@id/daftarFragment" />

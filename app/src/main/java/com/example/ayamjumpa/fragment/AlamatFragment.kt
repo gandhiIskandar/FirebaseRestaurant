@@ -9,14 +9,18 @@ import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationManager
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.ayamjumpa.R
@@ -86,30 +90,29 @@ class AlamatFragment : Fragment(), OnMapReadyCallback {
     //loading dialog
     var dialogLoading: AlertDialogBuilder? = null
 
-    private val viewModel: NetworkStatusViewModel by lazy {
-        ViewModelProvider(
-            this,
-            NetworkViewModelFactory(requireContext()),
-        )[NetworkStatusViewModel::class.java]
-    }
+    private val viewModel: NetworkStatusViewModel by activityViewModels()
 
     private val markerList: HashSet<Marker> = HashSet<Marker>()
 
     private val scope = CoroutineScope(Job() + Dispatchers.Main)
 
 
-    @SuppressLint("MissingPermission")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
+        val handler = Handler(Looper.getMainLooper())
+
+
 
 
         prevnav = findNavController().previousBackStackEntry?.destination?.label.toString().trim()
 
         dialogLoading = AlertDialogBuilder(mActivity)
 
-        dialogLoading!!.startAlertDialog("Fetching Location..")
+
+        val runnabler = Runnable { fetchLocationTimeOut() }
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(mActivity)
         locationRequestBuilder = LocationRequest.Builder(500)
@@ -117,53 +120,18 @@ class AlamatFragment : Fragment(), OnMapReadyCallback {
 
             Priority.PRIORITY_HIGH_ACCURACY
         }
-
+      //  handler.postDelayed(runnabler, 30000)
 
         //kentircodeee
 
 
-        mGpsLocationClient = requireContext().getSystemService(LOCATION_SERVICE) as LocationManager
-        locationListener = object : android.location.LocationListener {
-            override fun onLocationChanged(location: Location) {
-                if (location.longitude.toString() != "") {
-                    currentLocation = location
+        //  getLocation()
 
 
-
-                    dialogLoading!!.dismiss()
-
-                    fetchLoaction()
-
-
-                }
-            }
-
-            override fun onLocationChanged(locations: MutableList<Location>) {
-                super.onLocationChanged(locations)
-            }
-
-            override fun onFlushComplete(requestCode: Int) {
-                super.onFlushComplete(requestCode)
-            }
-
-            override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {
-
-            }
-
-            override fun onProviderEnabled(provider: String) {
-                super.onProviderEnabled(provider)
-            }
-
-            override fun onProviderDisabled(provider: String) {
-                super.onProviderDisabled(provider)
-            }
-        }
-
-
-        mGpsLocationClient.requestLocationUpdates(
-            LocationManager.GPS_PROVIDER,
-            0L, 0f, locationListener
-        )
+        viewModel.currentLocationLiveData.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+            currentLocation = it
+            fetchLoaction()
+        })
 
 
         //kentireee
@@ -182,35 +150,6 @@ class AlamatFragment : Fragment(), OnMapReadyCallback {
         kcak!!.alamatkuX.observe(this.viewLifecycleOwner) {
             alamataing = it
         }
-
-
-//        locationCallback = object : LocationCallback() {
-//
-//
-//            override fun onLocationResult(p0: LocationResult) {
-//                super.onLocationResult(p0)
-//                Log.d("kentir", "gemblunf")
-//                for (location in p0.locations) {
-//
-//
-//                    if (location != null) {
-//                        currentLocation = location
-//
-//                        fetchLoaction()
-//                        dialogLoading!!.dismiss()
-//                        fusedLocationProviderClient.removeLocationUpdates(locationCallback)
-//
-//
-//                    }
-//
-//                }
-//
-//
-//            }
-//
-//
-//        }
-
 
 
 
@@ -238,7 +177,7 @@ class AlamatFragment : Fragment(), OnMapReadyCallback {
             idalamatku = alamatku.id
             binding.alamatlengkap.text = alamatku_edit?.toEditable()
 
-           // fetchLoaction()
+            // fetchLoaction()
 
 
         }
@@ -267,6 +206,37 @@ class AlamatFragment : Fragment(), OnMapReadyCallback {
 
 
         return binding.root
+    }
+
+
+    private fun getLocation() {
+        if (ActivityCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+
+            ActivityCompat.requestPermissions(
+                requireActivity(),
+                arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION),
+                1000
+            )
+
+            return
+
+        } else {
+
+
+            dialogLoading!!.startAlertDialog("Fetching Location..")
+            mGpsLocationClient.requestLocationUpdates(
+                LocationManager.NETWORK_PROVIDER,
+                0L, 0f, locationListener
+            )
+        }
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -336,6 +306,17 @@ class AlamatFragment : Fragment(), OnMapReadyCallback {
 
     private val long_atl = 104.97843902822282
     private val lat_atl = -5.357588802257161
+
+    private fun fetchLocationTimeOut() {
+        mGpsLocationClient.removeUpdates(locationListener)
+        dialogLoading!!.dismiss()
+
+        Toast.makeText(
+            mContext,
+            "Tidak bisa mendapatkan lokasi, mohon coba lagi setelah beberapa saat",
+            Toast.LENGTH_LONG
+        ).show()
+    }
 
     override fun onResume() {
         super.onResume()
@@ -459,34 +440,6 @@ class AlamatFragment : Fragment(), OnMapReadyCallback {
 
     }
 
-//    fun getAddress(latitude: Double, longitude: Double): String? {
-//        var address: MutableList<Address>? = null
-//
-//        try {
-//            val geocoder = Geocoder(requireContext(), Locale.getDefault())
-//
-//
-//            address = geocoder.getFromLocation(latitude)
-//
-//
-//
-//
-//
-//
-//                    alamatPendek = address?.get(0)?.getAddressLine(0)
-//
-//
-//
-//
-//        } catch (e: Exception) {
-//            Log.d("getaddresstolol", e.message.toString())
-//
-//        }
-//        return if (address?.isEmpty()!!
-//        ) null else address[0].getAddressLine(0)
-//
-//
-//    }
 
     override fun onRequestPermissionsResult(
         requestCode: Int,
@@ -496,6 +449,8 @@ class AlamatFragment : Fragment(), OnMapReadyCallback {
 
         when (requestCode) {
             1000 -> if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+
                 fetchLoaction()
             }
         }
@@ -527,7 +482,7 @@ class AlamatFragment : Fragment(), OnMapReadyCallback {
             return
 
         } else {
-            mGpsLocationClient.removeUpdates(locationListener)
+
 
             val mapFragment =
                 childFragmentManager.findFragmentById(R.id.map_fragment) as SupportMapFragment
@@ -539,6 +494,11 @@ class AlamatFragment : Fragment(), OnMapReadyCallback {
 
         }
 
+
+    }
+
+    private fun stopLocationListener() {
+        mGpsLocationClient.removeUpdates(locationListener)
 
     }
 

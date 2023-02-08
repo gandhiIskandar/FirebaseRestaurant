@@ -40,7 +40,7 @@
             android:layout_height="match_parent"
             android:fontFamily="@font/centurygothic"
             android:hint="username"
-            android:inputType="textEmailAddress"
+            android:inputType="text"
 
 
             />

@@ -1,7 +1,10 @@
 package com.example.ayamjumpa.adapter
 
 import android.content.Context
+import android.graphics.ColorMatrix
+import android.graphics.ColorMatrixColorFilter
 import android.graphics.Paint
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -53,6 +56,21 @@ class MenuAdapter(val context: Context
         }
 
 
+        if(currentItem.tipe =="minuman"){
+            holder.desc1.visibility = View.GONE
+        }
+
+
+        if(currentItem.stok.toInt()==0){
+            holder.btnTambah.isEnabled = false
+            holder.outstck.visibility = View.VISIBLE
+            val matrix = ColorMatrix()
+            matrix.setSaturation(0F)
+            holder.gambar!!.colorFilter = ColorMatrixColorFilter(matrix)
+        }
+
+
+
 
         if (currentItem.promo){
             holder.harga.textSize = 13f
@@ -79,6 +97,7 @@ class MenuAdapter(val context: Context
         val desc1 = itemView.findViewById<TextView>(R.id.isian_menu)
         val desc2 = itemView.findViewById<TextView>(R.id.desc_menu)
         val promoText = itemView.findViewById<TextView>(R.id.harga_menupromo)
+        val outstck = itemView.findViewById<TextView>(R.id.outstock)
     }
 
     private fun formatRupiah(number:Long) : String{
@@ -87,10 +106,20 @@ class MenuAdapter(val context: Context
         val localeID = Locale("in", "ID")
 
         val format = NumberFormat.getCurrencyInstance(localeID)
+        var withrp = format.format(number)
 
-        return format.format(number)
+        withrp = withrp.substring(2, withrp.lastIndex + 1)
+
+        if (withrp.contains(',')) {
+
+            val lastidx = withrp.indexOf(',')
+
+            withrp = withrp.substring(0, lastidx)
+
+        }
 
 
+        return withrp
 
     }
 }

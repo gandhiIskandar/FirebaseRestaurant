@@ -36,6 +36,7 @@
 
 
                     <ImageView
+                        android:backgroundTint="@color/grey"
                         android:id="@+id/gambar_menu"
                         android:layout_width="100dp"
                         android:layout_height="100dp"
@@ -46,21 +47,24 @@
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/button_tambah_menu"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                     android:layout_width="0dp"
                     android:layout_height="40dp"
+                    android:layout_marginBottom="8dp"
                     android:fontFamily="@font/centurygothic"
                     android:text="tambah"
 
                     android:textAllCaps="false"
-                    android:textColor="@color/abu_tua"
+                    android:textColor="@color/outlinedbuttoncolorstate"
                     android:textSize="15sp"
-                    android:textStyle="normal"
+                    android:textStyle="bold"
                     app:cornerRadius="20dp"
                     app:layout_constraintBottom_toBottomOf="parent"
 
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
-
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:strokeColor="@color/outlinedbuttoncolorstate" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -78,20 +82,20 @@
                     android:id="@+id/judul_menu"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
+
                     android:text="ayam tulang lunak"
                     android:textColor="@color/abu_tua"
-                    android:textSize="16sp"
+                    android:textSize="18sp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/isian_menu"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
+
                     android:text="Nasi + Ayam + Sambel + Es teh"
                     android:textColor="@color/grey"
-                    android:textSize="14sp" />
+                    android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/desc_menu"
@@ -120,6 +124,17 @@
                     android:layout_marginTop="10dp"
                     android:text="Rp.15000"
                     android:textColor="@color/abu_tua"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:visibility="gone"
+                    android:id="@+id/outstock"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="stok habis"
+                    android:textColor="@color/enabledd"
                     android:textSize="15sp"
                     android:textStyle="bold" />
             </LinearLayout>

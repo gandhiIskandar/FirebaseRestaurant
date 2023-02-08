@@ -1,14 +1,12 @@
 package com.example.ayamjumpa.adapter
 
-import android.annotation.SuppressLint
 import android.content.Context
-import android.graphics.Color
-import android.os.Build
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ayamjumpa.R
@@ -23,6 +21,7 @@ class NavAdapter(private val context: Context, private val navigation: Navigatio
     val differ = AsyncListDiffer(this, diffUtilRepo)
     var cartCount = 0
     var position = -1
+
 
     class MyViewHolder(binding: MenuVhBinding) : RecyclerView.ViewHolder(binding.root) {
 
@@ -62,9 +61,6 @@ class NavAdapter(private val context: Context, private val navigation: Navigatio
 
 
 
-        if(curItem=="order"){
-
-        }
 
 
         if (curItem.equals("order", true) && cartCount > 0) {
@@ -82,6 +78,8 @@ class NavAdapter(private val context: Context, private val navigation: Navigatio
         holder.text.text = curItem
 
         holder.itemView.setOnClickListener {
+            if(holder.adapterPosition!=0){ temporaryDisable(it) }
+
 
             if (curItem == "order" && cartCount == 0) {
         //kosongiin ajee bro
@@ -102,7 +100,7 @@ class NavAdapter(private val context: Context, private val navigation: Navigatio
 
 
             when (curItem) {
-                "menu" -> {
+                "ayam" -> {
                     navigation.showMenu()
                 }
                 "rasa" -> {
@@ -117,6 +115,15 @@ class NavAdapter(private val context: Context, private val navigation: Navigatio
                 "saya" -> {
                     navigation.toProfile()
                 }
+                "promo"->{
+                    navigation.toPromo()
+                }
+                "minum snack"->{
+                    navigation.showMinuman()
+                }
+                "paket"->{
+                    navigation.toPaket()
+                }
             }
 
 
@@ -125,4 +132,18 @@ class NavAdapter(private val context: Context, private val navigation: Navigatio
     }
 
     override fun getItemCount(): Int = differ.currentList.size
+
+
+
+
+    private fun temporaryDisable(view: View) {
+        view.isEnabled = false
+        Handler(Looper.getMainLooper()).postDelayed({
+            view.isEnabled = true
+        }, 1500)
+
+    }
+
+
+
 }

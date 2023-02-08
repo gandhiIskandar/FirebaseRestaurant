@@ -1,7 +1,10 @@
 package com.example.ayamjumpa.fragment
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.*
@@ -17,6 +20,7 @@ import com.example.ayamjumpa.R
 import com.example.ayamjumpa.dataClass.User
 import com.example.ayamjumpa.databinding.FragmentDaftarBinding
 import com.example.ayamjumpa.eventBus.StatusMessage
+import com.example.ayamjumpa.util.AlertDialogBuilder
 import com.example.ayamjumpa.viewModel.AuthViewModel
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
@@ -37,10 +41,16 @@ class DaftarFragment : Fragment() {
     private lateinit var fireStore: FirebaseFirestore
     private val authViewModel: AuthViewModel by viewModels()
 
+    private lateinit var mContext:Context
+
+    private val handler : Handler by lazy{
+        Handler(Looper.getMainLooper())
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         firebaseAuth = Firebase.auth
         fireStore = Firebase.firestore
@@ -116,6 +126,21 @@ class DaftarFragment : Fragment() {
             "Gagal Daftar: " + statusMessage.getMessage(),
             Snackbar.LENGTH_SHORT
         ).show()
+
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        mContext = context
+    }
+
+    private fun timeOut(loading: AlertDialogBuilder) = kotlinx.coroutines.Runnable {
+        Toast.makeText(
+            mContext,
+            "Gagal daftar, mohon periksa koneksi internet anda",
+            Toast.LENGTH_SHORT
+        ).show()
+        loading.dismiss()
 
     }
 

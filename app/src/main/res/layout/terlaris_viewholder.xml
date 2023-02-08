@@ -2,237 +2,218 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/parentTerlaris"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="20dp"
-    >
+    android:layout_marginTop="20dp">
 
 
-   <LinearLayout
-       android:orientation="vertical"
-       android:id="@+id/cardView_atas"
-       android:layout_width="match_parent"
-       app:layout_constraintTop_toTopOf="parent"
-       android:layout_height="match_parent">
+    <LinearLayout
+
+        android:id="@+id/cardView_atas"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
 
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_marginHorizontal="10dp"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/linearri"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/fotoTerlaris"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/nirmana" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:orientation="vertical"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
 
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/materialButtonpromo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="22dp"
+                        android:layout_marginBottom="5dp"
+                        android:background="@drawable/buttonwithstroke"
+                        android:includeFontPadding="false"
+                        android:paddingBottom="2dp"
+                        android:text="promo"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        android:visibility="gone" />
 
-       <androidx.cardview.widget.CardView
-           android:id="@+id/cardView"
-           android:layout_width="match_parent"
-           android:layout_height="150dp"
-           app:cardElevation="0dp"
-         android:layout_marginHorizontal="10dp"
-           app:cardCornerRadius="20dp"
-           app:layout_constraintBottom_toTopOf="@+id/linearri"
-           app:layout_constraintEnd_toEndOf="parent"
-           app:layout_constraintStart_toStartOf="parent"
-           app:layout_constraintTop_toTopOf="parent">
-
-           <androidx.constraintlayout.widget.ConstraintLayout
-               android:layout_width="match_parent"
-               android:layout_height="match_parent">
-
-               <ImageView
-                   android:id="@+id/fotoTerlaris"
-                   android:layout_width="match_parent"
-                   android:layout_height="match_parent"
-                   android:adjustViewBounds="true"
-                   android:scaleType="centerCrop"
-                   android:src="@drawable/nirmana"
-                   tools:layout_editor_absoluteX="0dp"
-                   tools:layout_editor_absoluteY="0dp" />
-
-               <LinearLayout
-                  android:layout_margin="10dp"
-                   android:orientation="vertical"
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   app:layout_constraintStart_toStartOf="parent"
-                   app:layout_constraintTop_toTopOf="parent"
-                   >
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/materialButtonrekom"
+                        android:layout_width="wrap_content"
+                        android:layout_height="22dp"
+                        android:background="@drawable/buttonwithstroke"
+                        android:includeFontPadding="false"
+                        android:paddingBottom="2dp"
+                        android:text="rekom"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        android:visibility="gone" />
 
 
-                  <androidx.appcompat.widget.AppCompatButton
-                      android:id="@+id/materialButtonpromo"
-                      android:visibility="gone"
-                      android:layout_width="wrap_content"
-                      android:layout_height="22dp"
-                      android:includeFontPadding="false"
-                      android:textSize="13sp"
-                      android:textStyle="bold"
-                      android:paddingBottom="2dp"
-                      android:text="promo"
-                      android:background="@drawable/buttonwithstroke"
-                      />
+                </LinearLayout>
 
 
-                   <com.google.android.material.button.MaterialButton
-
-                       android:layout_width="65dp"
-                       android:layout_height="35dp"
-                      android:background="@drawable/buttonwithstroke"
-            android:visibility="gone"
-                       android:layout_marginStart="5dp"
-                       android:fontFamily="@font/centurygothic"
-                       android:includeFontPadding="false"
-                       android:text="rekom"
-                       android:id="@+id/materialbuttonrekom"
-                       android:textSize="11sp"
-                       android:textAllCaps="false"
-                       android:textColor="@color/abu_tua"
-                       android:textStyle="bold"
-                       app:cornerRadius="20dp"
-                       app:layout_constraintStart_toStartOf="parent"
-                       app:layout_constraintTop_toBottomOf="@+id/materialButtonpromo"
-                       />
-
-               </LinearLayout>
-
-
-
-
-
-               <ImageView
+                <ImageView
                     android:id="@+id/buttonShare"
-                   android:layout_width="29dp"
-                   android:src="@drawable/ic_cloud_share_svgrepo_com"
+                    android:layout_width="29dp"
+                    android:layout_height="29dp"
 
-                   android:layout_height="29dp"
-                   android:layout_margin="10dp"
+                    android:layout_margin="10dp"
+                    android:src="@drawable/ic_cloud_share_svgrepo_com"
 
-                   app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
 
-                   app:layout_constraintEnd_toEndOf="parent"
-                    />
-
+                    app:layout_constraintTop_toTopOf="parent" />
 
 
-           </androidx.constraintlayout.widget.ConstraintLayout>
-       </androidx.cardview.widget.CardView>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
 
-       <LinearLayout
-           android:id="@+id/linearri"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
+        <LinearLayout
+            android:id="@+id/linearri"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="7dp"
+            android:paddingHorizontal="20dp"
+
             android:weightSum="1"
-           android:layout_marginVertical="7dp"
+            app:layout_constraintBottom_toTopOf="@+id/tambahTerlaris"
+            app:layout_constraintEnd_toEndOf="parent"
 
-           android:paddingHorizontal="20dp"
-           app:layout_constraintEnd_toEndOf="parent"
-           app:layout_constraintStart_toStartOf="parent"
-
-           app:layout_constraintBottom_toTopOf="@+id/tambahTerlaris"
+            app:layout_constraintStart_toStartOf="parent"
 
 
-           >
-       <LinearLayout
+            >
 
-           android:layout_width="0dp"
+            <LinearLayout
 
-           android:layout_height="match_parent"
-           android:layout_weight="0.8"
-           android:orientation="vertical"
-          >
+                android:layout_width="0dp"
 
-           <TextView
-             android:textStyle="bold"
-               android:id="@+id/produkTerlaris"
-               android:layout_width="wrap_content"
-             android:maxLines="1"
-               android:layout_height="wrap_content"
-               android:text="paket ayam tulang lunak"
-               android:textColor="@color/abu_tua"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
 
-               android:textSize="18sp" />
+                <TextView
+                    android:id="@+id/produkTerlaris"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:text="paket ayam tulang lunak"
+                    android:textColor="@color/abu_tua"
+                    android:textSize="18sp"
 
-           <TextView
-               android:textStyle="bold"
-               android:id="@+id/produkrasa"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:text="lombok ijo"
-               android:textColor="@color/abu_tua"
+                    android:textStyle="bold" />
 
-               android:textSize="18sp" />
+                <TextView
+                    android:id="@+id/produkrasa"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="lombok ijo"
+                    android:textColor="@color/abu_tua"
+                    android:textSize="18sp"
 
-           <LinearLayout
-               android:layout_height="wrap_content"
-               android:divider="@drawable/space_horizon"
-               android:showDividers="middle"
-               android:layout_width="wrap_content"
-               android:orientation="horizontal"
-               >
+                    android:textStyle="bold" />
 
-               <TextView
-                   android:layout_marginVertical="5dp"
-                   android:id="@+id/hargaPromo"
-                    android:visibility="gone"
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                    android:textStyle="bold"
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:divider="@drawable/space_horizon"
+                    android:orientation="horizontal"
+                    android:showDividers="middle">
 
-                   android:text="Rp 20.000"
-                   android:textSize="13sp"
-                   android:textColor="@color/abu_tua"
+                    <TextView
+                        android:id="@+id/hargaPromo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="5dp"
+                        android:text="Rp 20.000"
+                        android:textColor="@color/abu_tua"
 
-                   />
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        android:visibility="gone"
 
+                        />
 
 
-               <TextView
-                   android:layout_marginVertical="5dp"
-                   android:id="@+id/hargaTerlaris"
+                    <TextView
+                        android:id="@+id/hargaTerlaris"
+                        android:layout_width="wrap_content"
 
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-
-
-                   android:text="Rp 20.000"
-                   android:textSize="13sp"
-                   android:textColor="@color/abu_tua"
-                   android:textStyle="bold"
-
-                   app:layout_constraintStart_toStartOf="parent"
-
-                   app:layout_constraintTop_toBottomOf="@+id/cardView_atas" />
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="5dp"
 
 
+                        android:text="Rp 20.000"
+                        android:textColor="@color/abu_tua"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+
+                        app:layout_constraintStart_toStartOf="parent"
+
+                        app:layout_constraintTop_toBottomOf="@+id/cardView_atas" />
 
 
-
-           </LinearLayout>
-
+                </LinearLayout>
 
 
-       </LinearLayout>
+            </LinearLayout>
 
-       </LinearLayout>
+        </LinearLayout>
 
 
-       <com.google.android.material.button.MaterialButton
-           android:insetTop="0dp"
-           android:id="@+id/tambahTerlaris"
-           android:layout_width="match_parent"
-           android:layout_height="40dp"
-           app:cornerRadius="20dp"
-           style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-           android:textAllCaps="false"
-           app:strokeColor="@color/grey"
-           android:fontFamily="@font/centurygothic"
-           android:textStyle="bold"
-           android:includeFontPadding="false"
-           android:text="tambah"
-           android:textColor="@color/abu_tua"
-           android:textSize="16sp"
-           android:layout_marginHorizontal="17dp"
-           app:layout_constraintBottom_toBottomOf="parent"
-           app:layout_constraintEnd_toEndOf="parent"
-           app:layout_constraintStart_toStartOf="parent"/>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/tambahTerlaris"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginHorizontal="17dp"
+            android:fontFamily="@font/centurygothic"
+            android:includeFontPadding="false"
+            android:insetTop="0dp"
+            android:text="tambah"
+            android:textAllCaps="false"
+            android:textColor="@color/abu_tua"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:cornerRadius="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:strokeColor="@color/grey" />
 
-   </LinearLayout>
+    </LinearLayout>
+
+
 
 
 

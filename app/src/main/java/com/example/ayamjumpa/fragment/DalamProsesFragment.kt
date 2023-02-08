@@ -67,7 +67,7 @@ class DalamProsesFragment : Fragment() {
 
 
         vm.getPesananx.observe(viewLifecycleOwner){pesanan->
-            val list = pesanan.filter { pesanan-> pesanan.status != "selesai" }
+            val list = pesanan.filter { data -> data.status != "selesai" && data.status != "ditolak"  }
             pesananAdapter.differ.submitList(list)
 
         }

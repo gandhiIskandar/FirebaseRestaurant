@@ -2,10 +2,7 @@ package com.example.ayamjumpa.repository
 
 import android.content.Context
 import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.core.doublePreferencesKey
-import androidx.datastore.preferences.core.edit
-import androidx.datastore.preferences.core.stringPreferencesKey
+import androidx.datastore.preferences.core.*
 import androidx.datastore.preferences.preferencesDataStore
 import com.example.ayamjumpa.dataClass.Alamat
 import kotlinx.coroutines.flow.Flow
@@ -17,6 +14,7 @@ val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = PRE
 class DataStoreRepository(private val context: Context) {
 
     companion object {
+
         val ALAMAT = stringPreferencesKey("alamat")
         val ID = stringPreferencesKey("id")
         val ONGKIR = doublePreferencesKey("ongkir")
@@ -24,6 +22,8 @@ class DataStoreRepository(private val context: Context) {
         val LONG = doublePreferencesKey("long")
         val NOHP = stringPreferencesKey("keterangan")
         val LABEL = stringPreferencesKey("label")
+
+        val KONEKSI = booleanPreferencesKey("koneksi")
 
         //terpisah
         val NOMORHP = stringPreferencesKey("noHp")
@@ -56,6 +56,19 @@ class DataStoreRepository(private val context: Context) {
 
         }
 
+    }
+
+    suspend fun setKoneksi(boolean:Boolean){
+        context.dataStore.edit { koneksi->
+            koneksi[KONEKSI] = boolean
+
+        }
+    }
+
+    fun getKoneksi():Flow<Boolean>{
+      return context.dataStore.data.map { dataaing ->
+          dataaing[KONEKSI]?:false
+      }
     }
 
     suspend fun getNomor():Flow<String>{
